@@ -2,7 +2,11 @@ package examples;
 
 public class test1 {
 
-	public static void main(String[] args) {
+	public static void main(String args[]) {
+		foo();
+	}
+	
+	public static void foo() {
 		int k = 5;
 		int j = 5 - k;
 		
