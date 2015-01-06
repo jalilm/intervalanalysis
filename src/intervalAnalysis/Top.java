@@ -1,10 +1,11 @@
 package intervalAnalysis;
 
-public class Top implements State {
+public class Top implements VarState {
 
     @Override
-    public void copy(State dest) {
-        dest = new Top(); 
+    public VarState join(VarState varState) {
+        return this;
     }
+
 
 }

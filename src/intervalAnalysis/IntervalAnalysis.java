@@ -3,6 +3,8 @@ package intervalAnalysis;
 import java.util.List;
 
 import soot.Unit;
+import soot.UnitBox;
+import soot.ValueBox;
 import soot.toolkits.graph.UnitGraph;
 import soot.toolkits.scalar.ForwardBranchedFlowAnalysis;
 
@@ -16,7 +18,8 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
     @Override
     protected void flowThrough(State inState, Unit stmt, List<State> fallOut,
             List<State> BranchOut) {
-        List units, defs, uses, usesAndDefs;
+        List<UnitBox> units;
+        List<ValueBox> defs, uses, usesAndDefs;
         System.out.println("Flowing through: " + stmt.toString());
         if (stmt.branches()) {
             if (stmt.fallsThrough()) {
@@ -27,6 +30,9 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
         }
         units = stmt.getUnitBoxes();
         defs = stmt.getDefBoxes();
+        for (ValueBox e : defs) {
+            e.getValue();
+        }
         uses = stmt.getUseBoxes();
         usesAndDefs = stmt.getUseAndDefBoxes();
         return;
@@ -39,7 +45,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
 
     @Override
     protected State entryInitialFlow() {
-        return new Bottom();
+        return new State();
     }
 
     @Override
@@ -49,7 +55,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
 
     @Override
     protected State newInitialFlow() {
-        return new Bottom();
+        return new State();
     }
 
 }
