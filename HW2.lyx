@@ -204,6 +204,14 @@ for
  
 \end_layout
 
+\begin_layout Paragraph*
+Operations
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \noindent
 [a,b] 
@@ -442,6 +450,7 @@ Interval abstraction
 \end_layout
 
 \begin_layout Standard
+\noindent
 \begin_inset Formula $\alpha_{i}$
 \end_inset
 
@@ -451,6 +460,14 @@ Interval abstraction
 
  to interval that contains every 
 \begin_inset Formula $a\in A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+low and high
+\begin_inset Newline newline
 \end_inset
 
 
@@ -466,9 +483,14 @@ Define for local
 \end_inset
 
 
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+\noindent
 \begin_inset Formula $\sigma(x).low$
 \end_inset
 
@@ -512,6 +534,7 @@ Define for local
 \end_layout
 
 \begin_layout Standard
+\noindent
 \begin_inset Formula $\sigma(x).high$
 \end_inset
 
@@ -558,11 +581,27 @@ Define for local
 Logical transformations
 \end_layout
 
+\begin_layout Subsubsection
+[x>y]
+\end_layout
+
+\begin_layout Paragraph*
+True
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset Formula $[$
 \end_inset
 
-if (e1 > e2)
+if (e1 
+\begin_inset Formula $>$
+\end_inset
+
+ e2)
 \begin_inset Formula $]_{true}$
 \end_inset
 
@@ -572,11 +611,62 @@ if (e1 > e2)
 
 ) = 
 \begin_inset Formula $\begin{cases}
-\sigma & \text{\text{e1 and e2 are constants}}\\
+below & \text{\text{e1 and e2 are constants}}\\
 \sigma\wedge_{i}\{local(e1)\rightarrow[value(e2)+1,\infty] & \text{e1 is local, e2 is constant}\\{}
 [if(e2<e1)]_{true}(\sigma) & \text{e1 is constant, e2 is local}\\
-\text{below} & \text{e1,e2 are locals}
+below & \text{e1,e2 are locals}
 \end{cases}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+a,b are constants
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (a 
+\begin_inset Formula $>$
+\end_inset
+
+ b)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+\sigma & \text{\text{a > b}}\\
+\bot & \text{a \le b}
+\end{cases}$
+\end_inset
+
+
+\begin_inset Newline newline
 \end_inset
 
 
@@ -603,7 +693,11 @@ x,y are locals
 \begin_inset Formula $[$
 \end_inset
 
-if (x > y)
+if (x 
+\begin_inset Formula $>$
+\end_inset
+
+ y)
 \begin_inset Formula $]_{true}$
 \end_inset
 
@@ -614,13 +708,560 @@ if (x > y)
 ) = 
 \begin_inset Formula $\begin{cases}
 \sigma & \text{\text{\sigma(x).low > \sigma(y).high}}\\
-\sigma\wedge_{i}\{x\rightarrow\bot_{i},y\rightarrow\bot_{i}\} & \text{\sigma(x).high < \sigma(y).low}\\
-\sigma\wedge_{i}\{x\rightarrow[\sigma(y).high,\infty],y\rightarrow[-\infty,\sigma(y).high-1]\} & \text{\text{\text{\sigma(x).low < \sigma(y).high}}}\\
-\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low+1,\infty],y\rightarrow[-\infty,\sigma(y).low]\} & \sigma(x).high>\sigma(y).low
+\sigma\wedge_{i}\{x\rightarrow\bot_{i},y\rightarrow\bot_{i}\} & \text{\sigma(x).high \le\ \sigma(y).low}\\
+\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low+1,\infty],y\rightarrow[-\infty,\sigma(x).high-1]\} & else
 \end{cases}$
 \end_inset
 
 
+\end_layout
+
+\begin_layout Paragraph*
+False
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $>$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $[$
+\end_inset
+
+if (e2 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) 
+\end_layout
+
+\begin_layout Subsubsection
+[x
+\begin_inset Formula $\ge$
+\end_inset
+
+y]
+\end_layout
+
+\begin_layout Paragraph*
+True
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+below & \text{\text{e1 and e2 are constants}}\\
+\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2),\infty] & \text{e1 is local, e2 is constant}\\{}
+[if(e2\le e1)]_{true}(\sigma) & \text{e1 is constant, e2 is local}\\
+below & \text{e1,e2 are locals}
+\end{cases}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+a,b are constants
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (a 
+\begin_inset Formula $\ge$
+\end_inset
+
+ b)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+\sigma & \text{\text{a \ge\ b}}\\
+\bot & \text{a < b}
+\end{cases}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+x,y are locals
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (x 
+\begin_inset Formula $\ge$
+\end_inset
+
+ y)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+\sigma & \text{\text{\sigma(x).low \ge\ \sigma(y).high}}\\
+\sigma\wedge_{i}\{x\rightarrow\bot_{i},y\rightarrow\bot_{i}\} & \text{\sigma(x).high < \sigma(y).low}\\
+\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low,\infty],y\rightarrow[-\infty,\sigma(x).high]\} & else
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+False
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $[$
+\end_inset
+
+if (e2 
+\begin_inset Formula $>$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) 
+\end_layout
+
+\begin_layout Subsubsection
+[x
+\begin_inset Formula $<$
+\end_inset
+
+y]
+\end_layout
+
+\begin_layout Paragraph*
+True
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $<$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+False
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $<$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) 
+\end_layout
+
+\begin_layout Subsubsection
+[x
+\begin_inset Formula $\le$
+\end_inset
+
+y]
+\end_layout
+
+\begin_layout Paragraph*
+True
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\le$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $>$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+False
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\le$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $>$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) 
+\end_layout
+
+\begin_layout Subsubsection
+[x
+\begin_inset Formula $=$
+\end_inset
+
+y]
+\end_layout
+
+\begin_layout Paragraph*
+True
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $=$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) =
+\begin_inset Formula $([$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\begin_inset Formula $\wedge_{i}$
+\end_inset
+
+
+\begin_inset Formula $([$
+\end_inset
+
+if (e2 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $=$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) =
+\begin_inset Formula $([$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\begin_inset Formula $\wedge_{i}$
+\end_inset
+
+
+\begin_inset Formula $([$
+\end_inset
+
+if (e2 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
 \end_layout
 
 \end_body
