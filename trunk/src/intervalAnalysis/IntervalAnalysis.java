@@ -3,8 +3,6 @@ package intervalAnalysis;
 import java.util.List;
 
 import soot.Unit;
-import soot.UnitBox;
-import soot.ValueBox;
 import soot.toolkits.graph.UnitGraph;
 import soot.toolkits.scalar.ForwardBranchedFlowAnalysis;
 import tools.StatementVisitor;
