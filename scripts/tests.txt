@@ -1,3 +1,2 @@
-
 examples.test1
-foo
+examples.test2
