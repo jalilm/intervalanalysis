@@ -7,6 +7,7 @@ import soot.UnitBox;
 import soot.ValueBox;
 import soot.toolkits.graph.UnitGraph;
 import soot.toolkits.scalar.ForwardBranchedFlowAnalysis;
+import tools.StatementVisitor;
 
 public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
 
@@ -20,7 +21,12 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
             List<State> BranchOut) {
         List<UnitBox> units;
         List<ValueBox> defs, uses, usesAndDefs;
-        System.out.println("Flowing through: " + stmt.toString());
+        //System.out.println("Flowing through: " + stmt.toString());
+        //System.out.println("Flowing through: " + stmt.getClass().toString());
+        StatementVisitor visitor = new StatementVisitor();
+        visitor.visit(stmt,inState,fallOut,BranchOut);
+        /*
+        //TODO Switch
         if (stmt.branches()) {
             if (stmt.fallsThrough()) {
                 System.out.println("If");
@@ -36,6 +42,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
         uses = stmt.getUseBoxes();
         usesAndDefs = stmt.getUseAndDefBoxes();
         return;
+        */
     }
 
     @Override
