@@ -2,8 +2,8 @@ package tools;
 
 import java.util.List;
 
+import commands.AssignmentStmt;
 import commands.IfStmtCommand;
-
 import intervalAnalysis.State;
 import soot.Unit;
 import soot.jimple.AssignStmt;
@@ -40,6 +40,7 @@ public class StatementVisitor {
 	public void caseAssignStmt(AssignStmt stmt, State inState, List<State> fallOut, List<State> branchOut) 
 	{
 		System.out.println("Assign " + stmt.toString());
+		new AssignmentStmt(stmt,inState,fallOut,branchOut).execute();
 		
 	}
 
