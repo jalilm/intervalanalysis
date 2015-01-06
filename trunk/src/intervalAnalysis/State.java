@@ -4,29 +4,35 @@ import java.util.HashMap;
 import java.util.Map;
 
 import soot.Value;
+import soot.jimple.IntConstant;
 
 public class State {
-    private Map<Value, VarState> varToState;
+    private Map<Value, VarState> nameToState;
     
     public State() {
-        varToState = new HashMap<Value, VarState>();
+        nameToState = new HashMap<Value, VarState>();
     }
     
-    void copy(State dest){
-        dest.varToState = new HashMap<Value, VarState>(this.varToState);
+    public void copy(State dest){
+        dest.nameToState = new HashMap<Value, VarState>(this.nameToState);
     }
     
-    VarState getVarState(Value varName) {
-        return varToState.get(varName);
+    public VarState getVarState(Value varName) {
+        if (varName instanceof IntConstant) {
+            return new Interval((IntConstant) varName,
+                    (IntConstant) varName);
+        } else {
+            return nameToState.get(varName);
+        }
     }
     
-    void setVarState(Value varName, VarState varState) {
-        varToState.put(varName, varState);
+    public void setVarState(Value varName, VarState varState) {
+        nameToState.put(varName, varState);
     }
     
-    VarState updateVarState(Value varName, VarState varState) {
+    public VarState updateVarState(Value varName, VarState varState) {
         VarState newState;
-        VarState oldState = varToState.get(varName);        
+        VarState oldState = nameToState.get(varName);        
         if (oldState == null) {
             newState = varState;
         } else {
@@ -34,6 +40,19 @@ public class State {
         }
         setVarState(varName, newState);
         return newState;
+    }
+
+    public State merge(State in2) {
+        State out = new State();
+        if (in2 == null) { 
+            this.copy(out);
+        } else {
+            in2.copy(out);
+            for (Value name : nameToState.keySet()) {
+                out.updateVarState(name, this.getVarState(name));
+            }
+        }
+        return out;
     }
     
 }
