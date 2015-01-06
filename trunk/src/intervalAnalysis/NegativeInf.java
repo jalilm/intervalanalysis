@@ -1,6 +1,6 @@
 package intervalAnalysis;
 
-public class NegativeInf implements State {
+public class NegativeInf implements VarState {
     final int high;
 
     public NegativeInf(int high) {
@@ -8,7 +8,8 @@ public class NegativeInf implements State {
     }
 
     @Override
-    public void copy(State dest) {
-        dest = new NegativeInf(high);
+    public VarState join(VarState varState) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

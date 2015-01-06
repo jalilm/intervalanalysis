@@ -1,6 +1,6 @@
 package intervalAnalysis;
 
-public class Interval implements State {
+public class Interval implements VarState {
     final int low;
     final int high;
 
@@ -10,7 +10,9 @@ public class Interval implements State {
     }
 
     @Override
-    public void copy(State dest) {
-        dest = new Interval(low, high);
+    public VarState join(VarState varState) {
+        // TODO Auto-generated method stub
+        return null;
     }
+
 }
