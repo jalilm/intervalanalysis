@@ -19,13 +19,11 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
     @Override
     protected void flowThrough(State inState, Unit stmt, List<State> fallOut,
             List<State> BranchOut) {
-        List<UnitBox> units;
-        List<ValueBox> defs, uses, usesAndDefs;
-        //System.out.println("Flowing through: " + stmt.toString());
-        //System.out.println("Flowing through: " + stmt.getClass().toString());
         StatementVisitor visitor = new StatementVisitor();
         visitor.visit(stmt,inState,fallOut,BranchOut);
         /*
+        List<UnitBox> units;
+        List<ValueBox> defs, uses, usesAndDefs;
         //TODO Switch
         if (stmt.branches()) {
             if (stmt.fallsThrough()) {
@@ -57,7 +55,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
 
     @Override
     protected void merge(State in1, State in2, State out) {
-        // TODO Auto-generated method stub
+        out = in1.merge(in2);
     }
 
     @Override
