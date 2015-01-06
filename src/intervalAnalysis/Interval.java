@@ -1,10 +1,12 @@
 package intervalAnalysis;
 
-public class Interval implements VarState {
-    final int low;
-    final int high;
+import soot.jimple.IntConstant;
 
-    public Interval(int low, int high) {
+public class Interval implements VarState {
+    final IntConstant low;
+    final IntConstant high;
+
+    public Interval(IntConstant low, IntConstant high) {
         this.low = low;
         this.high = high;
     }
@@ -17,15 +19,45 @@ public class Interval implements VarState {
         } else if (varState instanceof Bottom) {
             res = this;
         } else if (varState instanceof Interval) {
-            res = new Interval(Math.min(this.low, ((Interval)varState).low),
-                                Math.max(this.high, ((Interval)varState).high));        
+            res = new Interval(IntConstant.v(Math.min(this.low.value, ((Interval)varState).low.value)),
+                                IntConstant.v(Math.max(this.high.value, ((Interval)varState).high.value)));        
         } else if (varState instanceof PositiveInf) {
-            res = new PositiveInf(Math.min(this.low, ((PositiveInf)varState).low));
+            res = new PositiveInf(IntConstant.v(Math.min(this.low.value, ((PositiveInf)varState).low.value)));
         } else if (varState instanceof NegativeInf) {
-            res = new PositiveInf(Math.max(this.high, ((NegativeInf)varState).high));
+            res = new PositiveInf(IntConstant.v(Math.max(this.high.value, ((NegativeInf)varState).high.value)));
         } else {
             assert false;
         }
         return res;
+    }
+
+    @Override
+    public VarState sub(VarState op2State) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public VarState add(VarState op2State) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public VarState mul(VarState op2State) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public VarState div(VarState op2State) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public VarState rem(VarState op2State) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

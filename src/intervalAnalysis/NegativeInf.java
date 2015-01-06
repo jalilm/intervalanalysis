@@ -1,9 +1,11 @@
 package intervalAnalysis;
 
-public class NegativeInf implements VarState {
-    final int high;
+import soot.jimple.IntConstant;
 
-    public NegativeInf(int high) {
+public class NegativeInf implements VarState {
+    final IntConstant high;
+
+    public NegativeInf(IntConstant high) {
         this.high = high;
     }
     
@@ -15,15 +17,45 @@ public class NegativeInf implements VarState {
         } else if (varState instanceof Bottom) {
             res = this;
         } else if (varState instanceof Interval) {
-            res = new NegativeInf(Math.max(this.high, ((Interval)varState).high));        
+            res = new NegativeInf(IntConstant.v(Math.max(this.high.value, ((Interval)varState).high.value)));        
         } else if (varState instanceof PositiveInf) {
             res = new Top();
         } else if (varState instanceof NegativeInf) {
-            res = new NegativeInf(Math.max(this.high, ((NegativeInf)varState).high));
+            res = new NegativeInf(IntConstant.v(Math.max(this.high.value, ((NegativeInf)varState).high.value)));
         } else {
             assert false;
         }
         return res;
+    }
+
+    @Override
+    public VarState sub(VarState op2State) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public VarState add(VarState op2State) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public VarState mul(VarState op2State) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public VarState div(VarState op2State) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public VarState rem(VarState op2State) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
