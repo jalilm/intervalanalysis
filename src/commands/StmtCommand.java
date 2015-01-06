@@ -5,7 +5,7 @@ import intervalAnalysis.State;
 import java.util.List;
 
 import soot.Unit;
-import soot.jimple.IfStmt;
+import soot.jimple.Stmt;
 
 public abstract class StmtCommand {
 	Unit stmt = null;
@@ -13,7 +13,7 @@ public abstract class StmtCommand {
 	List<State> fallOut = null;
 	List<State> branchOut = null;
 	
-	public StmtCommand(IfStmt stmt, State inState, List<State> fallOut,
+	public StmtCommand(Stmt stmt, State inState, List<State> fallOut,
 			List<State> branchOut) {
 		this.stmt = stmt;
 		this.inState = inState;
@@ -21,5 +21,5 @@ public abstract class StmtCommand {
 		this.branchOut = branchOut;
 	}
 	
-	public void execute() {};
+	public abstract void execute();
 }
