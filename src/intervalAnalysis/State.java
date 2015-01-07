@@ -3,6 +3,7 @@ package intervalAnalysis;
 import java.util.HashMap;
 import java.util.Map;
 
+import abstraction.Bottom;
 import abstraction.Interval;
 import abstraction.LatticeElement;
 import soot.Value;
@@ -23,8 +24,10 @@ public class State {
         if (varName instanceof IntConstant) {
             return new Interval((IntConstant) varName,
                     (IntConstant) varName);
-        } else {
+        } else if (nameToState.containsKey(varName)) {
             return nameToState.get(varName);
+        } else {
+            return new Bottom();
         }
     }
     

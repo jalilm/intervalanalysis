@@ -1,18 +1,63 @@
 package abstraction;
 
-import soot.jimple.IntConstant;
 import transform.IJoinMeetTransformer;
 import transform.ILogicalTransformer;
 import transform.IMathTransformer;
 
-public abstract class AbstractInterval implements LatticeElement {
+public abstract class AbstractBottom implements LatticeElement {
+
+    @Override
+    public LatticeElement add(IMathTransformer transformer) {
+        LatticeElement result = null;
+        transformer.addBottom((Bottom) this, result);
+        return result;
+    }
+
+    @Override
+    public LatticeElement sub(IMathTransformer transformer) {
+        LatticeElement result = null;
+        transformer.subBottom((Bottom) this, result);
+        return result;
+    }
+
+    @Override
+    public LatticeElement mul(IMathTransformer transformer) {
+        LatticeElement result = null;
+        transformer.mulBottom((Bottom) this, result);
+        return result;
+    }
+
+    @Override
+    public LatticeElement div(IMathTransformer transformer) {
+        LatticeElement result = null;
+        transformer.divBottom((Bottom) this, result);
+        return result;
+    }
+
+    @Override
+    public LatticeElement mod(IMathTransformer transformer) {
+        LatticeElement result = null;
+        transformer.modBottom((Bottom) this, result);
+        return result;
+    }
+
+    @Override
+    public LatticeElement join(IJoinMeetTransformer transformer) {
+        LatticeElement result = null;
+        transformer.joinBottom((Bottom) this, result);
+        return result;
+    }
+
+    @Override
+    public LatticeElement meet(IJoinMeetTransformer transformer) {
+        LatticeElement result = null;
+        transformer.meetBottom((Bottom) this, result);
+        return result;
+    }
 
     @Override
     public void joinInterval(Interval other, LatticeElement result) {
-        result = new Interval(IntConstant.v(Math.min(
-                ((Interval) this).low.value, other.low.value)),
-                IntConstant.v(Math.max(((Interval) this).high.value,
-                        other.high.value)));
+        result = other;
     }
 
     @Override
@@ -22,70 +67,17 @@ public abstract class AbstractInterval implements LatticeElement {
 
     @Override
     public void joinBottom(Bottom other, LatticeElement result) {
-        // TODO check correctness
-        result = this;
+        result = other;
     }
 
     @Override
     public void joinPositiveInf(PositiveInf other, LatticeElement result) {
-        result = new PositiveInf(IntConstant.v(Math.min(
-                ((Interval) this).low.value, (other.low.value))));
+        result = other;
     }
 
     @Override
     public void joinNegativeInf(NegativeInf other, LatticeElement result) {
-        result = new NegativeInf(IntConstant.v(Math.max(
-                ((Interval) this).high.value, (other.high.value))));
-
-    }
-
-    @Override
-    public LatticeElement add(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.addInterval((Interval) this, result);
-        return result;
-    }
-
-    @Override
-    public LatticeElement sub(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.subInterval((Interval) this, result);
-        return result;
-    }
-
-    @Override
-    public LatticeElement mul(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.mulInterval((Interval) this, result);
-        return result;
-    }
-
-    @Override
-    public LatticeElement div(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.divInterval((Interval) this, result);
-        return result;
-    }
-
-    @Override
-    public LatticeElement mod(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.modInterval((Interval) this, result);
-        return result;
-    }
-
-    @Override
-    public LatticeElement join(IJoinMeetTransformer transformer) {
-        LatticeElement result = null;
-        transformer.joinInterval((Interval) this, result);
-        return result;
-    }
-
-    @Override
-    public LatticeElement meet(IJoinMeetTransformer transformer) {
-        LatticeElement result = null;
-        transformer.meetInterval((Interval) this, result);
-        return result;
+        result = other;
     }
 
     @Override

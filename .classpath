@@ -2,6 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/igorzar/Documents/My Docs/Study/Sythethis/HW2/jars/soot-2.5.0.jar"/>
+	<classpathentry kind="lib" path="jars/soot-2.5.0.jar" sourcepath="jars/sootsources-trunk.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/HW2/jars/sootjavadoc-trunk.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -50,13 +50,15 @@ public class AssignmentStmt extends StmtCommand {
             } else if (rightOp instanceof JDivExpr) {
                 rightOpState = op1State.div(op2State);
             } else if (rightOp instanceof JRemExpr) {
-                rightOpState = op1State.rem(op2State);
+                rightOpState = op1State.mod(op2State);
             } else {
                 assert false;
             }
         }
         this.inState.updateVarState(leftOp, rightOpState);
-        fallOut.add(inState);
+        //fallOut.add(inState);
+        //fallOut.add(0, inState);
+        fallOut.add(0,fallOut.get(0).merge(inState));
     };
 
 }
