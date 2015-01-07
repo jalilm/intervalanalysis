@@ -2,7 +2,7 @@ package commands;
 
 import intervalAnalysis.Interval;
 import intervalAnalysis.State;
-import intervalAnalysis.VarState;
+import intervalAnalysis.LatticeElement;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class AssignmentStmt extends StmtCommand {
     }
 
     public void execute() {
-        VarState rightOpState = null;
+        LatticeElement rightOpState = null;
         AssignStmt AStmt = (AssignStmt) stmt;
         Value leftOp = AStmt.getLeftOp();
         Value rightOp = AStmt.getRightOp();
@@ -34,15 +34,15 @@ public class AssignmentStmt extends StmtCommand {
                     (IntConstant) rightOp);
         } else if (rightOp instanceof AbstractJimpleFloatBinopExpr) {
 
-            VarState op1State = this.inState
+            LatticeElement op1State = this.inState
                     .getVarState((((AbstractJimpleFloatBinopExpr) rightOp)
                             .getOp1()));
 
-            VarState op2State = this.inState
+            LatticeElement op2State = this.inState
                     .getVarState((((AbstractJimpleFloatBinopExpr) rightOp)
                             .getOp2()));
             if (rightOp instanceof JSubExpr) {
-                rightOpState = op1State.sub(op2State);
+            	rightOpState = op1State.sub(op2State);
             } else if (rightOp instanceof JAddExpr) {
                 rightOpState = op1State.add(op2State);
             } else if (rightOp instanceof JMulExpr) {

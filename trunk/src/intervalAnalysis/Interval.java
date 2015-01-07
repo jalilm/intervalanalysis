@@ -1,8 +1,84 @@
 package intervalAnalysis;
 
 import soot.jimple.IntConstant;
+import transform.IJoinMeetTransformer;
+import transform.ILogicalTransformer;
+import transform.IMathTransformer;
 
-public class Interval implements VarState {
+public class Interval extends AbstractInterval implements ILogicalTransformer, IMathTransformer {
+
+	@Override
+	public void addInterval(Interval other, LatticeElement result) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addTop(Top other, LatticeElement result) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addBottom(Bottom other, LatticeElement result) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addPositiveInf(PositiveInf other, LatticeElement result) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addNegativeInf(NegativeInf other, LatticeElement result) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void IfEq(LatticeElement other, LatticeElement trueResult,
+			LatticeElement falseResult) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void IfNeq(LatticeElement other, LatticeElement trueResult,
+			LatticeElement falseResult) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void IfGt(LatticeElement other, LatticeElement trueResult,
+			LatticeElement falseResult) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void IfGe(LatticeElement other, LatticeElement trueResult,
+			LatticeElement falseResult) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void IfLt(LatticeElement other, LatticeElement trueResult,
+			LatticeElement falseResult) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void IfLe(LatticeElement other, LatticeElement trueResult,
+			LatticeElement falseResult) {
+		// TODO Auto-generated method stub
+		
+	}
+	/*
     final IntConstant low;
     final IntConstant high;
 
@@ -12,8 +88,8 @@ public class Interval implements VarState {
     }
 
     @Override
-    public VarState join(VarState varState) {
-        VarState res = null;
+    public LatticeElement join(LatticeElement varState) {
+        LatticeElement res = null;
         if (varState instanceof Top) {
             res = new Top();
         } else if (varState instanceof Bottom) {
@@ -30,34 +106,6 @@ public class Interval implements VarState {
         }
         return res;
     }
+*/
 
-    @Override
-    public VarState sub(VarState op2State) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public VarState add(VarState op2State) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public VarState mul(VarState op2State) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public VarState div(VarState op2State) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public VarState rem(VarState op2State) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

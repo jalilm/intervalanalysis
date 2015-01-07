@@ -1,36 +1,82 @@
 package intervalAnalysis;
 
-public class Top implements VarState {
+import transform.IJoinMeetTransformer;
+import transform.ILogicalTransformer;
+import transform.IMathTransformer;
 
-    @Override
-    public VarState join(VarState varState) {
-        return this;
-    }
+public class Top  extends TopAbstract implements IMathTransformer, ILogicalTransformer {
 
-    @Override
-    public VarState sub(VarState op2State) {
-        return this;
-    }
+	@Override
+	public void IfEq(LatticeElement other, LatticeElement trueResult,
+			LatticeElement falseResult) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public VarState add(VarState op2State) {
-        return this;
-    }
+	@Override
+	public void IfNeq(LatticeElement other, LatticeElement trueResult,
+			LatticeElement falseResult) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public VarState mul(VarState op2State) {
-        return this;
-    }
+	@Override
+	public void IfGt(LatticeElement other, LatticeElement trueResult,
+			LatticeElement falseResult) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public VarState div(VarState op2State) {
-        return this;
-    }
+	@Override
+	public void IfGe(LatticeElement other, LatticeElement trueResult,
+			LatticeElement falseResult) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public VarState rem(VarState op2State) {
-        return this;
-    }
+	@Override
+	public void IfLt(LatticeElement other, LatticeElement trueResult,
+			LatticeElement falseResult) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void IfLe(LatticeElement other, LatticeElement trueResult,
+			LatticeElement falseResult) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addInterval(Interval other, LatticeElement result) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addTop(Top other, LatticeElement result) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addBottom(Bottom other, LatticeElement result) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addPositiveInf(PositiveInf other, LatticeElement result) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addNegativeInf(NegativeInf other, LatticeElement result) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }
