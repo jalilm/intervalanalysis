@@ -7,17 +7,17 @@ import soot.Value;
 import soot.jimple.IntConstant;
 
 public class State {
-    private Map<Value, VarState> nameToState;
+    private Map<Value, LatticeElement> nameToState;
     
     public State() {
-        nameToState = new HashMap<Value, VarState>();
+        nameToState = new HashMap<Value, LatticeElement>();
     }
     
     public void copy(State dest){
-        dest.nameToState = new HashMap<Value, VarState>(this.nameToState);
+        dest.nameToState = new HashMap<Value, LatticeElement>(this.nameToState);
     }
     
-    public VarState getVarState(Value varName) {
+    public LatticeElement getVarState(Value varName) {
         if (varName instanceof IntConstant) {
             return new Interval((IntConstant) varName,
                     (IntConstant) varName);
@@ -26,13 +26,13 @@ public class State {
         }
     }
     
-    public void setVarState(Value varName, VarState varState) {
+    public void setVarState(Value varName, LatticeElement varState) {
         nameToState.put(varName, varState);
     }
     
-    public VarState updateVarState(Value varName, VarState varState) {
-        VarState newState;
-        VarState oldState = nameToState.get(varName);        
+    public LatticeElement updateVarState(Value varName, LatticeElement varState) {
+        LatticeElement newState;
+        LatticeElement oldState = nameToState.get(varName);        
         if (oldState == null) {
             newState = varState;
         } else {

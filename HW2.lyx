@@ -578,7 +578,7 @@ Define for local
 \end_layout
 
 \begin_layout Subsection
-Logical transformations
+Logical transformations - If
 \end_layout
 
 \begin_layout Subsubsection
@@ -1234,7 +1234,7 @@ if (e1
 \end_inset
 
  e2)
-\begin_inset Formula $]_{true}$
+\begin_inset Formula $]_{false}$
 \end_inset
 
 (
@@ -1242,7 +1242,7 @@ if (e1
 \end_inset
 
 ))
-\begin_inset Formula $\wedge_{i}$
+\begin_inset Formula $\vee_{i}$
 \end_inset
 
 
@@ -1254,7 +1254,7 @@ if (e2
 \end_inset
 
  e1)
-\begin_inset Formula $]_{true}$
+\begin_inset Formula $]_{false}$
 \end_inset
 
 (
@@ -1262,6 +1262,10 @@ if (e2
 \end_inset
 
 ))
+\end_layout
+
+\begin_layout Subsection
+Switch
 \end_layout
 
 \end_body

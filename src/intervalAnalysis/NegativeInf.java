@@ -2,7 +2,7 @@ package intervalAnalysis;
 
 import soot.jimple.IntConstant;
 
-public class NegativeInf implements VarState {
+public class NegativeInf implements LatticeElement {
     final IntConstant high;
 
     public NegativeInf(IntConstant high) {
@@ -10,8 +10,8 @@ public class NegativeInf implements VarState {
     }
     
     @Override
-    public VarState join(VarState varState) {
-        VarState res = null;
+    public LatticeElement join(LatticeElement varState) {
+        LatticeElement res = null;
         if (varState instanceof Top) {
             res = new Top();
         } else if (varState instanceof Bottom) {
@@ -29,31 +29,31 @@ public class NegativeInf implements VarState {
     }
 
     @Override
-    public VarState sub(VarState op2State) {
+    public LatticeElement sub(LatticeElement op2State) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public VarState add(VarState op2State) {
+    public LatticeElement add(LatticeElement op2State) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public VarState mul(VarState op2State) {
+    public LatticeElement mul(LatticeElement op2State) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public VarState div(VarState op2State) {
+    public LatticeElement div(LatticeElement op2State) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public VarState rem(VarState op2State) {
+    public LatticeElement rem(LatticeElement op2State) {
         // TODO Auto-generated method stub
         return null;
     }

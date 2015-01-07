@@ -1,34 +1,34 @@
 package intervalAnalysis;
 
-public class Bottom implements VarState {
+public class Bottom implements LatticeElement {
 
     @Override
-    public VarState join(VarState varState) {
+    public LatticeElement join(LatticeElement varState) {
         return varState;
     }
 
     @Override
-    public VarState sub(VarState op2State) {
+    public LatticeElement sub(LatticeElement op2State) {
         return this;
     }
 
     @Override
-    public VarState add(VarState op2State) {
+    public LatticeElement add(LatticeElement op2State) {
         return this;
     }
 
     @Override
-    public VarState mul(VarState op2State) {
+    public LatticeElement mul(LatticeElement op2State) {
         return this;
     }
 
     @Override
-    public VarState div(VarState op2State) {
+    public LatticeElement div(LatticeElement op2State) {
         return this;
     }
 
     @Override
-    public VarState rem(VarState op2State) {
+    public LatticeElement rem(LatticeElement op2State) {
         return this;
     }
 

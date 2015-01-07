@@ -25,6 +25,15 @@ public class IfStmtCommand extends StmtCommand{
         {
         	System.out.println(this.getClass() + ": " + fs.toString());
         } 
+        switch (condition.getClass().getName())
+        {
+        case "soot.jimple.internal.JEqExpr" : new IfEqCommand((JIfStmt)stmt,inState,fallOut,branchOut).execute(); break;
+        case "soot.jimple.internal.JNeExpr" : new IfNeqCommand((JIfStmt)stmt,inState,fallOut,branchOut).execute(); break;
+        case "soot.jimple.internal.JGeExpr" : new IfGeCommand((JIfStmt)stmt,inState,fallOut,branchOut).execute(); break;
+        case "soot.jimple.internal.JLeExpr" : new IfLeCommand((JIfStmt)stmt,inState,fallOut,branchOut).execute(); break;
+        case "soot.jimple.internal.JLtExpr" : new IfLtCommand((JIfStmt)stmt,inState,fallOut,branchOut).execute(); break;
+        case "soot.jimple.internal.JGtExpr" : new IfGtCommand((JIfStmt)stmt,inState,fallOut,branchOut).execute(); break;
+        }
 
 	}
 
