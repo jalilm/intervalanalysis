@@ -1,14 +1,14 @@
 package transform;
 
+import abstraction.Bottom;
+import abstraction.Interval;
+import abstraction.LatticeElement;
+import abstraction.NegativeInf;
+import abstraction.PositiveInf;
+import abstraction.Top;
 import soot.Local;
 import soot.jimple.IntConstant;
-import intervalAnalysis.Bottom;
-import intervalAnalysis.Interval;
-import intervalAnalysis.LatticeElement;
-import intervalAnalysis.NegativeInf;
-import intervalAnalysis.PositiveInf;
 import intervalAnalysis.State;
-import intervalAnalysis.Top;
 
 public interface IMathTransformer{
 	//arithmetic commands

@@ -1,11 +1,11 @@
 package transform;
 
-import intervalAnalysis.Bottom;
-import intervalAnalysis.Interval;
-import intervalAnalysis.LatticeElement;
-import intervalAnalysis.NegativeInf;
-import intervalAnalysis.PositiveInf;
-import intervalAnalysis.Top;
+import abstraction.Bottom;
+import abstraction.Interval;
+import abstraction.LatticeElement;
+import abstraction.NegativeInf;
+import abstraction.PositiveInf;
+import abstraction.Top;
 
 public interface IJoinMeetTransformer {
 	void joinInterval(Interval other, LatticeElement result);

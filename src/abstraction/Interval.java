@@ -1,4 +1,4 @@
-package intervalAnalysis;
+package abstraction;
 
 import soot.jimple.IntConstant;
 import transform.IJoinMeetTransformer;
