@@ -3,6 +3,8 @@ package intervalAnalysis;
 import java.util.HashMap;
 import java.util.Map;
 
+import abstraction.Interval;
+import abstraction.LatticeElement;
 import soot.Value;
 import soot.jimple.IntConstant;
 

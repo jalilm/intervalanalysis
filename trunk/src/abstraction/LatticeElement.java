@@ -1,4 +1,4 @@
-package intervalAnalysis;
+package abstraction;
 
 import transform.IJoinMeetTransformer;
 import transform.ILogicalTransformer;

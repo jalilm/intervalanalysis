@@ -1,11 +1,11 @@
 package commands;
 
-import intervalAnalysis.Interval;
 import intervalAnalysis.State;
-import intervalAnalysis.LatticeElement;
 
 import java.util.List;
 
+import abstraction.Interval;
+import abstraction.LatticeElement;
 import soot.Value;
 import soot.jimple.AssignStmt;
 import soot.jimple.NumericConstant;

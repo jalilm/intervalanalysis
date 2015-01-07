@@ -1,6 +1,6 @@
 package transform;
 
-import intervalAnalysis.LatticeElement;
+import abstraction.LatticeElement;
 
 public interface ILogicalTransformer {
 	//logical commands

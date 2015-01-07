@@ -1,14 +1,14 @@
-package intervalAnalysis;
+package abstraction;
 
 import soot.jimple.IntConstant;
 
-public class NegativeInf implements LatticeElement {
-    final IntConstant high;
+public class PositiveInf implements LatticeElement {
+    final IntConstant low;
 
-    public NegativeInf(IntConstant high) {
-        this.high = high;
+    public PositiveInf(IntConstant low) {
+        this.low = low;
     }
-    
+
     @Override
     public LatticeElement join(LatticeElement varState) {
         LatticeElement res = null;
@@ -17,11 +17,11 @@ public class NegativeInf implements LatticeElement {
         } else if (varState instanceof Bottom) {
             res = this;
         } else if (varState instanceof Interval) {
-            res = new NegativeInf(IntConstant.v(Math.max(this.high.value, ((Interval)varState).high.value)));        
-        } else if (varState instanceof PositiveInf) {
-            res = new Top();
+            res = new PositiveInf(IntConstant.v(Math.min(this.low.value, ((Interval)varState).low.value)));        
         } else if (varState instanceof NegativeInf) {
-            res = new NegativeInf(IntConstant.v(Math.max(this.high.value, ((NegativeInf)varState).high.value)));
+            res = new Top();
+        } else if (varState instanceof PositiveInf) {
+            res = new PositiveInf(IntConstant.v(Math.min(this.low.value, ((PositiveInf)varState).low.value)));
         } else {
             assert false;
         }
@@ -57,5 +57,4 @@ public class NegativeInf implements LatticeElement {
         // TODO Auto-generated method stub
         return null;
     }
-
 }

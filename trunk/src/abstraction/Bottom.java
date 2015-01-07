@@ -1,4 +1,4 @@
-package intervalAnalysis;
+package abstraction;
 
 public class Bottom implements LatticeElement {
 
