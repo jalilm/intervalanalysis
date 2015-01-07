@@ -7,7 +7,7 @@ import java.util.List;
 import soot.Unit;
 import soot.jimple.Stmt;
 
-public abstract class StmtCommand {
+public abstract class StmtCommand implements Command{
 	Unit stmt = null;
 	State inState = null;
 	List<State> fallOut = null;
@@ -21,5 +21,4 @@ public abstract class StmtCommand {
 		this.branchOut = branchOut;
 	}
 	
-	public abstract void execute();
 }
