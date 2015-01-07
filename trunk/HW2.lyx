@@ -107,6 +107,42 @@ The Interval domain is
 \begin_inset Formula $L=\{[x,y]\,|\, x,y\in Z_{\infty},y\ge_{\infty}x\}\cup\bot_{i}$
 \end_inset
 
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+As well we shorthand denote 
+\begin_inset Formula $\forall z\in Z\left[z,z\right]$
+\end_inset
+
+ the interval 
+\begin_inset Formula $\left[z,z\right]$
+\end_inset
+
+ with 
+\begin_inset Formula $z$
+\end_inset
+
+, furthermore we define:
+\end_layout
+
+\begin_layout Enumerate
+\noindent
+\begin_inset Formula $\forall z\in Z_{\infty}\backslash-\infty$
+\end_inset
+
+, 
+\begin_inset Formula $\infty+z=\infty,\infty-z=\infty,z+\infty=\infty,z-\infty=\infty$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\forall z\in Z_{\infty}\backslash+\infty,-\infty+z=-\infty,-\infty-z=-\infty,z+-\infty=-\infty,z--\infty=\infty.$
+\end_inset
+
 
 \end_layout
 
@@ -612,8 +648,8 @@ if (e1
 ) = 
 \begin_inset Formula $\begin{cases}
 below & \text{\text{e1 and e2 are constants}}\\
-\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2)+1,\infty] & \text{e1 is local, e2 is constant}\\{}
-[if(e2<e1)]_{true}(\sigma) & \text{e1 is constant, e2 is local}\\
+\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2)+1,\infty] & \text{e1 is local, e2 is constant}\\
+{}[if(e2<e1)]_{true}(\sigma) & \text{e1 is constant, e2 is local}\\
 below & \text{e1,e2 are locals}
 \end{cases}$
 \end_inset
@@ -794,8 +830,8 @@ if (e1
 ) = 
 \begin_inset Formula $\begin{cases}
 below & \text{\text{e1 and e2 are constants}}\\
-\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2),\infty] & \text{e1 is local, e2 is constant}\\{}
-[if(e2\le e1)]_{true}(\sigma) & \text{e1 is constant, e2 is local}\\
+\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2),\infty] & \text{e1 is local, e2 is constant}\\
+{}[if(e2\le e1)]_{true}(\sigma) & \text{e1 is constant, e2 is local}\\
 below & \text{e1,e2 are locals}
 \end{cases}$
 \end_inset
@@ -1266,6 +1302,36 @@ if (e2
 
 \begin_layout Subsection
 Switch
+\end_layout
+
+\begin_layout Subsection
+Arthmitc Operations
+\end_layout
+
+\begin_layout Subsubsection
+[z=x+y]
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left[z=x+y\right]$
+\end_inset
+
+
+\begin_inset Formula $\left(\sigma\right)=\sigma\wedge_{i}\left\{ z\rightarrow\left[\sigma\left(x\right).low+\sigma\left(y\right).low,\sigma\left(x\right).high+\sigma\left(y\right).high\right]\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+[z=x-y]
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left[z=x-y\right]\left(\sigma\right)=\sigma\wedge_{i}\left\{ z\rightarrow\left[min(\sigma\left(x\right).low-\sigma\left(y\right).high,\sigma\left(x\right).high-\sigma\left(y\right).low),max(\sigma\left(x\right).low-\sigma\left(y\right).high,\sigma\left(x\right).high-\sigma\left(y\right).low)\right]\right\} $
+\end_inset
+
+
 \end_layout
 
 \end_body

@@ -10,8 +10,6 @@ import soot.jimple.IfStmt;
 import soot.jimple.IntConstant;
 import soot.jimple.internal.AbstractBinopExpr;
 import soot.jimple.internal.JimpleLocal;
-import transform.IfFalseTransformer;
-import transform.IfTrueTransformer;
 
 public class IfGtCommand extends IfStmtCommand {
 
