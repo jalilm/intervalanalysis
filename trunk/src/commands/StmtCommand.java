@@ -1,9 +1,7 @@
 package commands;
 
 import intervalAnalysis.State;
-
 import java.util.List;
-
 import soot.Unit;
 import soot.jimple.Stmt;
 
