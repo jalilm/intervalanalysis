@@ -19,4 +19,10 @@ public interface IJoinMeetTransformer {
 	LatticeElement meetBottom(Bottom other);
 	LatticeElement meetPositiveInf(PositiveInf other);
 	LatticeElement meetNegativeInf(NegativeInf other);
+	
+	LatticeElement widenInterval(Interval other);
+    LatticeElement widenTop(Top other);
+    LatticeElement widenBottom(Bottom other);
+    LatticeElement widenPositiveInf(PositiveInf other);
+    LatticeElement widenNegativeInf(NegativeInf other);
 }

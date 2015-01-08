@@ -32,4 +32,6 @@ public interface LatticeElement extends IMathTransformer, ILogicalTransformer,
     LatticeElement join(IJoinMeetTransformer varState);
 
     LatticeElement meet(IJoinMeetTransformer varState);
+
+    LatticeElement widen(IJoinMeetTransformer currElement);
 }

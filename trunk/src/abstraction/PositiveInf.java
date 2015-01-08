@@ -4,7 +4,7 @@ import soot.jimple.IntConstant;
 import transform.ILogicalTransformer;
 import transform.IMathTransformer;
 
-public class PositiveInf extends AbstractPositiveInf implements
+public final class PositiveInf extends AbstractPositiveInf implements
         IMathTransformer, ILogicalTransformer {
 
     final IntConstant low;
@@ -42,8 +42,7 @@ public class PositiveInf extends AbstractPositiveInf implements
 
     @Override
     public LatticeElement addInterval(Interval other) {
-        return new PositiveInf(
-                IntConstant.v(other.low.value + this.low.value));
+        return new PositiveInf(IntConstant.v(other.low.value + this.low.value));
     }
 
     @Override
@@ -58,8 +57,7 @@ public class PositiveInf extends AbstractPositiveInf implements
 
     @Override
     public LatticeElement addPositiveInf(PositiveInf other) {
-        return new PositiveInf(
-                IntConstant.v(other.low.value + this.low.value));
+        return new PositiveInf(IntConstant.v(other.low.value + this.low.value));
     }
 
     @Override
@@ -69,8 +67,7 @@ public class PositiveInf extends AbstractPositiveInf implements
 
     @Override
     public LatticeElement subInterval(Interval other) {
-        return new NegativeInf(IntConstant.v(other.high.value
-                - this.low.value));
+        return new NegativeInf(IntConstant.v(other.high.value - this.low.value));
     }
 
     @Override
@@ -91,8 +88,7 @@ public class PositiveInf extends AbstractPositiveInf implements
 
     @Override
     public LatticeElement subNegativeInf(NegativeInf other) {
-        return new NegativeInf(IntConstant.v(other.high.value
-                - this.low.value));
+        return new NegativeInf(IntConstant.v(other.high.value - this.low.value));
     }
 
     @Override
@@ -144,12 +140,13 @@ public class PositiveInf extends AbstractPositiveInf implements
             return new Interval(IntConstant.v(0),
                     IntConstant.v(other.high.value / this.low.value));
         } else if (other.high.value < 0) {
-            return new Interval(IntConstant.v(other.low.value
-                    / this.low.value), IntConstant.v(0));
+            return new Interval(
+                    IntConstant.v(other.low.value / this.low.value),
+                    IntConstant.v(0));
         } else {
-            return new Interval(IntConstant.v(other.low.value
-                    / this.low.value), IntConstant.v(other.high.value
-                    / this.low.value));
+            return new Interval(
+                    IntConstant.v(other.low.value / this.low.value),
+                    IntConstant.v(other.high.value / this.low.value));
         }
     }
 
@@ -218,41 +215,35 @@ public class PositiveInf extends AbstractPositiveInf implements
     public void IfEq(LatticeElement other, LatticeElement trueResult,
             LatticeElement falseResult) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void IfNeq(LatticeElement other, LatticeElement trueResult,
             LatticeElement falseResult) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void IfGt(LatticeElement other, LatticeElement trueResult,
             LatticeElement falseResult) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void IfGe(LatticeElement other, LatticeElement trueResult,
             LatticeElement falseResult) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void IfLt(LatticeElement other, LatticeElement trueResult,
             LatticeElement falseResult) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void IfLe(LatticeElement other, LatticeElement trueResult,
             LatticeElement falseResult) {
         // TODO Auto-generated method stub
-
     }
 }
