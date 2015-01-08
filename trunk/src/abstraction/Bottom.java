@@ -28,128 +28,128 @@ public class Bottom extends AbstractBottom implements IMathTransformer,
     }
 
     @Override
-    public void addInterval(Interval other, LatticeElement result) {
-        result = other;
+    public LatticeElement addInterval(Interval other) {
+        return other;
     }
 
     @Override
-    public void addTop(Top other, LatticeElement result) {
-        result = other;
+    public LatticeElement addTop(Top other) {
+        return other;
     }
 
     @Override
-    public void addBottom(Bottom other, LatticeElement result) {
-        result = this;
+    public LatticeElement addBottom(Bottom other) {
+        return this;
     }
 
     @Override
-    public void addPositiveInf(PositiveInf other, LatticeElement result) {
-        result = other;
+    public LatticeElement addPositiveInf(PositiveInf other) {
+        return other;
     }
 
     @Override
-    public void addNegativeInf(NegativeInf other, LatticeElement result) {
-        result = other;
+    public LatticeElement addNegativeInf(NegativeInf other) {
+        return other;
     }
 
     @Override
-    public void subInterval(Interval other, LatticeElement result) {
-        result = other;
+    public LatticeElement subInterval(Interval other) {
+        return other;
     }
 
     @Override
-    public void subTop(Top other, LatticeElement result) {
-        result = other;
+    public LatticeElement subTop(Top other) {
+        return other;
     }
 
     @Override
-    public void subBottom(Bottom other, LatticeElement result) {
-        result = this;
+    public LatticeElement subBottom(Bottom other) {
+        return this;
     }
 
     @Override
-    public void subPositiveInf(PositiveInf other, LatticeElement result) {
-        result = other;
+    public LatticeElement subPositiveInf(PositiveInf other) {
+        return other;
     }
 
     @Override
-    public void subNegativeInf(NegativeInf other, LatticeElement result) {
-        result = other;
+    public LatticeElement subNegativeInf(NegativeInf other) {
+        return other;
     }
 
     @Override
-    public void mulInterval(Interval other, LatticeElement result) {
-        result = other;
+    public LatticeElement mulInterval(Interval other) {
+        return other;
     }
 
     @Override
-    public void mulTop(Top other, LatticeElement result) {
-        result = other;
+    public LatticeElement mulTop(Top other) {
+        return other;
     }
 
     @Override
-    public void mulBottom(Bottom other, LatticeElement result) {
-        result = this;
+    public LatticeElement mulBottom(Bottom other) {
+        return this;
     }
 
     @Override
-    public void mulPositiveInf(PositiveInf other, LatticeElement result) {
-        result = other;
+    public LatticeElement mulPositiveInf(PositiveInf other) {
+        return other;
     }
 
     @Override
-    public void mulNegativeInf(NegativeInf other, LatticeElement result) {
-        result = other;
+    public LatticeElement mulNegativeInf(NegativeInf other) {
+        return other;
     }
 
     @Override
-    public void divInterval(Interval other, LatticeElement result) {
-        result = other;
+    public LatticeElement divInterval(Interval other) {
+        return other;
     }
 
     @Override
-    public void divTop(Top other, LatticeElement result) {
-        result = other;
+    public LatticeElement divTop(Top other) {
+        return other;
     }
 
     @Override
-    public void divBottom(Bottom other, LatticeElement result) {
-        result = this;
+    public LatticeElement divBottom(Bottom other) {
+        return this;
     }
 
     @Override
-    public void divPositiveInf(PositiveInf other, LatticeElement result) {
-        result = other;
+    public LatticeElement divPositiveInf(PositiveInf other) {
+        return other;
     }
 
     @Override
-    public void divNegativeInf(NegativeInf other, LatticeElement result) {
-        result = other;
+    public LatticeElement divNegativeInf(NegativeInf other) {
+        return other;
     }
 
     @Override
-    public void modInterval(Interval other, LatticeElement result) {
-        result = other;
+    public LatticeElement modInterval(Interval other) {
+        return other;
     }
 
     @Override
-    public void modTop(Top other, LatticeElement result) {
-        result = other;
+    public LatticeElement modTop(Top other) {
+        return other;
     }
 
     @Override
-    public void modBottom(Bottom other, LatticeElement result) {
-        result = this;
+    public LatticeElement modBottom(Bottom other) {
+        return this;
     }
 
     @Override
-    public void modPositiveInf(PositiveInf other, LatticeElement result) {
-        result = other;
+    public LatticeElement modPositiveInf(PositiveInf other) {
+        return other;
     }
 
     @Override
-    public void modNegativeInf(NegativeInf other, LatticeElement result) {
-        result = other;
+    public LatticeElement modNegativeInf(NegativeInf other) {
+        return other;
     }
 
     @Override

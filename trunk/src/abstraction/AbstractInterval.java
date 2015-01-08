@@ -8,84 +8,84 @@ import transform.IMathTransformer;
 public abstract class AbstractInterval implements LatticeElement {
 
     @Override
-    public void joinInterval(Interval other, LatticeElement result) {
-        result = new Interval(IntConstant.v(Math.min(
+    public LatticeElement joinInterval(Interval other) {
+        return new Interval(IntConstant.v(Math.min(
                 ((Interval) this).low.value, other.low.value)),
                 IntConstant.v(Math.max(((Interval) this).high.value,
                         other.high.value)));
     }
 
     @Override
-    public void joinTop(Top other, LatticeElement result) {
-        result = other;
+    public LatticeElement joinTop(Top other) {
+        return other;
     }
 
     @Override
-    public void joinBottom(Bottom other, LatticeElement result) {
+    public LatticeElement joinBottom(Bottom other) {
         // TODO check correctness
-        result = this;
+        return this;
     }
 
     @Override
-    public void joinPositiveInf(PositiveInf other, LatticeElement result) {
-        result = new PositiveInf(IntConstant.v(Math.min(
+    public LatticeElement joinPositiveInf(PositiveInf other) {
+        return new PositiveInf(IntConstant.v(Math.min(
                 ((Interval) this).low.value, (other.low.value))));
     }
 
     @Override
-    public void joinNegativeInf(NegativeInf other, LatticeElement result) {
-        result = new NegativeInf(IntConstant.v(Math.max(
+    public LatticeElement joinNegativeInf(NegativeInf other) {
+        return new NegativeInf(IntConstant.v(Math.max(
                 ((Interval) this).high.value, (other.high.value))));
 
     }
 
     @Override
     public LatticeElement add(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.addInterval((Interval) this, result);
-        return result;
+
+        return transformer.addInterval((Interval) this);
+
     }
 
     @Override
     public LatticeElement sub(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.subInterval((Interval) this, result);
-        return result;
+
+        return transformer.subInterval((Interval) this);
+
     }
 
     @Override
     public LatticeElement mul(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.mulInterval((Interval) this, result);
-        return result;
+
+        return transformer.mulInterval((Interval) this);
+
     }
 
     @Override
     public LatticeElement div(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.divInterval((Interval) this, result);
-        return result;
+
+        return transformer.divInterval((Interval) this);
+
     }
 
     @Override
     public LatticeElement mod(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.modInterval((Interval) this, result);
-        return result;
+
+        return transformer.modInterval((Interval) this);
+
     }
 
     @Override
     public LatticeElement join(IJoinMeetTransformer transformer) {
-        LatticeElement result = null;
-        transformer.joinInterval((Interval) this, result);
-        return result;
+
+        return transformer.joinInterval((Interval) this);
+
     }
 
     @Override
     public LatticeElement meet(IJoinMeetTransformer transformer) {
-        LatticeElement result = null;
-        transformer.meetInterval((Interval) this, result);
-        return result;
+
+        return transformer.meetInterval((Interval) this);
+
     }
 
     @Override
@@ -125,31 +125,36 @@ public abstract class AbstractInterval implements LatticeElement {
     }
 
     @Override
-    public void meetInterval(Interval other, LatticeElement result) {
+    public LatticeElement meetInterval(Interval other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetTop(Top other, LatticeElement result) {
+    public LatticeElement meetTop(Top other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetBottom(Bottom other, LatticeElement result) {
+    public LatticeElement meetBottom(Bottom other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetPositiveInf(PositiveInf other, LatticeElement result) {
+    public LatticeElement meetPositiveInf(PositiveInf other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetNegativeInf(NegativeInf other, LatticeElement result) {
+    public LatticeElement meetNegativeInf(NegativeInf other) {
+        return null;
         // TODO Auto-generated method stub
 
     }

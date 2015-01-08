@@ -16,6 +16,7 @@ import soot.jimple.internal.JDivExpr;
 import soot.jimple.internal.JMulExpr;
 import soot.jimple.internal.JRemExpr;
 import soot.jimple.internal.JSubExpr;
+import soot.jimple.internal.JimpleLocal;
 
 public class AssignmentStmt extends StmtCommand {
 
@@ -32,8 +33,10 @@ public class AssignmentStmt extends StmtCommand {
         if (rightOp instanceof NumericConstant) {
             rightOpState = new Interval((IntConstant) rightOp,
                     (IntConstant) rightOp);
+        } else if(rightOp instanceof JimpleLocal){
+            rightOpState = this.inState
+                    .getVarState(rightOp);
         } else if (rightOp instanceof AbstractJimpleFloatBinopExpr) {
-
             LatticeElement op1State = this.inState
                     .getVarState((((AbstractJimpleFloatBinopExpr) rightOp)
                             .getOp1()));
@@ -56,9 +59,9 @@ public class AssignmentStmt extends StmtCommand {
             }
         }
         this.inState.updateVarState(leftOp, rightOpState);
-        //fallOut.add(inState);
-        //fallOut.add(0, inState);
-        fallOut.add(0,fallOut.get(0).merge(inState));
+        State s = fallOut.get(0).merge(inState);
+        fallOut.remove(0);
+        fallOut.add(0,s);
     };
 
 }

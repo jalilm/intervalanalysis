@@ -7,77 +7,68 @@ import transform.IMathTransformer;
 public abstract class TopAbstract implements LatticeElement {
 
     @Override
-    public void joinInterval(Interval other, LatticeElement result) {
-        result = this;
+    public LatticeElement joinInterval(Interval other) {
+        return this;
     }
 
     @Override
-    public void joinTop(Top other, LatticeElement result) {
-        result = this;
+    public LatticeElement joinTop(Top other) {
+        return this;
     }
 
     @Override
-    public void joinBottom(Bottom other, LatticeElement result) {
-        result = this;
+    public LatticeElement joinBottom(Bottom other) {
+        return this;
     }
 
     @Override
-    public void joinPositiveInf(PositiveInf other, LatticeElement result) {
-        result = this;
+    public LatticeElement joinPositiveInf(PositiveInf other) {
+        return this;
     }
 
     @Override
-    public void joinNegativeInf(NegativeInf other, LatticeElement result) {
-        result = this;
+    public LatticeElement joinNegativeInf(NegativeInf other) {
+        return this;
     }
 
     @Override
     public LatticeElement add(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.addTop((Top) this, result);
-        return result;
+        return transformer.addTop((Top) this);
     }
 
     @Override
     public LatticeElement sub(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.subTop((Top) this, result);
-        return result;
+        return transformer.subTop((Top) this);
     }
 
     @Override
     public LatticeElement mul(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.mulTop((Top) this, result);
-        return result;
+
+        return transformer.mulTop((Top) this);
     }
 
     @Override
     public LatticeElement div(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.divTop((Top) this, result);
-        return result;
+
+        return transformer.divTop((Top) this);
     }
 
     @Override
     public LatticeElement mod(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.modTop((Top) this, result);
-        return result;
+
+        return transformer.modTop((Top) this);
     }
 
     @Override
     public LatticeElement join(IJoinMeetTransformer transformer) {
-        LatticeElement result = null;
-        transformer.joinTop((Top) this, result);
-        return result;
+
+        return transformer.joinTop((Top) this);
     }
 
     @Override
     public LatticeElement meet(IJoinMeetTransformer transformer) {
-        LatticeElement result = null;
-        transformer.meetTop((Top) this, result);
-        return result;
+
+        return transformer.meetTop((Top) this);
     }
 
     @Override
@@ -117,31 +108,36 @@ public abstract class TopAbstract implements LatticeElement {
     }
 
     @Override
-    public void meetInterval(Interval other, LatticeElement result) {
+    public LatticeElement meetInterval(Interval other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetTop(Top other, LatticeElement result) {
+    public LatticeElement meetTop(Top other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetBottom(Bottom other, LatticeElement result) {
+    public LatticeElement meetBottom(Bottom other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetPositiveInf(PositiveInf other, LatticeElement result) {
+    public LatticeElement meetPositiveInf(PositiveInf other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetNegativeInf(NegativeInf other, LatticeElement result) {
+    public LatticeElement meetNegativeInf(NegativeInf other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
