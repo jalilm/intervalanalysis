@@ -1,0 +1,24 @@
+public class tests.test3 extends java.lang.Object
+{
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.String[] args;
+        int k, j, temp$0;
+
+        args := @parameter0: java.lang.String[];
+        k = 5;
+        temp$0 = 5 - k;
+        j = temp$0;
+        return;
+    }
+
+    public void <init>()
+    {
+        tests.test3 this;
+
+        this := @this: tests.test3;
+        specialinvoke this.<java.lang.Object: void <init>()>();
+        return;
+    }
+}
