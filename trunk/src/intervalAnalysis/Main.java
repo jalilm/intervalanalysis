@@ -13,7 +13,6 @@ import soot.BodyTransformer;
 import soot.PackManager;
 import soot.Scene;
 import soot.SootClass;
-import soot.SootMethod;
 import soot.Transform;
 import soot.options.Options;
 import soot.toolkits.graph.BriefUnitGraph;
