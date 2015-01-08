@@ -152,46 +152,4 @@ public final class Top extends TopAbstract implements IMathTransformer,
         return this;
     }
 
-    @Override
-    public void IfEq(LatticeElement other, LatticeElement trueResult,
-            LatticeElement falseResult) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void IfNeq(LatticeElement other, LatticeElement trueResult,
-            LatticeElement falseResult) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void IfGt(LatticeElement other, LatticeElement trueResult,
-            LatticeElement falseResult) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void IfGe(LatticeElement other, LatticeElement trueResult,
-            LatticeElement falseResult) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void IfLt(LatticeElement other, LatticeElement trueResult,
-            LatticeElement falseResult) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void IfLe(LatticeElement other, LatticeElement trueResult,
-            LatticeElement falseResult) {
-        // TODO Auto-generated method stub
-
-    }
-
 }
