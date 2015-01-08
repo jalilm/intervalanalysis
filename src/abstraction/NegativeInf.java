@@ -41,179 +41,178 @@ public class NegativeInf extends AbstractNegativeInf implements
     }
 
     @Override
-    public void addInterval(Interval other, LatticeElement result) {
-        result = new NegativeInf(IntConstant.v(other.high.value
+    public LatticeElement addInterval(Interval other) {
+        return new NegativeInf(IntConstant.v(other.high.value
                 + this.high.value));
     }
 
     @Override
-    public void addTop(Top other, LatticeElement result) {
-        result = other;
+    public LatticeElement addTop(Top other) {
+        return other;
     }
 
     @Override
-    public void addBottom(Bottom other, LatticeElement result) {
-        result = other;
+    public LatticeElement addBottom(Bottom other) {
+        return other;
     }
 
     @Override
-    public void addPositiveInf(PositiveInf other, LatticeElement result) {
-        result = new Top();
+    public LatticeElement addPositiveInf(PositiveInf other) {
+        return new Top();
     }
 
     @Override
-    public void addNegativeInf(NegativeInf other, LatticeElement result) {
-        result = new NegativeInf(IntConstant.v(other.high.value
+    public LatticeElement addNegativeInf(NegativeInf other) {
+        return new NegativeInf(IntConstant.v(other.high.value
                 + this.high.value));
     }
 
     @Override
-    public void subInterval(Interval other, LatticeElement result) {
-        result = new PositiveInf(IntConstant.v(other.low.value
+    public LatticeElement subInterval(Interval other) {
+        return new PositiveInf(IntConstant.v(other.low.value
                 - this.high.value));
     }
 
     @Override
-    public void subTop(Top other, LatticeElement result) {
-        result = other;
+    public LatticeElement subTop(Top other) {
+        return other;
     }
 
     @Override
-    public void subBottom(Bottom other, LatticeElement result) {
-        result = other;
+    public LatticeElement subBottom(Bottom other) {
+        return other;
     }
 
     @Override
-    public void subPositiveInf(PositiveInf other, LatticeElement result) {
-        result = new PositiveInf(IntConstant.v(other.low.value
+    public LatticeElement subPositiveInf(PositiveInf other) {
+        return new PositiveInf(IntConstant.v(other.low.value
                 - this.high.value));
     }
 
     @Override
-    public void subNegativeInf(NegativeInf other, LatticeElement result) {
-        result = new Top();
+    public LatticeElement subNegativeInf(NegativeInf other) {
+        return new Top();
     }
 
     @Override
-    public void mulInterval(Interval other, LatticeElement result) {
+    public LatticeElement mulInterval(Interval other) {
         IntConstant lowest = IntConstant.v(Math.min(other.low.value
                 * this.high.value, other.high.value * this.high.value));
         IntConstant highest = IntConstant.v(Math.max(other.low.value
                 * this.high.value, other.high.value * this.high.value));
         if (other.low.value > 0) {
-            result = new NegativeInf(highest);
+            return new NegativeInf(highest);
         } else if (other.high.value < 0) {
-            result = new PositiveInf(lowest);
+            return new PositiveInf(lowest);
         } else {
-            result = new Top();
+            return new Top();
         }
     }
 
     @Override
-    public void mulTop(Top other, LatticeElement result) {
-        result = other;
+    public LatticeElement mulTop(Top other) {
+        return other;
     }
 
     @Override
-    public void mulBottom(Bottom other, LatticeElement result) {
-        result = other;
+    public LatticeElement mulBottom(Bottom other) {
+        return other;
     }
 
     @Override
-    public void mulPositiveInf(PositiveInf other, LatticeElement result) {
-        result = new Top();
+    public LatticeElement mulPositiveInf(PositiveInf other) {
+        return new Top();
     }
 
     @Override
-    public void mulNegativeInf(NegativeInf other, LatticeElement result) {
+    public LatticeElement mulNegativeInf(NegativeInf other) {
         if (this.high.value > 0 || other.high.value > 0) {
-            result = new Top();
+            return new Top();
         } else {
-            result = new PositiveInf(IntConstant.v(this.high.value
+            return new PositiveInf(IntConstant.v(this.high.value
                     * other.high.value));
         }
     }
 
     @Override
-    public void divInterval(Interval other, LatticeElement result) {
+    public LatticeElement divInterval(Interval other) {
         if (this.high.value >= 0) {
-            result = new Top();
-            return;
+            return new Top();
         }
         if (other.low.value > 0) {
-            result = new Interval(IntConstant.v(other.high.value
+            return new Interval(IntConstant.v(other.high.value
                     / this.high.value), IntConstant.v(0));
         } else if (other.high.value < 0) {
-            result = new Interval(IntConstant.v(0),
+            return new Interval(IntConstant.v(0),
                     IntConstant.v(other.low.value / this.high.value));
         } else {
-            result = new Interval(IntConstant.v(other.high.value
+            return new Interval(IntConstant.v(other.high.value
                     / this.high.value), IntConstant.v(other.low.value
                     / this.high.value));
         }
     }
 
     @Override
-    public void divTop(Top other, LatticeElement result) {
-        result = other;
+    public LatticeElement divTop(Top other) {
+        return other;
     }
 
     @Override
-    public void divBottom(Bottom other, LatticeElement result) {
-        result = other;
+    public LatticeElement divBottom(Bottom other) {
+        return other;
     }
 
     @Override
-    public void divPositiveInf(PositiveInf other, LatticeElement result) {
+    public LatticeElement divPositiveInf(PositiveInf other) {
         if (this.high.value > 0) {
-            result = new Top();
+            return new Top();
         } else {
             /* We do not know what is +inf/-inf but it is negative. */
-            result = new NegativeInf(IntConstant.v(-1));
+            return new NegativeInf(IntConstant.v(-1));
         }
 
     }
 
     @Override
-    public void divNegativeInf(NegativeInf other, LatticeElement result) {
+    public LatticeElement divNegativeInf(NegativeInf other) {
         if (this.high.value > 0) {
-            result = new Top();
+            return new Top();
         } else {
             if (other.high.value < 0) {
-                result = new PositiveInf(IntConstant.v(1));
+                return new PositiveInf(IntConstant.v(1));
             } else {
-                result = new PositiveInf(IntConstant.v(other.high.value
+                return new PositiveInf(IntConstant.v(other.high.value
                         / this.high.value));
             }
         }
     }
 
     @Override
-    public void modInterval(Interval other, LatticeElement result) {
+    public LatticeElement modInterval(Interval other) {
         // TODO Jalil if you have time, tighten me.
-        result = new Top();
+        return new Top();
     }
 
     @Override
-    public void modTop(Top other, LatticeElement result) {
-        result = other;
+    public LatticeElement modTop(Top other) {
+        return other;
     }
 
     @Override
-    public void modBottom(Bottom other, LatticeElement result) {
-        result = other;
+    public LatticeElement modBottom(Bottom other) {
+        return other;
     }
 
     @Override
-    public void modPositiveInf(PositiveInf other, LatticeElement result) {
+    public LatticeElement modPositiveInf(PositiveInf other) {
         // TODO Jalil if you have time, tighten me.
-        result = new Top();
+        return new Top();
     }
 
     @Override
-    public void modNegativeInf(NegativeInf other, LatticeElement result) {
+    public LatticeElement modNegativeInf(NegativeInf other) {
         // TODO Jalil if you have time, tighten me.
-        result = new Top();
+        return new Top();
     }
 
     @Override

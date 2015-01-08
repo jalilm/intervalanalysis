@@ -8,54 +8,54 @@ import abstraction.PositiveInf;
 import abstraction.Top;
 
 public interface IMathTransformer {
-    void addInterval(Interval other, LatticeElement result);
+    LatticeElement addInterval(Interval other);
 
-    void addTop(Top other, LatticeElement result);
+    LatticeElement addTop(Top other);
 
-    void addBottom(Bottom other, LatticeElement result);
+    LatticeElement addBottom(Bottom other);
 
-    void addPositiveInf(PositiveInf other, LatticeElement result);
+    LatticeElement addPositiveInf(PositiveInf other);
 
-    void addNegativeInf(NegativeInf other, LatticeElement result);
+    LatticeElement addNegativeInf(NegativeInf other);
 
-    void subInterval(Interval other, LatticeElement result);
+    LatticeElement subInterval(Interval other);
 
-    void subTop(Top other, LatticeElement result);
+    LatticeElement subTop(Top other);
 
-    void subBottom(Bottom other, LatticeElement result);
+    LatticeElement subBottom(Bottom other);
 
-    void subPositiveInf(PositiveInf other, LatticeElement result);
+    LatticeElement subPositiveInf(PositiveInf other);
 
-    void subNegativeInf(NegativeInf other, LatticeElement result);
+    LatticeElement subNegativeInf(NegativeInf other);
 
-    void mulInterval(Interval other, LatticeElement result);
+    LatticeElement mulInterval(Interval other);
 
-    void mulTop(Top other, LatticeElement result);
+    LatticeElement mulTop(Top other);
 
-    void mulBottom(Bottom other, LatticeElement result);
+    LatticeElement mulBottom(Bottom other);
 
-    void mulPositiveInf(PositiveInf other, LatticeElement result);
+    LatticeElement mulPositiveInf(PositiveInf other);
 
-    void mulNegativeInf(NegativeInf other, LatticeElement result);
+    LatticeElement mulNegativeInf(NegativeInf other);
 
-    void divInterval(Interval other, LatticeElement result);
+    LatticeElement divInterval(Interval other);
 
-    void divTop(Top other, LatticeElement result);
+    LatticeElement divTop(Top other);
 
-    void divBottom(Bottom other, LatticeElement result);
+    LatticeElement divBottom(Bottom other);
 
-    void divPositiveInf(PositiveInf other, LatticeElement result);
+    LatticeElement divPositiveInf(PositiveInf other);
 
-    void divNegativeInf(NegativeInf other, LatticeElement result);
+    LatticeElement divNegativeInf(NegativeInf other);
 
-    void modInterval(Interval other, LatticeElement result);
+    LatticeElement modInterval(Interval other);
 
-    void modTop(Top other, LatticeElement result);
+    LatticeElement modTop(Top other);
 
-    void modBottom(Bottom other, LatticeElement result);
+    LatticeElement modBottom(Bottom other);
 
-    void modPositiveInf(PositiveInf other, LatticeElement result);
+    LatticeElement modPositiveInf(PositiveInf other);
 
-    void modNegativeInf(NegativeInf other, LatticeElement result);
+    LatticeElement modNegativeInf(NegativeInf other);
 
 }

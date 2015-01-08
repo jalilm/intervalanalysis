@@ -8,76 +8,76 @@ public abstract class AbstractBottom implements LatticeElement {
 
     @Override
     public LatticeElement add(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.addBottom((Bottom) this, result);
-        return result;
+
+        return transformer.addBottom((Bottom) this);
+
     }
 
     @Override
     public LatticeElement sub(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.subBottom((Bottom) this, result);
-        return result;
+
+        return transformer.subBottom((Bottom) this);
+
     }
 
     @Override
     public LatticeElement mul(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.mulBottom((Bottom) this, result);
-        return result;
+
+        return transformer.mulBottom((Bottom) this);
+
     }
 
     @Override
     public LatticeElement div(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.divBottom((Bottom) this, result);
-        return result;
+
+        return transformer.divBottom((Bottom) this);
+
     }
 
     @Override
     public LatticeElement mod(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.modBottom((Bottom) this, result);
-        return result;
+
+        return transformer.modBottom((Bottom) this);
+
     }
 
     @Override
     public LatticeElement join(IJoinMeetTransformer transformer) {
-        LatticeElement result = null;
-        transformer.joinBottom((Bottom) this, result);
-        return result;
+
+        return transformer.joinBottom((Bottom) this);
+
     }
 
     @Override
     public LatticeElement meet(IJoinMeetTransformer transformer) {
-        LatticeElement result = null;
-        transformer.meetBottom((Bottom) this, result);
-        return result;
+
+        return transformer.meetBottom((Bottom) this);
+
     }
 
     @Override
-    public void joinInterval(Interval other, LatticeElement result) {
-        result = other;
+    public LatticeElement joinInterval(Interval other) {
+        return other;
     }
 
     @Override
-    public void joinTop(Top other, LatticeElement result) {
-        result = other;
+    public LatticeElement joinTop(Top other) {
+        return other;
     }
 
     @Override
-    public void joinBottom(Bottom other, LatticeElement result) {
-        result = other;
+    public LatticeElement joinBottom(Bottom other) {
+        return other;
     }
 
     @Override
-    public void joinPositiveInf(PositiveInf other, LatticeElement result) {
-        result = other;
+    public LatticeElement joinPositiveInf(PositiveInf other) {
+        return other;
     }
 
     @Override
-    public void joinNegativeInf(NegativeInf other, LatticeElement result) {
-        result = other;
+    public LatticeElement joinNegativeInf(NegativeInf other) {
+        return other;
     }
 
     @Override
@@ -117,31 +117,36 @@ public abstract class AbstractBottom implements LatticeElement {
     }
 
     @Override
-    public void meetInterval(Interval other, LatticeElement result) {
+    public LatticeElement meetInterval(Interval other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetTop(Top other, LatticeElement result) {
+    public LatticeElement meetTop(Top other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetBottom(Bottom other, LatticeElement result) {
+    public LatticeElement meetBottom(Bottom other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetPositiveInf(PositiveInf other, LatticeElement result) {
+    public LatticeElement meetPositiveInf(PositiveInf other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetNegativeInf(NegativeInf other, LatticeElement result) {
+    public LatticeElement meetNegativeInf(NegativeInf other) {
+        return null;
         // TODO Auto-generated method stub
 
     }

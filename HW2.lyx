@@ -87,256 +87,169 @@ Domain
 \end_layout
 
 \begin_layout Standard
-The Interval domain is 
-\begin_inset Formula $(L,\le_{i},\vee_{i},\wedge_{i},\bot_{i},[-\infty,\infty])$
+The absratct domain is: 
+\begin_inset Formula $\left(L,\le_{i},\vee_{i},\wedge_{i},\bot_{i},\left[-\infty,\infty\right]\right)$
+\end_inset
+
+, where we define the following as well:
+\end_layout
+
+\begin_layout Itemize
+\noindent
+\begin_inset Formula $Z_{\infty}=Z\cup\left\{ -\infty,\infty\right\} $
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 \noindent
-\begin_inset Formula $Z_{\infty}=Z\cup\{-\infty,\infty\}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-\begin_inset Formula $L=\{[x,y]\,|\, x,y\in Z_{\infty},y\ge_{\infty}x\}\cup\bot_{i}$
+\begin_inset Formula $L=\left\{ \left[x,y\right]\,|\, x,y\in Z_{\infty},y\ge_{\infty}x\right\} \cup\bot_{i}$
 \end_inset
 
 .
 \end_layout
 
-\begin_layout Standard
-\noindent
-As well we shorthand denote 
-\begin_inset Formula $\forall z\in Z\left[z,z\right]$
+\begin_layout Itemize
+The realtion 
+\begin_inset Formula $\le_{\infty}$
 \end_inset
 
- the interval 
-\begin_inset Formula $\left[z,z\right]$
+ for 
+\begin_inset Formula $Z_{\infty}$
 \end_inset
 
- with 
-\begin_inset Formula $z$
-\end_inset
-
-, furthermore we define:
-\end_layout
-
-\begin_layout Enumerate
-\noindent
-\begin_inset Formula $\forall z\in Z_{\infty}\backslash-\infty$
-\end_inset
-
-, 
-\begin_inset Formula $\infty+z=\infty,\infty-z=\infty,z+\infty=\infty,z-\infty=\infty$
+: 
+\begin_inset Formula $x\le_{\infty}y\iff\left(x,y\in Z,\, x\le y\right)\vee\left(x=-\infty\right)\vee\left(y=\infty\right)$
 \end_inset
 
 .
 \end_layout
 
-\begin_layout Enumerate
-\begin_inset Formula $\forall z\in Z_{\infty}\backslash+\infty,-\infty+z=-\infty,-\infty-z=-\infty,z+-\infty=-\infty,z--\infty=\infty.$
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in Z_{\infty}\backslash\left\{ -\infty\right\} :\,\infty+z=\infty,\infty-z=\infty,z+\infty=\infty,z-\infty=\infty.$
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-\noindent
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in Z_{\infty}\backslash\left\{ \infty\right\} :\,\left(-\infty\right)+z=-\infty,\left(-\infty\right)-z=-\infty,z+\left(-\infty\right)=-\infty,z-\left(-\infty\right)=\infty.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in Z_{\infty}:\, z*0=0*z=0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in Z_{\infty}\backslash\left\{ -\infty\right\} \cup\left\{ z\in Z\,|\, z<0\right\} :\,\infty*z=\infty,z*\infty=\infty.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in Z_{\infty}\backslash\left\{ \infty\right\} \cup\left\{ z\in Z\,|\, z>0\right\} :\,\infty*z=-\infty,z*\infty=-\infty.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in Z_{\infty}\backslash\left\{ -\infty\right\} \cup\left\{ z\in Z\,|\, z<0\right\} :\,\left(-\infty\right)*z=-\infty,z*\left(-\infty\right)=-\infty.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in Z_{\infty}\backslash\left\{ \infty\right\} \cup\left\{ z\in Z\,|\, z>0\right\} :\,\left(-\infty\right)*z=-\infty,z*\left(-\infty\right)=\infty.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
 For a set 
 \begin_inset Formula $S\subseteq Z_{\infty}$
 \end_inset
 
-, 
-\begin_inset Formula $min_{\infty}(S)$
+ , 
+\begin_inset Formula $min_{\infty}\left(S\right)$
 \end_inset
 
- returns the minimum number in 
+ is the minimal number in 
 \begin_inset Formula $S$
 \end_inset
 
- including 
-\begin_inset Formula $-\infty,\infty$
+ according to 
+\begin_inset Formula $\le_{\infty}$
 \end_inset
 
 .
- 
-\begin_inset Formula $max_{\infty}(S)$
+\end_layout
+
+\begin_layout Itemize
+For a set 
+\begin_inset Formula $S\subseteq Z_{\infty}$
 \end_inset
 
- returns the maximum number in 
+,
+\begin_inset Formula $max_{\infty}\left(S\right)$
+\end_inset
+
+ is the maximal number in 
 \begin_inset Formula $S$
 \end_inset
 
- including 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $-\infty,\infty$
+ according to 
+\begin_inset Formula $\le_{\infty}$
 \end_inset
 
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
 .
 \end_layout
 
-\begin_layout Standard
-\noindent
-Define 
-\begin_inset Formula $\le_{\infty}$
+\begin_layout Itemize
+\begin_inset Formula $\left[a,b\right]\le_{i}\left[c,d\right]\Longleftrightarrow\left(c\le_{\infty}a\right)\wedge\left(b\le_{\infty}d\right)$
 \end_inset
 
-for 
-\begin_inset Formula $Z_{\infty}$
-\end_inset
-
-:
+.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Formula $x\le_{\infty}y\iff(x,y\in Z,\, x\le y$
+\begin_layout Itemize
+\begin_inset Formula $\left[a,b\right]\vee_{i}\left[c,d\right]=\left[min_{\infty}\left(\left\{ a,c\right\} \right),max_{\infty}\left(\left\{ b,d\right\} \right)\right]$
 \end_inset
 
-) 
-\begin_inset Formula $\vee$
-\end_inset
-
-
-\begin_inset Formula $(x=-\infty)$
-\end_inset
-
- 
-\begin_inset Formula $\vee$
-\end_inset
-
- 
-\begin_inset Formula $(y=\infty)$
-\end_inset
-
- 
+.
 \end_layout
 
-\begin_layout Paragraph*
-Operations
-\begin_inset Newline newline
+\begin_layout Itemize
+\begin_inset Formula $\left[a,b\right]\wedge_{i}\left[c,d\right]=\left[meet\left(max_{\infty}\left(\left\{ a,c\right\} \right),min_{\infty}\left(\left\{ b,d\right\} \right)\right)\right]$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-[a,b] 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\le_{i}$
+ where 
+\begin_inset Formula $meet\left(a,b\right)$
 \end_inset
 
-
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- [c,d] 
-\begin_inset Formula $\Longleftrightarrow$
+ returns 
+\begin_inset Formula $\left[a,b\right]$
 \end_inset
 
-(c
-\begin_inset Formula $\le_{\infty}$
+ if 
+\begin_inset Formula $a\le_{\infty}b$
 \end_inset
 
- a) 
-\begin_inset Formula $\wedge$
-\end_inset
-
-(b 
-\begin_inset Formula $\le_{\infty}$
-\end_inset
-
- d) 
-\end_layout
-
-\begin_layout Standard
-\noindent
-[a,b] 
-\begin_inset Formula $\vee_{i}$
-\end_inset
-
- [c,d] = [
-\begin_inset Formula $min_{\infty}$
-\end_inset
-
-({a,c}), 
-\begin_inset Formula $max_{\infty}$
-\end_inset
-
-({b,d})] 
-\end_layout
-
-\begin_layout Standard
-\noindent
-[a,b] 
-\begin_inset Formula $\wedge_{i}$
-\end_inset
-
- [c,d] = [meet(
-\begin_inset Formula $max_{\infty}$
-\end_inset
-
-({a,c}),
-\begin_inset Formula $min_{\infty}$
-\end_inset
-
-({b,d}))] where meet(a,b) returns [a,b] if a 
-\begin_inset Formula $\le_{\infty}$
-\end_inset
-
- b and 
+ and 
 \begin_inset Formula $\bot_{i}$
 \end_inset
 
- otherwise 
+ otherwise.
 \end_layout
 
 \begin_layout Subsection
@@ -490,7 +403,7 @@ Interval abstraction
 \begin_inset Formula $\alpha_{i}$
 \end_inset
 
- maps for each program Label and local variable a set of integers 
+ maps for each program Label and local variable and a set of integers 
 \begin_inset Formula $A$
 \end_inset
 
@@ -498,7 +411,7 @@ Interval abstraction
 \begin_inset Formula $a\in A$
 \end_inset
 
-
+.
 \end_layout
 
 \begin_layout Paragraph
@@ -614,7 +527,7 @@ Define for local
 \end_layout
 
 \begin_layout Subsection
-Logical transformations - If
+Logical Transformations - If
 \end_layout
 
 \begin_layout Subsubsection
@@ -648,8 +561,8 @@ if (e1
 ) = 
 \begin_inset Formula $\begin{cases}
 below & \text{\text{e1 and e2 are constants}}\\
-\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2)+1,\infty] & \text{e1 is local, e2 is constant}\\
-{}[if(e2<e1)]_{true}(\sigma) & \text{e1 is constant, e2 is local}\\
+\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2)+1,\infty] & \text{e1 is local, e2 is constant}\\{}
+[if(e2<e1)]_{true}(\sigma) & \text{e1 is constant, e2 is local}\\
 below & \text{e1,e2 are locals}
 \end{cases}$
 \end_inset
@@ -830,8 +743,8 @@ if (e1
 ) = 
 \begin_inset Formula $\begin{cases}
 below & \text{\text{e1 and e2 are constants}}\\
-\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2),\infty] & \text{e1 is local, e2 is constant}\\
-{}[if(e2\le e1)]_{true}(\sigma) & \text{e1 is constant, e2 is local}\\
+\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2),\infty] & \text{e1 is local, e2 is constant}\\{}
+[if(e2\le e1)]_{true}(\sigma) & \text{e1 is constant, e2 is local}\\
 below & \text{e1,e2 are locals}
 \end{cases}$
 \end_inset
@@ -1301,7 +1214,11 @@ if (e2
 \end_layout
 
 \begin_layout Subsection
-Switch
+Logical Transformations - Switch
+\end_layout
+
+\begin_layout Standard
+TBD
 \end_layout
 
 \begin_layout Subsection
@@ -1309,26 +1226,142 @@ Arthmitc Operations
 \end_layout
 
 \begin_layout Subsubsection
-[z=x+y]
+[w=z]
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\left[z=x+y\right]$
-\end_inset
-
-
-\begin_inset Formula $\left(\sigma\right)=\sigma\wedge_{i}\left\{ z\rightarrow\left[\sigma\left(x\right).low+\sigma\left(y\right).low,\sigma\left(x\right).high+\sigma\left(y\right).high\right]\right\} $
+\begin_inset Formula $\left[w=z\right]\left(\sigma\right)=\begin{cases}
+\sigma\vee_{i}\left\{ w\rightarrow\left[z,z\right]\right\}  & z\in Z\\
+\sigma\vee_{i}\left\{ w\rightarrow\sigma\left(z\right)\right\}  & z\in L
+\end{cases}$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Subsubsection
-[z=x-y]
+[w=x+y]
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\left[z=x-y\right]\left(\sigma\right)=\sigma\wedge_{i}\left\{ z\rightarrow\left[min(\sigma\left(x\right).low-\sigma\left(y\right).high,\sigma\left(x\right).high-\sigma\left(y\right).low),max(\sigma\left(x\right).low-\sigma\left(y\right).high,\sigma\left(x\right).high-\sigma\left(y\right).low)\right]\right\} $
+\begin_inset Formula $\left[w=x+y\right]\left(\sigma\right)=\begin{cases}
+\sigma\vee_{i}\left\{ w\rightarrow\left[x+y,x+y\right]\right\}  & x,y\in Z\\
+\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low+y,\sigma\left(x\right).high+y\right]\right\}  & x\in L,y\in Z\\
+\sigma\vee_{i}w\rightarrow\left\{ \left[x+\sigma\left(y\right).low,x+\sigma\left(y\right).high\right]\right\}  & x\in Z,y\in L\\
+\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low+\sigma\left(y\right).low,\sigma\left(x\right).high+\sigma\left(y\right).high\right]\right\}  & x,y\in L
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+[w=x-y]
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left[w=x-y\right]\left(\sigma\right)=\begin{cases}
+\sigma\vee_{i}\left\{ w\rightarrow\left[x-y,x-y\right]\right\}  & x,y\in Z\\
+\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low-y,\sigma\left(x\right).high-y\right]\right\}  & x\in L,y\in Z\\
+\sigma\vee_{i}w\rightarrow\left\{ \left[x-\sigma\left(y\right).low,x-\sigma\left(y\right).high\right]\right\}  & x\in Z,y\in L\\
+\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low-\sigma\left(y\right).low,\sigma\left(x\right).high-\sigma\left(y\right).high\right]\right\}  & x,y\in L
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+[w=x*y]
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $x,y\in Z$
+\end_inset
+
+ then:
+\begin_inset Formula 
+\[
+\left[w=x*y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[x*y,x*y\right]\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $x\in L,z\in Z$
+\end_inset
+
+ then: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\left[w=x*z\right]\left(\sigma\right) & = & \sigma\vee_{i}w\rightarrow\{[min_{\infty}\left(\left\{ \sigma\left(x\right).low*z,\sigma\left(x\right).high*z\right\} \right),\\
+ &  & max_{\infty}\left(\left\{ \sigma\left(x\right).low*z,\sigma\left(x\right).high*z\right\} \right)]\}
+\end{eqnarray*}
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $z\in Z,x\in L$
+\end_inset
+
+ then 
+\begin_inset Formula $\left[w=z*x\right]\left(\sigma\right)=\left[w=x*z\right]\left(\sigma\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $x,y\in L$
+\end_inset
+
+ ,we define:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+lowest & = & min_{\infty}(\sigma\left(x\right).low*\sigma\left(y\right).low,\\
+ &  & \sigma\left(x\right).high*\sigma\left(y\right).low,\\
+ &  & \sigma\left(x\right).low*\sigma\left(y\right).high,\\
+ &  & \sigma\left(x\right).high*\sigma\left(y\right).high\})
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+highest & = & max_{\infty}(\{\sigma\left(x\right).low*\sigma\left(y\right).low,\\
+ &  & \sigma\left(x\right).high*\sigma\left(y\right).low,\\
+ &  & \sigma\left(x\right).low*\sigma\left(y\right).high,\\
+ &  & \sigma\left(x\right).high*\sigma\left(y\right).high\})
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+then 
+\begin_inset Formula $\left[w=x*y\right]\left(\sigma\right)=\sigma\vee_{i}w\rightarrow\left\{ \left[lowest,highest\right]\right\} $
 \end_inset
 
 

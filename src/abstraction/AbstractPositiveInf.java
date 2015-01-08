@@ -9,106 +9,111 @@ public abstract class AbstractPositiveInf implements LatticeElement {
 
     @Override
     public LatticeElement add(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.addPositiveInf((PositiveInf) this, result);
-        return result;
+
+        return transformer.addPositiveInf((PositiveInf) this);
+
     }
 
     @Override
     public LatticeElement sub(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.subPositiveInf((PositiveInf) this, result);
-        return result;
+
+        return transformer.subPositiveInf((PositiveInf) this);
+
     }
 
     @Override
     public LatticeElement mul(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.mulPositiveInf((PositiveInf) this, result);
-        return result;
+
+        return transformer.mulPositiveInf((PositiveInf) this);
+
     }
 
     @Override
     public LatticeElement div(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.divPositiveInf((PositiveInf) this, result);
-        return result;
+
+        return transformer.divPositiveInf((PositiveInf) this);
+
     }
 
     @Override
     public LatticeElement mod(IMathTransformer transformer) {
-        LatticeElement result = null;
-        transformer.modPositiveInf((PositiveInf) this, result);
-        return result;
+
+        return transformer.modPositiveInf((PositiveInf) this);
+
     }
 
     @Override
     public LatticeElement join(IJoinMeetTransformer transformer) {
-        LatticeElement result = null;
-        transformer.joinPositiveInf((PositiveInf) this, result);
-        return result;
+
+        return transformer.joinPositiveInf((PositiveInf) this);
+
     }
 
     @Override
     public LatticeElement meet(IJoinMeetTransformer transformer) {
-        LatticeElement result = null;
-        transformer.joinPositiveInf((PositiveInf) this, result);
-        return result;
+
+        return transformer.joinPositiveInf((PositiveInf) this);
+
     }
 
     @Override
-    public void joinInterval(Interval other, LatticeElement result) {
-        result = new PositiveInf(IntConstant.v(Math.min(
+    public LatticeElement joinInterval(Interval other) {
+        return new PositiveInf(IntConstant.v(Math.min(
                 ((PositiveInf) this).low.value, other.low.value)));
     }
 
     @Override
-    public void joinTop(Top other, LatticeElement result) {
-        result = other;
+    public LatticeElement joinTop(Top other) {
+        return other;
     }
 
     @Override
-    public void joinBottom(Bottom other, LatticeElement result) {
-        result = this;
+    public LatticeElement joinBottom(Bottom other) {
+        return this;
     }
 
     @Override
-    public void joinPositiveInf(PositiveInf other, LatticeElement result) {
-        result = new PositiveInf(IntConstant.v(Math.min(
+    public LatticeElement joinPositiveInf(PositiveInf other) {
+        return new PositiveInf(IntConstant.v(Math.min(
                 ((PositiveInf) this).low.value, other.low.value)));
     }
 
     @Override
-    public void joinNegativeInf(NegativeInf other, LatticeElement result) {
-        result = new Top();
+    public LatticeElement joinNegativeInf(NegativeInf other) {
+        return new Top();
     }
 
     @Override
-    public void meetInterval(Interval other, LatticeElement result) {
+    public LatticeElement meetInterval(Interval other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetTop(Top other, LatticeElement result) {
+    public LatticeElement meetTop(Top other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetBottom(Bottom other, LatticeElement result) {
+    public LatticeElement meetBottom(Bottom other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetPositiveInf(PositiveInf other, LatticeElement result) {
+    public LatticeElement meetPositiveInf(PositiveInf other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void meetNegativeInf(NegativeInf other, LatticeElement result) {
+    public LatticeElement meetNegativeInf(NegativeInf other) {
+        return null;
         // TODO Auto-generated method stub
 
     }
