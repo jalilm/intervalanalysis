@@ -4,8 +4,8 @@ import soot.jimple.IntConstant;
 import transform.ILogicalTransformer;
 import transform.IMathTransformer;
 
-public class Interval extends AbstractInterval implements ILogicalTransformer,
-        IMathTransformer {
+public final class Interval extends AbstractInterval implements
+        ILogicalTransformer, IMathTransformer {
 
     final IntConstant low;
     final IntConstant high;
@@ -64,15 +64,14 @@ public class Interval extends AbstractInterval implements ILogicalTransformer,
 
     @Override
     public LatticeElement addPositiveInf(PositiveInf other) {
-        return new PositiveInf(
-                IntConstant.v(this.low.value + other.low.value));
+        return new PositiveInf(IntConstant.v(this.low.value + other.low.value));
 
     }
 
     @Override
     public LatticeElement addNegativeInf(NegativeInf other) {
-        return new NegativeInf(IntConstant.v(other.high.value
-                + this.high.value));
+        return new NegativeInf(
+                IntConstant.v(other.high.value + this.high.value));
     }
 
     @Override
@@ -93,14 +92,12 @@ public class Interval extends AbstractInterval implements ILogicalTransformer,
 
     @Override
     public LatticeElement subPositiveInf(PositiveInf other) {
-        return new PositiveInf(IntConstant.v(other.low.value
-                - this.high.value));
+        return new PositiveInf(IntConstant.v(other.low.value - this.high.value));
     }
 
     @Override
     public LatticeElement subNegativeInf(NegativeInf other) {
-        return new NegativeInf(IntConstant.v(other.high.value
-                - this.low.value));
+        return new NegativeInf(IntConstant.v(other.high.value - this.low.value));
     }
 
     @Override

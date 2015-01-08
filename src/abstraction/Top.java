@@ -3,7 +3,7 @@ package abstraction;
 import transform.ILogicalTransformer;
 import transform.IMathTransformer;
 
-public class Top extends TopAbstract implements IMathTransformer,
+public final class Top extends TopAbstract implements IMathTransformer,
         ILogicalTransformer {
 
     @Override

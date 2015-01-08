@@ -19,13 +19,16 @@ import tools.StatementVisitor;
 
 public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
 
+    final int wideningThreshold = 10;
     State initState;
     Map<Unit, Integer> unitToCounter;
+    Map<Value, LatticeElement> varToElement;
 
     public IntervalAnalysis(UnitGraph graph) {
         super(graph);
         initState = new State();
         unitToCounter = new HashMap<Unit, Integer>();
+        varToElement = new HashMap<Value, LatticeElement>();
         for (Iterator<Unit> unitIt = graph.iterator(); unitIt.hasNext();) {
             Unit s = (Unit) unitIt.next();
             unitToCounter.put(s, 0);
@@ -54,18 +57,29 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
     @Override
     protected void flowThrough(State inState, Unit stmt, List<State> fallOut,
             List<State> BranchOut) {
-        unitToCounter.put(stmt, unitToCounter.get(stmt)+1);
-        if (unitToCounter.get(stmt)== 10) {
-            widen(inState, stmt, fallOut, BranchOut);
-            return;
+        Value var = stmt.getDefBoxes().get(0).getValue();
+        if (unitToCounter.get(stmt) == wideningThreshold) {
+            LatticeElement lastElement = varToElement.get(var);
+            LatticeElement currElement = varToElement.get(var);
+            LatticeElement widenElement = lastElement.widen(currElement);
+            if (widenElement != null) {
+                unitToCounter.put(stmt, 0);
+                varToElement.put(var, inState.getVarState(var));
+                for(State s : fallOut) {
+                    s.updateVarState(var, widenElement);
+                }
+                for(State s : BranchOut) {
+                    s.updateVarState(var, widenElement);
+                }
+                return;
+            }
         }
+        
+        unitToCounter.put(stmt, unitToCounter.get(stmt) + 1);
+        varToElement.put(var, inState.getVarState(var));
         StatementVisitor visitor = new StatementVisitor();
         visitor.visit(stmt, inState, fallOut, BranchOut);
-    }
 
-    private void widen(State inState, Unit stmt, List<State> fallOut,
-            List<State> BranchOut) {
-        unitToCounter.put(stmt,0);
     }
 
     @Override
