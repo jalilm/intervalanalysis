@@ -2,23 +2,14 @@ package abstraction.operations;
 
 import intervalAnalysis.State;
 
-import java.util.Iterator;
-import java.util.List;
 
-import abstraction.Interval;
+
 import abstraction.LatticeElement;
 import abstraction.PositiveInf;
 import soot.Local;
 import soot.Value;
-import soot.jimple.AssignStmt;
-import soot.jimple.IfStmt;
 import soot.jimple.IntConstant;
-import soot.jimple.NumericConstant;
-import soot.jimple.internal.AbstractBinopExpr;
-import soot.jimple.internal.AbstractJimpleFloatBinopExpr;
-import soot.jimple.internal.JimpleLocal;
-import soot.tagkit.IntegerConstantValueTag;
-import transform.ILogicalTransformer;
+
 
 
 public class GtOp extends AbstractLogicOperation{
