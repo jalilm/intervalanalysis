@@ -31,11 +31,11 @@ public class GtOp extends AbstractLogicOperation{
 	public State op(State in, Local left, IntConstant right) 
 	{
 		
-		LatticeElement leftInt = in.getVarState(left);
+		LatticeElement leftInt = in.getLatticeElement(left);
 		IntConstant upper = IntConstant.v(right.value+1);
 		LatticeElement rightInt = new PositiveInf(upper); 
 		LatticeElement meet = rightInt.meet(leftInt); 
-		in.updateVarState(left,meet);
+		in.updateLatticeElement(left,meet);
 		return in;
 
 	}
@@ -49,15 +49,15 @@ public class GtOp extends AbstractLogicOperation{
 	@Override
 	public State op(State in, Local left, Local right) {
 		
-		LatticeElement leftInt = in.getVarState(left);
-		LatticeElement rightInt = in.getVarState(right);
+		LatticeElement leftInt = in.getLatticeElement(left);
+		LatticeElement rightInt = in.getLatticeElement(right);
 		if (leftInt == null || rightInt == null)
 		{
 			return in;
 		}
 		//TODO
 		LatticeElement meet = rightInt.meet(leftInt); 
-		in.updateVarState(left,meet);
+		in.updateLatticeElement(left,meet);
 		return in;
 
 	}
