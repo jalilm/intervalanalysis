@@ -72,7 +72,7 @@ public class State {
         dest.nameToState = new HashMap<Value, LatticeElement>(this.nameToState);
     }
     
-    public LatticeElement getVarState(Value varName) {
+    public LatticeElement getLatticeElement(Value varName) {
         if (varName instanceof IntConstant) {
             return new Interval((IntConstant) varName,
                     (IntConstant) varName);
@@ -83,11 +83,11 @@ public class State {
         }
     }
     
-    public void setVarState(Value varName, LatticeElement varState) {
+    public void setLatticeElement(Value varName, LatticeElement varState) {
         nameToState.put(varName, varState);
     }
     
-    public LatticeElement updateVarState(Value varName, LatticeElement varState) {
+    public LatticeElement updateLatticeElement(Value varName, LatticeElement varState) {
         LatticeElement newState;
         LatticeElement oldState = nameToState.get(varName);        
         if (oldState == null) {
@@ -95,21 +95,21 @@ public class State {
         } else {
             newState = oldState.join(varState);
         }
-        setVarState(varName, newState);
+        setLatticeElement(varName, newState);
         return newState;
     }
 
-    public State merge(State in2) {
-        State out = new State();
-        if (in2 == null) { 
-            this.copy(out);
+    public State merge(State in) {
+        State res = new State();
+        if (in == null) { 
+            this.copy(res);
         } else {
-            in2.copy(out);
+            in.copy(res);
             for (Value name : nameToState.keySet()) {
-                out.updateVarState(name, this.getVarState(name));
+                res.updateLatticeElement(name, this.getLatticeElement(name));
             }
         }
-        return out;
+        return res;
     }
     
 }

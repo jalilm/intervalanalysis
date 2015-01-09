@@ -35,7 +35,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
             if (s.getClass().getName()
                     .equals("soot.jimple.internal.JIdentityStmt")) {
                 Value v = s.getDefBoxes().get(0).getValue();
-                initState.setVarState(v, new Top());
+                initState.setLatticeElement(v, new Top());
             } else if (s.getClass().getName()
                     .equals("soot.jimple.internal.JAssignStmt")) {
                 LatticeElement rightOpState = null;
@@ -45,7 +45,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
                 if (rightOp instanceof NumericConstant) {
                     rightOpState = new Interval((IntConstant) rightOp,
                             (IntConstant) rightOp);
-                    initState.setVarState(leftOp, rightOpState);
+                    initState.setLatticeElement(leftOp, rightOpState);
                 }
             }
         }
@@ -64,19 +64,19 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
             LatticeElement widenElement = lastElement.widen(currElement);
             if (widenElement != null) {
                 unitToCounter.put(stmt, 0);
-                varToElement.put(var, inState.getVarState(var));
+                varToElement.put(var, inState.getLatticeElement(var));
                 for(State s : fallOut) {
-                    s.updateVarState(var, widenElement);
+                    s.updateLatticeElement(var, widenElement);
                 }
                 for(State s : BranchOut) {
-                    s.updateVarState(var, widenElement);
+                    s.updateLatticeElement(var, widenElement);
                 }
                 return;
             }
         }
         
         unitToCounter.put(stmt, unitToCounter.get(stmt) + 1);
-        varToElement.put(var, inState.getVarState(var));
+        varToElement.put(var, inState.getLatticeElement(var));
         StatementVisitor visitor = new StatementVisitor();
         visitor.visit(stmt, inState, fallOut, BranchOut);
 

@@ -35,14 +35,14 @@ public class AssignmentStmt extends StmtCommand {
                     (IntConstant) rightOp);
         } else if(rightOp instanceof JimpleLocal){
             rightOpState = this.inState
-                    .getVarState(rightOp);
+                    .getLatticeElement(rightOp);
         } else if (rightOp instanceof AbstractJimpleFloatBinopExpr) {
             LatticeElement op1State = this.inState
-                    .getVarState((((AbstractJimpleFloatBinopExpr) rightOp)
+                    .getLatticeElement((((AbstractJimpleFloatBinopExpr) rightOp)
                             .getOp1()));
 
             LatticeElement op2State = this.inState
-                    .getVarState((((AbstractJimpleFloatBinopExpr) rightOp)
+                    .getLatticeElement((((AbstractJimpleFloatBinopExpr) rightOp)
                             .getOp2()));
             if (rightOp instanceof JSubExpr) {
             	rightOpState = op1State.sub(op2State);
@@ -58,7 +58,7 @@ public class AssignmentStmt extends StmtCommand {
                 assert false;
             }
         }
-        this.inState.updateVarState(leftOp, rightOpState);
+        this.inState.updateLatticeElement(leftOp, rightOpState);
         State s = fallOut.get(0).merge(inState);
         fallOut.remove(0);
         fallOut.add(0,s);
