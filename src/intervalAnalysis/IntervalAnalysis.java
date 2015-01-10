@@ -31,6 +31,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
         initState = state;
         unitToCounter = new HashMap<Unit, Integer>();
         varToElement = new HashMap<Value, LatticeElement>();
+        // Add parameters with [-inf,inf]
         for (Iterator<Unit> unitIt = graph.iterator(); unitIt.hasNext();) {
             Unit s = (Unit) unitIt.next();
             unitToCounter.put(s, 0);
@@ -38,22 +39,12 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
                     .equals("soot.jimple.internal.JIdentityStmt")) {
                 Value v = s.getDefBoxes().get(0).getValue();
                 initState.setVarState(v, new Top());
-            } else if (s.getClass().getName()
-                    .equals("soot.jimple.internal.JAssignStmt")) {
-                LatticeElement rightOpState = null;
-                AssignStmt AStmt = (AssignStmt) s;
-                Value leftOp = AStmt.getLeftOp();
-                Value rightOp = AStmt.getRightOp();
-                if (rightOp instanceof NumericConstant) {
-                    rightOpState = new Interval((IntConstant) rightOp,
-                            (IntConstant) rightOp);
-                    initState.setVarState(leftOp, rightOpState);
-                }
             }
+       
         }
 
         doAnalysis();
-        System.out.println(initState.print());
+        System.out.println("IntervalAnalysis: Hello again " + initState.print());
     }
 
     @Override
@@ -66,16 +57,14 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
     	System.out.println("TYPE     : " + stmt.getClass().getName());
     	System.out.println("IN STATE : " + inState.toString());
     	
-    	if (stmt instanceof JReturnStmt ||
-    		stmt instanceof JReturnVoidStmt)
+    	if ((stmt instanceof JReturnStmt || stmt instanceof JReturnVoidStmt))
     	{
-    		//initState = inState;
+    		///
     	}
     	
         StatementVisitor visitor = new StatementVisitor();
         visitor.visit(stmt, inState, fallOut, BranchOut);
         
-        //System.out.println("OUT STATE: " + initState.toString());
         for (State s : fallOut)
         {
         	System.out.println("FALLOUT  : " + s.toString());
@@ -97,7 +86,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
     	System.out.println("***     ENTRY            ******");
     	System.out.println("*******************************");
     	System.out.println("ENTRY : " + initState.toString());
-        return new State();
+        return initState;
     }
 
     @Override
@@ -117,7 +106,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
     	System.out.println("***     NEW            ******");
     	System.out.println("*******************************");
     	System.out.println("NEW : " + initState.toString());
-    	return new State();
+    	return initState;
         
     }
 

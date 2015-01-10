@@ -34,16 +34,15 @@ public class StatementVisitor {
 		case "soot.jimple.internal.JLookupSwitchStmt": caseLookupSwitchStmt((LookupSwitchStmt)stmt,inState,fallOut,BranchOut); break;
 		default: 
 			//copy in to out
-			for (int i = 0; i < fallOut.size(); i++)
-			{
-				State s = fallOut.get(i);
-				fallOut.set(i,s.merge(inState));
-			}
-			for (int i = 0; i < BranchOut.size(); i++)
-			{
-				State s = BranchOut.get(i);
-				BranchOut.set(i,s.merge(inState));
-			}
+	        for (State s : fallOut)
+	     		{
+	        		inState.copy(s);
+	     		}
+	        
+	        for (State s : BranchOut)
+     		{
+        		inState.copy(s);
+     		}
 		
 		}
 	}

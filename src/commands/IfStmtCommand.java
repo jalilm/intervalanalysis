@@ -5,6 +5,8 @@ import intervalAnalysis.State;
 
 
 
+
+import java.util.Iterator;
 import java.util.List;
 
 import abstraction.operations.AbstractLogicOperation;
@@ -65,22 +67,17 @@ public class IfStmtCommand extends StmtCommand{
         falsePathOut = in.merge(falsePathOut);
         
         //True path
-        for (int i = 0; i < branchOut.size(); i++)
+        for (State s : branchOut)
 		{
-			State s = branchOut.get(i);
-			branchOut.set(i, s.merge(truePathOut));
+			truePathOut.copy(s);
 		}
         
         //False path
-        
-        for (int i = 0; i < fallOut.size(); i++)
-		{
-			State s = fallOut.get(i);
-			fallOut.set(i,s.merge(falsePathOut));
-		}
+        for (State s : fallOut)
+     		{
+        		falsePathOut.copy(s);
+     		}
 
-
-        
 	}
 
 
