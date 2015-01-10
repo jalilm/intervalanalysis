@@ -88,7 +88,8 @@ public class State {
     	{
     		//TODO Delete this 
     		//To set breakpoint
-    		int i = 0; 
+    		@SuppressWarnings("unused")
+            int i = 0; 
     		i++;
     	}
         nameToState.put(varName, varState);

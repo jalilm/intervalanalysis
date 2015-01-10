@@ -1,6 +1,5 @@
 package abstraction;
 
-import java.util.List;
 
 import soot.jimple.IntConstant;
 import transform.ILogicalTransformer;
