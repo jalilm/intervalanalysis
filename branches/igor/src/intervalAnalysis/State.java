@@ -43,7 +43,7 @@ public class State {
     public String toString() {
         StringBuilder sb = new StringBuilder("{");
         for(Value v : nameToState.keySet()) {
-            sb.append(v.toString()+"->"+nameToState.get(v).toString());
+            sb.append(v.toString()+"->"+nameToState.get(v).toString()+";");
         }
         sb.append("}");
         return sb.toString();
