@@ -123,7 +123,11 @@ public final class NegativeInf extends AbstractNegativeInf implements
 
     @Override
     public LatticeElement mulPositiveInf(PositiveInf other) {
-        return new Top();
+        if (other.low.value < 0) {
+            return new Top();
+        } else {
+            return new NegativeInf(other.low.value*this.high.value);
+        }
     }
 
     @Override
