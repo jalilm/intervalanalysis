@@ -64,10 +64,12 @@ public class AssignmentStmt extends StmtCommand {
         	rightOpState = new Top();
         }
         
-        this.inState.updateVarState(leftOp, rightOpState);
-        State s = fallOut.get(0).join(inState);
-        fallOut.remove(0);
-        fallOut.add(0,s);
+        this.inState.setVarState(leftOp, rightOpState);
+        State oldVarState = fallOut.get(0);
+        State newVarState = oldVarState.merge(inState);
+        fallOut.set(0,newVarState) ;
+        //fallOut.remove(0);
+        //fallOut.add(0,s);
     };
 
 }
