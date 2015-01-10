@@ -39,7 +39,7 @@ public abstract class AbstractPositiveInf implements LatticeElement {
 
     @Override
     public LatticeElement meet(IJoinMeetTransformer transformer) {
-        return transformer.joinPositiveInf((PositiveInf) this);
+        return transformer.meetPositiveInf((PositiveInf) this);
     }
 
     @Override
@@ -111,68 +111,36 @@ public abstract class AbstractPositiveInf implements LatticeElement {
 
     @Override
     public LatticeElement meetInterval(Interval other) {
-        return null;
-        // TODO Auto-generated method stub
+        return other.meetPositiveInf((PositiveInf)this);
     }
 
     @Override
     public LatticeElement meetTop(Top other) {
-        return null;
-        // TODO Auto-generated method stub
+        return this;
     }
 
     @Override
     public LatticeElement meetBottom(Bottom other) {
-        return null;
-        // TODO Auto-generated method stub
+        return other;
     }
 
     @Override
     public LatticeElement meetPositiveInf(PositiveInf other) {
-        return null;
-        // TODO Auto-generated method stub
+    	int a = Math.max(((PositiveInf) this).low.value, other.low.value); 
+    	return new PositiveInf(a);
+
     }
 
     @Override
     public LatticeElement meetNegativeInf(NegativeInf other) {
-        return null;
-        // TODO Auto-generated method stub
+    	int a = ((PositiveInf) this).low.value; 
+    	int b = other.high.value;
+    	if (b >= a)
+    	{
+    		return new Interval(a,b);
+    	}
+    	else return new Bottom();
     }
 
-    @Override
-    public LatticeElement eq(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LatticeElement neq(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LatticeElement gt(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LatticeElement ge(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LatticeElement lt(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LatticeElement le(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
 }

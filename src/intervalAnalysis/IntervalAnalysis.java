@@ -24,9 +24,9 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
     Map<Unit, Integer> unitToCounter;
     Map<Value, LatticeElement> varToElement;
 
-    public IntervalAnalysis(UnitGraph graph) {
+    public IntervalAnalysis(UnitGraph graph, State state) {
         super(graph);
-        initState = new State();
+        initState = state;
         unitToCounter = new HashMap<Unit, Integer>();
         varToElement = new HashMap<Value, LatticeElement>();
         for (Iterator<Unit> unitIt = graph.iterator(); unitIt.hasNext();) {
@@ -35,7 +35,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
             if (s.getClass().getName()
                     .equals("soot.jimple.internal.JIdentityStmt")) {
                 Value v = s.getDefBoxes().get(0).getValue();
-                initState.setLatticeElement(v, new Top());
+                initState.setVarState(v, new Top());
             } else if (s.getClass().getName()
                     .equals("soot.jimple.internal.JAssignStmt")) {
                 LatticeElement rightOpState = null;
@@ -45,7 +45,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
                 if (rightOp instanceof NumericConstant) {
                     rightOpState = new Interval((IntConstant) rightOp,
                             (IntConstant) rightOp);
-                    initState.setLatticeElement(leftOp, rightOpState);
+                    initState.setVarState(leftOp, rightOpState);
                 }
             }
         }
@@ -57,29 +57,11 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
     @Override
     protected void flowThrough(State inState, Unit stmt, List<State> fallOut,
             List<State> BranchOut) {
-        Value var = stmt.getDefBoxes().get(0).getValue();
-        if (unitToCounter.get(stmt) == wideningThreshold) {
-            LatticeElement lastElement = varToElement.get(var);
-            LatticeElement currElement = varToElement.get(var);
-            LatticeElement widenElement = lastElement.widen(currElement);
-            if (widenElement != null) {
-                unitToCounter.put(stmt, 0);
-                varToElement.put(var, inState.getLatticeElement(var));
-                for(State s : fallOut) {
-                    s.updateLatticeElement(var, widenElement);
-                }
-                for(State s : BranchOut) {
-                    s.updateLatticeElement(var, widenElement);
-                }
-                return;
-            }
-        }
-        
-        unitToCounter.put(stmt, unitToCounter.get(stmt) + 1);
-        varToElement.put(var, inState.getLatticeElement(var));
+    	
         StatementVisitor visitor = new StatementVisitor();
         visitor.visit(stmt, inState, fallOut, BranchOut);
-
+        
+        System.out.println(initState.print());
     }
 
     @Override
@@ -94,7 +76,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
 
     @Override
     protected void merge(State in1, State in2, State out) {
-        out = in1.merge(in2);
+        out = in1.join(in2);
     }
 
     @Override

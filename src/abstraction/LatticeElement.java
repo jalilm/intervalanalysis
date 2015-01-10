@@ -1,12 +1,15 @@
 package abstraction;
 
+import java.util.List;
+
+import transform.IBuilderTransformer;
 import transform.IJoinMeetTransformer;
 import transform.ILogicalTransformer;
 import transform.IMathTransformer;
 
 public interface LatticeElement extends IMathTransformer, ILogicalTransformer,
-        IJoinMeetTransformer {
-
+        IJoinMeetTransformer, IBuilderTransformer {
+	
     LatticeElement add(IMathTransformer transformer);
 
     LatticeElement sub(IMathTransformer transformer);
@@ -17,21 +20,11 @@ public interface LatticeElement extends IMathTransformer, ILogicalTransformer,
 
     LatticeElement mod(IMathTransformer transformer);
 
-    LatticeElement eq(ILogicalTransformer transformer);
-
-    LatticeElement neq(ILogicalTransformer transformer);
-
-    LatticeElement gt(ILogicalTransformer transformer);
-
-    LatticeElement ge(ILogicalTransformer transformer);
-
-    LatticeElement lt(ILogicalTransformer transformer);
-
-    LatticeElement le(ILogicalTransformer transformer);
-
     LatticeElement join(IJoinMeetTransformer varState);
 
     LatticeElement meet(IJoinMeetTransformer varState);
 
     LatticeElement widen(IJoinMeetTransformer currElement);
+    
+
 }

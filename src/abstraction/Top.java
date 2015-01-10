@@ -1,5 +1,7 @@
 package abstraction;
 
+import java.util.List;
+
 import transform.ILogicalTransformer;
 import transform.IMathTransformer;
 
@@ -151,5 +153,16 @@ public final class Top extends TopAbstract implements IMathTransformer,
     public LatticeElement modNegativeInf(NegativeInf other) {
         return this;
     }
+
+	@Override
+	public LatticeElement createNegativeInfToHigh() {
+		 return this;
+	}
+
+	@Override
+	public LatticeElement createLowToPositiveInf() {
+		 return this;
+	}
+
 
 }

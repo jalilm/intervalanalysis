@@ -97,73 +97,31 @@ public abstract class TopAbstract implements LatticeElement {
     }
 
     @Override
-    public LatticeElement eq(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LatticeElement neq(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LatticeElement gt(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LatticeElement ge(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LatticeElement lt(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LatticeElement le(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public LatticeElement meetInterval(Interval other) {
-        return null;
-        // TODO Auto-generated method stub
-
+    	return other;
     }
 
     @Override
     public LatticeElement meetTop(Top other) {
-        return null;
-        // TODO Auto-generated method stub
+    	return other;
 
     }
 
     @Override
     public LatticeElement meetBottom(Bottom other) {
-        return null;
-        // TODO Auto-generated method stub
+    	return other;
 
     }
 
     @Override
     public LatticeElement meetPositiveInf(PositiveInf other) {
-        return null;
-        // TODO Auto-generated method stub
+    	return other;
 
     }
 
     @Override
     public LatticeElement meetNegativeInf(NegativeInf other) {
-        return null;
-        // TODO Auto-generated method stub
+        return other;
 
     }
 

@@ -1,10 +1,9 @@
 package abstraction.operations;
 
 import intervalAnalysis.State;
-
-
-
+import abstraction.Interval;
 import abstraction.LatticeElement;
+import abstraction.NegativeInf;
 import abstraction.PositiveInf;
 import soot.Local;
 import soot.Value;
@@ -14,7 +13,7 @@ import soot.jimple.IntConstant;
 
 public class GtOp extends AbstractLogicOperation{
 
-	@Override
+
 	public State op(State in, IntConstant left, IntConstant right) {
 		if (left.value > right.value)
 		{
@@ -27,44 +26,44 @@ public class GtOp extends AbstractLogicOperation{
 		}
 	}
 
-	@Override
-	public State op(State in, Local left, IntConstant right) 
-	{
-		
-		LatticeElement leftInt = in.getLatticeElement(left);
-		IntConstant upper = IntConstant.v(right.value+1);
-		LatticeElement rightInt = new PositiveInf(upper); 
-		LatticeElement meet = rightInt.meet(leftInt); 
-		in.updateLatticeElement(left,meet);
-		return in;
 
+	public State op(State in, Local left, IntConstant right)
+	{
+		LatticeElement newX = new PositiveInf(right.value+1); 
+		State out = new State();
+		out.setVarState((Value)left, newX);
+		return in.meet(out);
 	}
 
-	@Override
-	public State op(State in, IntConstant left, Local right) {
-		AbstractLogicOperation o = new LtOp();
-		return o.op(in, right, left);
+
+	public State op(State in, IntConstant left, Local right){
+		LatticeElement newX = new NegativeInf(left.value-1); 
+		State out = new State();
+		out.setVarState((Value)right, newX);
+		return in.meet(out);
 	}
 	
-	@Override
-	public State op(State in, Local left, Local right) {
+
+	public State op(State in, Local left, Local right){
 		
-		LatticeElement leftInt = in.getLatticeElement(left);
-		LatticeElement rightInt = in.getLatticeElement(right);
-		if (leftInt == null || rightInt == null)
-		{
-			return in;
-		}
-		//TODO
-		LatticeElement meet = rightInt.meet(leftInt); 
-		in.updateLatticeElement(left,meet);
-		return in;
+		LatticeElement x = in.getVarState(left);
+		LatticeElement y = in.getVarState(right);
+
+		LatticeElement newX = y.createLowToPositiveInf();
+		newX = newX.add(new Interval(1,1));
+		LatticeElement newY = x.createNegativeInfToHigh();
+		newY = newY.sub(new Interval(1,1));
+
+		State out = new State();
+		out.setVarState((Value)left, newX);
+		out.setVarState((Value)right,newY);
+		return in.meet(out);
 
 	}
 
 	@Override
 	public State negate(State in, Value left, Value right) {
-		return new GeOp().op(in, right, left);
+		return new LeOp().op(in, left, right);
 	}
 
 

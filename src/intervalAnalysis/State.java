@@ -72,7 +72,7 @@ public class State {
         dest.nameToState = new HashMap<Value, LatticeElement>(this.nameToState);
     }
     
-    public LatticeElement getLatticeElement(Value varName) {
+    public LatticeElement getVarState(Value varName) {
         if (varName instanceof IntConstant) {
             return new Interval((IntConstant) varName,
                     (IntConstant) varName);
@@ -83,11 +83,16 @@ public class State {
         }
     }
     
-    public void setLatticeElement(Value varName, LatticeElement varState) {
+    public void setVarState(Value varName, LatticeElement varState) {
+    	if (varState == null) 
+    	{
+    		int i = 0; 
+    		i++;
+    	}
         nameToState.put(varName, varState);
     }
     
-    public LatticeElement updateLatticeElement(Value varName, LatticeElement varState) {
+    public LatticeElement updateVarState(Value varName, LatticeElement varState) {
         LatticeElement newState;
         LatticeElement oldState = nameToState.get(varName);        
         if (oldState == null) {
@@ -95,21 +100,37 @@ public class State {
         } else {
             newState = oldState.join(varState);
         }
-        setLatticeElement(varName, newState);
+        setVarState(varName, newState);
         return newState;
     }
 
-    public State merge(State in) {
-        State res = new State();
-        if (in == null) { 
-            this.copy(res);
+    public State join(State in2) {
+        State out = new State();
+        if (in2 == null) { 
+            this.copy(out);
         } else {
-            in.copy(res);
+            in2.copy(out);
             for (Value name : nameToState.keySet()) {
-                res.updateLatticeElement(name, this.getLatticeElement(name));
+                out.updateVarState(name, this.getVarState(name));
             }
         }
-        return res;
+        return out;
     }
     
+    public State meet(State in2) {
+        State out = new State();
+        if (in2 == null) { 
+            this.copy(out);
+        } else {
+            this.copy(out);
+            for (Value name : nameToState.keySet()) {
+            	LatticeElement i1 = in2.getVarState(name); 
+            	LatticeElement i2 = out.getVarState(name);
+
+            	if (i1 != null)
+            		out.setVarState(name, i1.meet(i2));
+            }
+        }
+        return out;
+    }
 }

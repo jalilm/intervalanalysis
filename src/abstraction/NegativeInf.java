@@ -12,12 +12,12 @@ public final class NegativeInf extends AbstractNegativeInf implements
     public NegativeInf(IntConstant high) {
         this.high = high;
     }
-    
-    public NegativeInf(int high) {
-        this.high = IntConstant.v(high);
-    }
 
-    @Override
+    public NegativeInf(int i) {
+		this.high = IntConstant.v(i);
+	}
+
+	@Override
     public String toString() {
         return "[-inf," + high.value + "]";
     }
@@ -217,5 +217,14 @@ public final class NegativeInf extends AbstractNegativeInf implements
         return new Top();
     }
 
+	@Override
+	public LatticeElement createNegativeInfToHigh() {
+		return new NegativeInf(this.high);
+	}
+
+	@Override
+	public LatticeElement createLowToPositiveInf() {
+		return new Top();
+	}
 
 }

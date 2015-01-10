@@ -6,6 +6,7 @@ import java.util.List;
 
 import abstraction.Interval;
 import abstraction.LatticeElement;
+import abstraction.Top;
 import soot.Value;
 import soot.jimple.AssignStmt;
 import soot.jimple.NumericConstant;
@@ -35,14 +36,14 @@ public class AssignmentStmt extends StmtCommand {
                     (IntConstant) rightOp);
         } else if(rightOp instanceof JimpleLocal){
             rightOpState = this.inState
-                    .getLatticeElement(rightOp);
+                    .getVarState(rightOp);
         } else if (rightOp instanceof AbstractJimpleFloatBinopExpr) {
             LatticeElement op1State = this.inState
-                    .getLatticeElement((((AbstractJimpleFloatBinopExpr) rightOp)
+                    .getVarState((((AbstractJimpleFloatBinopExpr) rightOp)
                             .getOp1()));
 
             LatticeElement op2State = this.inState
-                    .getLatticeElement((((AbstractJimpleFloatBinopExpr) rightOp)
+                    .getVarState((((AbstractJimpleFloatBinopExpr) rightOp)
                             .getOp2()));
             if (rightOp instanceof JSubExpr) {
             	rightOpState = op1State.sub(op2State);
@@ -58,8 +59,13 @@ public class AssignmentStmt extends StmtCommand {
                 assert false;
             }
         }
-        this.inState.updateLatticeElement(leftOp, rightOpState);
-        State s = fallOut.get(0).merge(inState);
+        else
+        {  //JLengthStmt
+        	rightOpState = new Top();
+        }
+        
+        this.inState.updateVarState(leftOp, rightOpState);
+        State s = fallOut.get(0).join(inState);
         fallOut.remove(0);
         fallOut.add(0,s);
     };
