@@ -14,6 +14,10 @@ public final class Interval extends AbstractInterval implements
         this.low = low;
         this.high = high;
     }
+    public Interval(int low, int high) {
+        this.low = IntConstant.v(low);
+        this.high = IntConstant.v(high);
+    }
 
     @Override
     public String toString() {
@@ -216,8 +220,8 @@ public final class Interval extends AbstractInterval implements
                             / this.high.value));
                 } else {
                     return new Interval(IntConstant.v(other.low.value
-                            / this.low.value), IntConstant.v(other.low.value
-                            / this.high.value));
+                            / this.low.value), IntConstant.v(other.high.value
+                            / this.low.value));
                 }
             }
         } else { // this.high.value < 0
