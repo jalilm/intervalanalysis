@@ -80,6 +80,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
         StatementVisitor visitor = new StatementVisitor();
         visitor.visit(stmt, inState, fallOut, BranchOut);
         
+        //TODO Remove before submitting
         System.out.println(initState.print());
     }
 

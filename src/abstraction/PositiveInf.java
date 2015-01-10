@@ -132,7 +132,10 @@ public final class PositiveInf extends AbstractPositiveInf implements
 
     @Override
     public LatticeElement mulNegativeInf(NegativeInf other) {
-        return new Top();
+        if(other.high.value > 0 || this.low.value < 0) {
+            return new Top();
+        }
+        return new NegativeInf(other.high.value*this.low.value);
     }
 
     @Override
@@ -182,8 +185,8 @@ public final class PositiveInf extends AbstractPositiveInf implements
         if (this.low.value <= 0) {
             return new Top();
         } else {
-            /* We do not know what is -inf/+inf but it is negative. */
-            return new NegativeInf(IntConstant.v(-1));
+            /* We do not know what is -inf/+inf but it is negative thus 0. */
+            return new NegativeInf(Math.max(0, other.high.value/this.low.value));
         }
     }
 
