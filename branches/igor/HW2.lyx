@@ -1,0 +1,1928 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{stmaryrd}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-ams
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Program Analysis and Synthesis
+\begin_inset Newline newline
+\end_inset
+
+HW 2
+\end_layout
+
+\begin_layout Author
+Igor Zarivach 306831835
+\begin_inset Newline newline
+\end_inset
+
+Jalil Moraney 302872833
+\end_layout
+
+\begin_layout Section
+Domain
+\end_layout
+
+\begin_layout Standard
+The abstract domain is: 
+\begin_inset Formula $\left(L,\le_{i},\vee_{i},\wedge_{i},\bot_{i},\left[-\infty,\infty\right]\right)$
+\end_inset
+
+, where we define the following as well:
+\end_layout
+
+\begin_layout Itemize
+\noindent
+\begin_inset Formula $Z_{\infty}=Z\cup\left\{ -\infty,\infty\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\noindent
+\begin_inset Formula $L=\left\{ \left[x,y\right]\,|\, x,y\in Z_{\infty},y\ge_{\infty}x\right\} \cup\bot_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+The relation 
+\begin_inset Formula $\le_{\infty}$
+\end_inset
+
+ for 
+\begin_inset Formula $Z_{\infty}$
+\end_inset
+
+: 
+\begin_inset Formula $x\le_{\infty}y\iff\left(x,y\in Z,\, x\le y\right)\vee\left(x=-\infty\right)\vee\left(y=\infty\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in Z_{\infty}\backslash\left\{ -\infty\right\} :\,\infty+z=\infty,\infty-z=\infty,z+\infty=\infty,z-\infty=\infty.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in Z_{\infty}\backslash\left\{ \infty\right\} :\,\left(-\infty\right)+z=-\infty,\left(-\infty\right)-z=-\infty,z+\left(-\infty\right)=-\infty,z-\left(-\infty\right)=\infty.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in Z_{\infty}:\, z*0=0*z=0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in Z_{\infty}\backslash\left\{ -\infty\right\} \cup\left\{ z\in Z\,|\, z<0\right\} :\,\infty*z=\infty,z*\infty=\infty.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in Z_{\infty}\backslash\left\{ \infty\right\} \cup\left\{ z\in Z\,|\, z>0\right\} :\,\infty*z=-\infty,z*\infty=-\infty.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in Z_{\infty}\backslash\left\{ -\infty\right\} \cup\left\{ z\in Z\,|\, z<0\right\} :\,\left(-\infty\right)*z=-\infty,z*\left(-\infty\right)=-\infty.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in Z_{\infty}\backslash\left\{ \infty\right\} \cup\left\{ z\in Z\,|\, z>0\right\} :\,\left(-\infty\right)*z=-\infty,z*\left(-\infty\right)=\infty.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in\left\{ -\infty,\infty\right\} $
+\end_inset
+
+,
+\begin_inset Formula $\forall x\in\left\{ z\in Z\,|\, z>0\right\} :$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\frac{z}{x}=z$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall z\in\left\{ -\infty,\infty\right\} ,\forall x\in\left\{ z\in Z\,|\, z<0\right\} :\,\frac{z}{x}=-z.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall x\in Z,\forall z\in\left\{ -\infty,\infty\right\} :\,\frac{x}{z}=0.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+We also note that the only thing we can say about 
+\begin_inset Formula $\frac{\infty}{\infty}$
+\end_inset
+
+ and 
+\begin_inset Formula $\frac{-\infty}{-\infty}$
+\end_inset
+
+ is that they are positive.
+ i.e., greater or equal to 1.
+ Thus to simple the definition of the transformer we define the 
+\begin_inset Formula $\frac{\infty}{\infty}=\frac{-\infty}{-\infty}=1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+We also note that the only thing we can say about 
+\begin_inset Formula $\frac{\infty}{-\infty}$
+\end_inset
+
+ and 
+\begin_inset Formula $\frac{-\infty}{\infty}$
+\end_inset
+
+ is that they are negative.
+ i.e., less or equal to -1.
+ Thus to simple the definition of the transformer we define the 
+\begin_inset Formula $\frac{-\infty}{\infty}=\frac{\infty}{-\infty}=-1$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Itemize
+For a set 
+\begin_inset Formula $S\subseteq Z_{\infty}$
+\end_inset
+
+ , 
+\begin_inset Formula $min_{\infty}\left(S\right)$
+\end_inset
+
+ is the minimal number in 
+\begin_inset Formula $S$
+\end_inset
+
+ according to 
+\begin_inset Formula $\le_{\infty}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+For a set 
+\begin_inset Formula $S\subseteq Z_{\infty}$
+\end_inset
+
+,
+\begin_inset Formula $max_{\infty}\left(S\right)$
+\end_inset
+
+ is the maximal number in 
+\begin_inset Formula $S$
+\end_inset
+
+ according to 
+\begin_inset Formula $\le_{\infty}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\left[a,b\right]\le_{i}\left[c,d\right]\Longleftrightarrow\left(c\le_{\infty}a\right)\wedge\left(b\le_{\infty}d\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\left[a,b\right]\vee_{i}\left[c,d\right]=\left[min_{\infty}\left(\left\{ a,c\right\} \right),max_{\infty}\left(\left\{ b,d\right\} \right)\right]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\left[a,b\right]\wedge_{i}\left[c,d\right]=\left[meet\left(max_{\infty}\left(\left\{ a,c\right\} \right),min_{\infty}\left(\left\{ b,d\right\} \right)\right)\right]$
+\end_inset
+
+ where 
+\begin_inset Formula $meet\left(a,b\right)$
+\end_inset
+
+ returns 
+\begin_inset Formula $\left[a,b\right]$
+\end_inset
+
+ if 
+\begin_inset Formula $a\le_{\infty}b$
+\end_inset
+
+ and 
+\begin_inset Formula $\bot_{i}$
+\end_inset
+
+ otherwise.
+\end_layout
+
+\begin_layout Subsection
+Interval abstraction
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\alpha_{i}$
+\end_inset
+
+ : (Label 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ (Var 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $\wp$
+\end_inset
+
+(Z))) 
+\begin_inset Formula $\longrightarrow$
+\end_inset
+
+ (Label 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ (Var 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $L$
+\end_inset
+
+))
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $\alpha_{i}(C)(Label)x=\begin{cases}
+[min(C(Label)x),max(C(Label)x)] & C(Label)x\ne\textrm{Ø}\\
+\bot_{i} & C(Label)x=\textrm{Ø}
+\end{cases}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $\alpha_{i}$
+\end_inset
+
+ maps for each program Label and local variable and a set of integers 
+\begin_inset Formula $A$
+\end_inset
+
+ to interval that contains every 
+\begin_inset Formula $a\in A$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+low and high
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Define for local 
+\begin_inset Formula $x$
+\end_inset
+
+ and abstract state 
+\begin_inset Formula $\sigma$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $\sigma(x).low$
+\end_inset
+
+:
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $\sigma(x)$
+\end_inset
+
+=[a,b]
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\sigma(x).low$
+\end_inset
+
+ = a
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $\sigma(x).high$
+\end_inset
+
+:
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\begin_inset Formula $\sigma(x)$
+\end_inset
+
+=[a,b]
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\sigma(x).high$
+\end_inset
+
+ = b
+\end_layout
+
+\begin_layout Subsection
+Logical Transformations - If
+\end_layout
+
+\begin_layout Subsubsection
+[x>y]
+\end_layout
+
+\begin_layout Paragraph*
+True
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $>$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+below & \text{\text{e1 and e2 are constants}}\\
+\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2)+1,\infty] & \text{e1 is local, e2 is constant}\\
+\sigma\wedge_{i}\{local(e2)\rightarrow[-\infty,value(e1)-1] & \text{e1 is constant, e2 is local}\\
+below & \text{e1,e2 are locals}
+\end{cases}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+a,b are constants
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (a 
+\begin_inset Formula $>$
+\end_inset
+
+ b)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+\sigma & \text{\text{a > b}}\\
+\bot & \text{a \le b}
+\end{cases}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+x,y are locals
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (x 
+\begin_inset Formula $>$
+\end_inset
+
+ y)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+\sigma & \text{\text{\sigma(x).low > \sigma(y).high}}\\
+\sigma\wedge_{i}\{x\rightarrow\bot_{i},y\rightarrow\bot_{i}\} & \text{\sigma(x).high \le\ \sigma(y).low}\\
+\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low+1,\infty],y\rightarrow[-\infty,\sigma(x).high-1]\} & else
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+We simplify
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (x 
+\begin_inset Formula $>$
+\end_inset
+
+ y)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low+1,\infty],y\rightarrow[-\infty,\sigma(x).high-1]\}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+\noindent
+Explanation:
+\end_layout
+
+\begin_layout Standard
+\noindent
+Integer
+\begin_inset Formula $n$
+\end_inset
+
+ 
+\begin_inset Formula $\in$
+\end_inset
+
+ 
+\begin_inset Formula $[$
+\end_inset
+
+if (x 
+\begin_inset Formula $>$
+\end_inset
+
+ y)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+)
+\begin_inset Formula $(x)$
+\end_inset
+
+ iff 
+\begin_inset Formula $n\in\sigma(x)$
+\end_inset
+
+ and 
+\begin_inset Formula $\exists m\in\sigma(y)$
+\end_inset
+
+, 
+\begin_inset Formula $n>m$
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+We have 
+\begin_inset Formula $\sigma(y).low\le m\le\sigma(y).low$
+\end_inset
+
+, so 
+\begin_inset Formula $n\ge\sigma(y).low+1$
+\end_inset
+
+, which implies that 
+\begin_inset Formula $n\in[\sigma(y).low+1,\infty]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+So 
+\begin_inset Formula $n$
+\end_inset
+
+ is in the interval 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\sigma(x)\wedge_{i}[\sigma(y).low+1,\infty].$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+The same logic works for 
+\begin_inset Formula $y$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph*
+False
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $>$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $[$
+\end_inset
+
+if (e2 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) 
+\end_layout
+
+\begin_layout Subsubsection
+[x
+\begin_inset Formula $\ge$
+\end_inset
+
+y]
+\end_layout
+
+\begin_layout Paragraph*
+True
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+below & \text{\text{e1 and e2 are constants}}\\
+\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2),\infty] & \text{e1 is local, e2 is constant}\\
+\sigma\wedge_{i}\{local(e2)\rightarrow[-\infty,value(e1)] & \text{e1 is constant, e2 is local}\\
+below & \text{e1,e2 are locals}
+\end{cases}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+a,b are constants
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (a 
+\begin_inset Formula $\ge$
+\end_inset
+
+ b)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+\sigma & \text{\text{a \ge b}}\\
+\bot & \text{a < b}
+\end{cases}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+x,y are locals
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (x 
+\begin_inset Formula $\ge$
+\end_inset
+
+ y)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+\sigma & \text{\text{\sigma(x).low \ge\ \sigma(y).high}}\\
+\sigma\wedge_{i}\{x\rightarrow\bot_{i},y\rightarrow\bot_{i}\} & \text{\sigma(x).high < \sigma(y).low}\\
+\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low,\infty],y\rightarrow[-\infty,\sigma(x).high]\} & else
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Again in the simple form
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $[$
+\end_inset
+
+if (x 
+\begin_inset Formula $\ge$
+\end_inset
+
+ y)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low,\infty],y\rightarrow[-\infty,\sigma(x).high]\}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Paragraph*
+False
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $[$
+\end_inset
+
+if (e2 
+\begin_inset Formula $>$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) 
+\end_layout
+
+\begin_layout Subsubsection
+[x
+\begin_inset Formula $<$
+\end_inset
+
+y]
+\end_layout
+
+\begin_layout Paragraph*
+True
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $<$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $[$
+\end_inset
+
+if (e2 
+\begin_inset Formula $>$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+False
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $<$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) 
+\end_layout
+
+\begin_layout Subsubsection
+[x
+\begin_inset Formula $\le$
+\end_inset
+
+y]
+\end_layout
+
+\begin_layout Paragraph*
+True
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\le$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $[$
+\end_inset
+
+if (e2 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+False
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\le$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $>$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) 
+\end_layout
+
+\begin_layout Subsubsection
+[x
+\begin_inset Formula $=$
+\end_inset
+
+y]
+\end_layout
+
+\begin_layout Paragraph*
+True
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $=$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) =
+\begin_inset Formula $([$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\begin_inset Formula $\wedge_{i}$
+\end_inset
+
+
+\begin_inset Formula $([$
+\end_inset
+
+if (e2 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\end_layout
+
+\begin_layout Paragraph*
+False
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $=$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) =
+\begin_inset Formula $([$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\begin_inset Formula $\vee_{i}$
+\end_inset
+
+
+\begin_inset Formula $([$
+\end_inset
+
+if (e2 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+)) = 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $=([$
+\end_inset
+
+if (e2 
+\begin_inset Formula $>$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\begin_inset Formula $\vee_{i}$
+\end_inset
+
+
+\begin_inset Formula $([$
+\end_inset
+
+if (e1 
+\begin_inset Formula $>$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\end_layout
+
+\begin_layout Subsubsection
+[x
+\begin_inset Formula $\neq$
+\end_inset
+
+y]
+\end_layout
+
+\begin_layout Paragraph*
+True
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\neq$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) =
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $=$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+
+\begin_inset Formula $(\sigma)$
+\end_inset
+
+= 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $=([$
+\end_inset
+
+if (e2 
+\begin_inset Formula $>$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\begin_inset Formula $\vee_{i}$
+\end_inset
+
+
+\begin_inset Formula $([$
+\end_inset
+
+if (e1 
+\begin_inset Formula $>$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\end_layout
+
+\begin_layout Paragraph*
+False
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\neq$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) =
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $=$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) =
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $=([$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\begin_inset Formula $\wedge_{i}$
+\end_inset
+
+
+\begin_inset Formula $([$
+\end_inset
+
+if (e2 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\end_layout
+
+\begin_layout Subsection
+Logical Transformations - Switch
+\end_layout
+
+\begin_layout Standard
+TBD
+\end_layout
+
+\begin_layout Subsection
+Arithmetic Operations
+\end_layout
+
+\begin_layout Subsubsection
+[w=z]
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left[w=z\right]\left(\sigma\right)=\begin{cases}
+\sigma\vee_{i}\left\{ w\rightarrow\left[z,z\right]\right\}  & z\in Z\\
+\sigma\vee_{i}\left\{ w\rightarrow\sigma\left(z\right)\right\}  & z\in L
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+[w=x+y]
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left[w=x+y\right]\left(\sigma\right)=\begin{cases}
+\sigma\vee_{i}\left\{ w\rightarrow\left[x+y,x+y\right]\right\}  & x,y\in Z\\
+\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low+y,\sigma\left(x\right).high+y\right]\right\}  & x\in L,y\in Z\\
+\sigma\vee_{i}w\rightarrow\left\{ \left[x+\sigma\left(y\right).low,x+\sigma\left(y\right).high\right]\right\}  & x\in Z,y\in L\\
+\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low+\sigma\left(y\right).low,\sigma\left(x\right).high+\sigma\left(y\right).high\right]\right\}  & x,y\in L
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+[w=x-y]
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left[w=x-y\right]\left(\sigma\right)=\begin{cases}
+\sigma\vee_{i}\left\{ w\rightarrow\left[x-y,x-y\right]\right\}  & x,y\in Z\\
+\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low-y,\sigma\left(x\right).high-y\right]\right\}  & x\in L,y\in Z\\
+\sigma\vee_{i}w\rightarrow\left\{ \left[x-\sigma\left(y\right).low,x-\sigma\left(y\right).high\right]\right\}  & x\in Z,y\in L\\
+\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low-\sigma\left(y\right).low,\sigma\left(x\right).high-\sigma\left(y\right).high\right]\right\}  & x,y\in L
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+[w=x*y]
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $x,y\in Z$
+\end_inset
+
+ then:
+\begin_inset Formula 
+\[
+\left[w=x*y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[x*y,x*y\right]\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $x\in L,z\in Z$
+\end_inset
+
+ then: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\left[w=x*z\right]\left(\sigma\right) & = & \sigma\vee_{i}w\rightarrow\{[min_{\infty}\left(\left\{ \sigma\left(x\right).low*z,\sigma\left(x\right).high*z\right\} \right),\\
+ &  & max_{\infty}\left(\left\{ \sigma\left(x\right).low*z,\sigma\left(x\right).high*z\right\} \right)]\}
+\end{eqnarray*}
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $z\in Z,x\in L$
+\end_inset
+
+ then 
+\begin_inset Formula $\left[w=z*x\right]\left(\sigma\right)=\left[w=x*z\right]\left(\sigma\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $x,y\in L$
+\end_inset
+
+ ,we define:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+lowest & = & min_{\infty}(\{\sigma\left(x\right).low*\sigma\left(y\right).low,\\
+ &  & \sigma\left(x\right).high*\sigma\left(y\right).low,\\
+ &  & \sigma\left(x\right).low*\sigma\left(y\right).high,\\
+ &  & \sigma\left(x\right).high*\sigma\left(y\right).high\})
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+highest & = & max_{\infty}(\{\sigma\left(x\right).low*\sigma\left(y\right).low,\\
+ &  & \sigma\left(x\right).high*\sigma\left(y\right).low,\\
+ &  & \sigma\left(x\right).low*\sigma\left(y\right).high,\\
+ &  & \sigma\left(x\right).high*\sigma\left(y\right).high\})
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+then 
+\begin_inset Formula $\left[w=x*y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[lowest,highest\right]\right\} $
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+[w=x/y]
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $x,y\in Z$
+\end_inset
+
+ then: 
+\begin_inset Formula $\left[w=x/y\right]\left(\sigma\right)=\left[w=\left[x,x\right]/\left[y,y\right]\right]\left(\sigma\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $x\in Z,y\in L$
+\end_inset
+
+ then: 
+\begin_inset Formula $\left[w=x/y\right]\left(\sigma\right)=\left[w=\left[x,x\right]/y\right]\left(\sigma\right)$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $y\in Z,x\in L$
+\end_inset
+
+ then: 
+\begin_inset Formula $\left[w=x/y\right]\left(\sigma\right)=\left[w=x/\left[y,y\right]\right]\left(\sigma\right)$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $x,y\in L$
+\end_inset
+
+, 
+\begin_inset Formula $\sigma\left(y\right).low\leq0\leq\sigma\left(y\right).high$
+\end_inset
+
+ then:
+\begin_inset Formula 
+\[
+\left[w=x/y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[-\infty,\infty\right]\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $x,y\in L,$
+\end_inset
+
+
+\begin_inset Formula $\sigma\left(y\right).low>0\,||\,0>\sigma\left(y\right).high$
+\end_inset
+
+, we define:
+\begin_inset Formula 
+\begin{eqnarray*}
+lowest & = & min_{\infty}(\{\sigma\left(x\right).low/\sigma\left(y\right).low,\\
+ &  & \sigma\left(x\right).low/\sigma\left(y\right).high,\\
+ &  & \sigma\left(x\right).high/\sigma\left(y\right).low,\\
+ &  & \sigma\left(x\right).high/\sigma\left(y\right).high\})
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+highest & = & max_{\infty}(\{\sigma\left(x\right).low/\sigma\left(y\right).low,\\
+ &  & \sigma\left(x\right).low/\sigma\left(y\right).high,\\
+ &  & \sigma\left(x\right).high/\sigma\left(y\right).low,\\
+ &  & \sigma\left(x\right).high/\sigma\left(y\right).high\})
+\end{eqnarray*}
+
+\end_inset
+
+then 
+\begin_inset Formula $\left[w=x/y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[lowest,highest\right]\right\} $
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+[w=x%y]
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_body
+\end_document
