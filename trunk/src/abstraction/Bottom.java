@@ -29,12 +29,12 @@ public final class Bottom extends AbstractBottom implements IMathTransformer,
 
     @Override
     public LatticeElement addInterval(Interval other) {
-        return other;
+        return this;
     }
 
     @Override
     public LatticeElement addTop(Top other) {
-        return other;
+        return this;
     }
 
     @Override
@@ -44,22 +44,22 @@ public final class Bottom extends AbstractBottom implements IMathTransformer,
 
     @Override
     public LatticeElement addPositiveInf(PositiveInf other) {
-        return other;
+        return this;
     }
 
     @Override
     public LatticeElement addNegativeInf(NegativeInf other) {
-        return other;
+        return this;
     }
 
     @Override
     public LatticeElement subInterval(Interval other) {
-        return other;
+        return this;
     }
 
     @Override
     public LatticeElement subTop(Top other) {
-        return other;
+        return this;
     }
 
     @Override
@@ -69,22 +69,22 @@ public final class Bottom extends AbstractBottom implements IMathTransformer,
 
     @Override
     public LatticeElement subPositiveInf(PositiveInf other) {
-        return other;
+        return this;
     }
 
     @Override
     public LatticeElement subNegativeInf(NegativeInf other) {
-        return other;
+        return this;
     }
 
     @Override
     public LatticeElement mulInterval(Interval other) {
-        return other;
+        return this;
     }
 
     @Override
     public LatticeElement mulTop(Top other) {
-        return other;
+        return this;
     }
 
     @Override
@@ -94,22 +94,22 @@ public final class Bottom extends AbstractBottom implements IMathTransformer,
 
     @Override
     public LatticeElement mulPositiveInf(PositiveInf other) {
-        return other;
+        return this;
     }
 
     @Override
     public LatticeElement mulNegativeInf(NegativeInf other) {
-        return other;
+        return this;
     }
 
     @Override
     public LatticeElement divInterval(Interval other) {
-        return other;
+        return this;
     }
 
     @Override
     public LatticeElement divTop(Top other) {
-        return other;
+        return this;
     }
 
     @Override
@@ -119,22 +119,22 @@ public final class Bottom extends AbstractBottom implements IMathTransformer,
 
     @Override
     public LatticeElement divPositiveInf(PositiveInf other) {
-        return other;
+        return this;
     }
 
     @Override
     public LatticeElement divNegativeInf(NegativeInf other) {
-        return other;
+        return this;
     }
 
     @Override
     public LatticeElement modInterval(Interval other) {
-        return other;
+        return this;
     }
 
     @Override
     public LatticeElement modTop(Top other) {
-        return other;
+        return this;
     }
 
     @Override
@@ -144,12 +144,12 @@ public final class Bottom extends AbstractBottom implements IMathTransformer,
 
     @Override
     public LatticeElement modPositiveInf(PositiveInf other) {
-        return other;
+        return this;
     }
 
     @Override
     public LatticeElement modNegativeInf(NegativeInf other) {
-        return other;
+        return this;
     }
 
 

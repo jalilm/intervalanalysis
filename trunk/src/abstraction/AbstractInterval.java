@@ -24,7 +24,8 @@ public abstract class AbstractInterval implements LatticeElement {
 
     @Override
     public LatticeElement div(IMathTransformer transformer) {
-        return transformer.divInterval((Interval) this);
+        LatticeElement res = transformer.divInterval((Interval) this);
+        return res;
     }
 
     @Override
