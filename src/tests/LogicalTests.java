@@ -52,6 +52,16 @@ public class LogicalTests {
 		runTest("IfEq");
 	}
 	
+	@Test
+	public void testSwitch() throws Exception {
+		runTest("Switch");
+	}
+	
+	@Test
+	public void testAssign() throws Exception {
+		runTest("Assign");
+	}
+	
 	protected boolean compareTwoFiles(String file1, String file2) throws IOException
 	{
 		String input = new String(Files.readAllBytes(Paths.get(file1)));
@@ -72,6 +82,7 @@ public class LogicalTests {
         sootOptions.set_verbose(false);
         sootOptions.classes().add(classname);
         sootOptions.set_main_class(classname);
+        sootOptions.set_interactive_mode(true);
 
     }
 

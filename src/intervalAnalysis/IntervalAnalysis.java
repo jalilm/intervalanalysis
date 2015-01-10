@@ -13,6 +13,8 @@ import soot.Value;
 import soot.jimple.AssignStmt;
 import soot.jimple.IntConstant;
 import soot.jimple.NumericConstant;
+import soot.jimple.internal.JReturnStmt;
+import soot.jimple.internal.JReturnVoidStmt;
 import soot.toolkits.graph.UnitGraph;
 import soot.toolkits.scalar.ForwardBranchedFlowAnalysis;
 import tools.StatementVisitor;
@@ -57,11 +59,31 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
     @Override
     protected void flowThrough(State inState, Unit stmt, List<State> fallOut,
             List<State> BranchOut) {
+    	System.out.println("*******************************");
+    	System.out.println("***     FLOWTHROUGH      ******");
+    	System.out.println("*******************************");
+    	System.out.println("COMMAND  : " + stmt.toString());
+    	System.out.println("TYPE     : " + stmt.getClass().getName());
+    	System.out.println("IN STATE : " + inState.toString());
+    	
+    	if (stmt instanceof JReturnStmt ||
+    		stmt instanceof JReturnVoidStmt)
+    	{
+    		//initState = inState;
+    	}
     	
         StatementVisitor visitor = new StatementVisitor();
         visitor.visit(stmt, inState, fallOut, BranchOut);
         
-        System.out.println(initState.print());
+        //System.out.println("OUT STATE: " + initState.toString());
+        for (State s : fallOut)
+        {
+        	System.out.println("FALLOUT  : " + s.toString());
+        }
+        for (State s : BranchOut)
+        {
+        	System.out.println("BRANCHOUT : " + s.toString());
+        }
     }
 
     @Override
@@ -71,17 +93,32 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
 
     @Override
     protected State entryInitialFlow() {
-        return initState;
+    	System.out.println("*******************************");
+    	System.out.println("***     ENTRY            ******");
+    	System.out.println("*******************************");
+    	System.out.println("ENTRY : " + initState.toString());
+        return new State();
     }
 
     @Override
     protected void merge(State in1, State in2, State out) {
+    	System.out.println("*******************************");
+    	System.out.println("***     MERGE            ******");
+    	System.out.println("*******************************");
+    	System.out.println("STATE1 : " + in1.toString());
+    	System.out.println("STATE2 : " + in2.toString());
         out = in1.join(in2);
+        System.out.println("OUT : " + out.toString());
     }
 
     @Override
     protected State newInitialFlow() {
-        return initState;
+    	System.out.println("*******************************");
+    	System.out.println("***     NEW            ******");
+    	System.out.println("*******************************");
+    	System.out.println("NEW : " + initState.toString());
+    	return new State();
+        
     }
 
 }
