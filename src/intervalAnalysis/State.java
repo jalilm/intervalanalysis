@@ -86,6 +86,8 @@ public class State {
     public void setVarState(Value varName, LatticeElement varState) {
     	if (varState == null) 
     	{
+    		//TODO Delete this 
+    		//To set breakpoint
     		int i = 0; 
     		i++;
     	}
