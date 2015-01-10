@@ -12,10 +12,10 @@ public final class PositiveInf extends AbstractPositiveInf implements
     public PositiveInf(IntConstant low) {
         this.low = low;
     }
-
-    public PositiveInf(int i) {
-    	this.low = IntConstant.v(i);
-	}
+    
+    public PositiveInf(int low) {
+        this.low = IntConstant.v(low);
+    }
 
 	@Override
     public String toString() {

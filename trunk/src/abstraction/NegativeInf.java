@@ -13,8 +13,8 @@ public final class NegativeInf extends AbstractNegativeInf implements
         this.high = high;
     }
 
-    public NegativeInf(int i) {
-		this.high = IntConstant.v(i);
+    public NegativeInf(int high) {
+		this.high = IntConstant.v(high);
 	}
 
 	@Override
