@@ -1,9 +1,9 @@
 package abstraction.operations;
 
 import intervalAnalysis.State;
-import soot.Local;
+
 import soot.Value;
-import soot.jimple.IntConstant;
+
 
 
 public interface ILogicOperation {

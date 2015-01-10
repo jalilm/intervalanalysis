@@ -1,8 +1,6 @@
 package abstraction;
 
-import intervalAnalysis.State;
 import transform.IJoinMeetTransformer;
-import transform.ILogicalTransformer;
 import transform.IMathTransformer;
 
 public abstract class AbstractBottom implements LatticeElement {

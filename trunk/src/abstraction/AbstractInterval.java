@@ -2,7 +2,6 @@ package abstraction;
 
 import soot.jimple.IntConstant;
 import transform.IJoinMeetTransformer;
-import transform.ILogicalTransformer;
 import transform.IMathTransformer;
 
 public abstract class AbstractInterval implements LatticeElement {
