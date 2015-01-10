@@ -14,14 +14,6 @@ import abstraction.PositiveInf;
 import abstraction.Top;
 
 public class TestIntervalLattice {
-	@Before
-	public void setUp() throws Exception {
-	}
-	
-	@After
-	public void tearDown() throws Exception {
-	
-	}
 	
 	@Test
 	public void testConstruction() throws Exception {

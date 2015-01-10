@@ -34,7 +34,7 @@ public final class Bottom extends AbstractBottom implements IMathTransformer,
 
     @Override
     public LatticeElement addTop(Top other) {
-        return this;
+        return other;
     }
 
     @Override
@@ -59,7 +59,7 @@ public final class Bottom extends AbstractBottom implements IMathTransformer,
 
     @Override
     public LatticeElement subTop(Top other) {
-        return this;
+        return other;
     }
 
     @Override
@@ -84,7 +84,7 @@ public final class Bottom extends AbstractBottom implements IMathTransformer,
 
     @Override
     public LatticeElement mulTop(Top other) {
-        return this;
+        return other;
     }
 
     @Override
@@ -109,7 +109,7 @@ public final class Bottom extends AbstractBottom implements IMathTransformer,
 
     @Override
     public LatticeElement divTop(Top other) {
-        return this;
+        return other;
     }
 
     @Override
@@ -134,7 +134,7 @@ public final class Bottom extends AbstractBottom implements IMathTransformer,
 
     @Override
     public LatticeElement modTop(Top other) {
-        return this;
+        return other;
     }
 
     @Override
