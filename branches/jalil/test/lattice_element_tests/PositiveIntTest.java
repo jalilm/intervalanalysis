@@ -155,76 +155,111 @@ public class PositiveIntTest {
         assertTrue(p2.mul(p2).equals(p2));
         assertTrue(p1.mul(p1).equals(top));
         
-//        assertTrue(i1.mul(i2).equals(new Interval(-1, 1)));
-//        assertTrue(i1.mul(i3).equals(new Interval(-1, 1)));
-//        assertTrue(i1.mul(new Interval(5, 5)).equals(new Interval(-5, 5)));
-//
-//        assertTrue(i2.mul(i3).equals(new Interval(-1, -1)));
-//        assertTrue(i3.mul(i2).equals(new Interval(-1, -1)));
-//
-//        assertTrue(i1.mul(p1).equals(top));
-//        assertTrue(i1.mul(p2).equals(top));
-//        assertTrue(i1.mul(p3).equals(top));
-//
-//        assertTrue(i2.mul(p1).equals(n3));
-//        assertTrue(i2.mul(p2).equals(n2));
-//        assertTrue(i2.mul(p3).equals(n1));
-//
-//        assertTrue(i3.mul(p1).equals(p1));
-//        assertTrue(i3.mul(p2).equals(p2));
-//        assertTrue(i3.mul(p3).equals(p3));
-//
-//        assertTrue(i1.mul(n1).equals(top));
-//        assertTrue(i1.mul(n2).equals(top));
-//        assertTrue(i1.mul(n3).equals(top));
-//
-//        assertTrue(i2.mul(n1).equals(p3));
-//        assertTrue(i2.mul(n2).equals(p2));
-//        assertTrue(i2.mul(n3).equals(p1));
-//
-//        assertTrue(i3.mul(n1).equals(n1));
-//        assertTrue(i3.mul(n2).equals(n2));
-//        assertTrue(i3.mul(n3).equals(n3));
+        assertTrue(p3.mul(p1).equals(top));
+        assertTrue(p3.mul(p2).equals(p2));
+        assertTrue(p3.mul(new PositiveInf(3)).equals(new PositiveInf(3)));
+
+        assertTrue(p2.mul(p1).equals(top));
+        assertTrue(p1.mul(p2).equals(top));
+        assertTrue(p2.mul(p2).equals(p2));
+        assertTrue(p2.mul(new PositiveInf(3)).equals(p2));
+        assertTrue(new PositiveInf(3).mul(p2).equals(p2));
+
+        assertTrue(p1.mul(i1).equals(top));
+        assertTrue(p1.mul(i2).equals(n3));
+        assertTrue(p1.mul(i3).equals(p1));
+        assertTrue(p1.mul(new Interval(5, 5)).equals(new PositiveInf(-5)));
+        assertTrue(p1.mul(new Interval(-5, -5)).equals(new NegativeInf(5)));
+
+        assertTrue(p2.mul(i1).equals(top));
+        assertTrue(p2.mul(i2).equals(n2));
+        assertTrue(p2.mul(i3).equals(p2));
+        assertTrue(p2.mul(new Interval(5, 5)).equals(p2));
+        assertTrue(p2.mul(new Interval(-5, -5)).equals(n2));
+        
+        assertTrue(p3.mul(i1).equals(top));
+        assertTrue(p3.mul(i2).equals(n1));
+        assertTrue(p3.mul(i3).equals(p3));
+        assertTrue(p3.mul(new Interval(5, 5)).equals(new PositiveInf(5)));
+        assertTrue(p3.mul(new Interval(-5, -5)).equals(new NegativeInf(-5)));
+
+        assertTrue(p1.mul(n1).equals(top));
+        assertTrue(p1.mul(n2).equals(top));
+        assertTrue(p1.mul(n3).equals(top));
+        assertTrue(p1.mul(new NegativeInf(5)).equals(top));
+        assertTrue(p1.mul(new NegativeInf(-5)).equals(top));
+
+        assertTrue(p2.mul(n1).equals(n2));
+        assertTrue(p2.mul(n2).equals(n2));
+        assertTrue(p2.mul(n3).equals(n2));
+        assertTrue(p2.mul(new NegativeInf(5)).equals(n2));
+        assertTrue(p2.mul(new NegativeInf(-5)).equals(n2));
+
+        assertTrue(p3.mul(n1).equals(n1));
+        assertTrue(p3.mul(n2).equals(n2));
+        assertTrue(p3.mul(n3).equals(n3));
+        assertTrue(p3.mul(new NegativeInf(5)).equals(new NegativeInf(5)));
+        assertTrue(p3.mul(new NegativeInf(-5)).equals(new NegativeInf(-5)));
     }
 
-    // TODO Jalil please update results
-    @Ignore
     @Test
     public void testDiv() {
-        assertTrue(i1.div(top).equals(top));
-        assertTrue(i1.div(bot).equals(bot));
+        assertTrue(p3.div(top).equals(top));
+        assertTrue(p3.div(bot).equals(bot));
 
-        assertTrue(i1.div(i1).equals(top));
-        assertTrue(i1.div(i2).equals(i1));
-        assertTrue(i1.div(i3).equals(i1));
-        assertTrue(i1.div(new Interval(5, 5)).equals(new Interval(0, 0)));
+        assertTrue(p3.div(p1).equals(top));
+        assertTrue(p3.div(new PositiveInf(-5)).equals(top));
+        assertTrue(p3.div(p2).equals(top));
+        assertTrue(p3.div(p3).equals(p2));
+        assertTrue(p3.div(new PositiveInf(5)).equals(new PositiveInf(0)));
 
-        assertTrue(i2.div(i3).equals(i2));
-        assertTrue(i3.div(i2).equals(i2));
+        assertTrue(p2.div(p1).equals(top));
+        assertTrue(p1.div(p2).equals(top));
         
-        assertTrue(i1.div(p1).equals(top));
-        assertTrue(i1.div(p2).equals(top));
-        assertTrue(i1.div(p3).equals(i1));
+        assertTrue(p1.div(i1).equals(top));
+        assertTrue(p1.div(i2).equals(n3));
+        assertTrue(p1.div(i3).equals(p1));
+        assertTrue(p1.div(new Interval(5, 5)).equals(p2));
+        assertTrue(p1.div(new Interval(-5, -5)).equals(n2));
         
-        assertTrue(i2.div(p1).equals(top));
-        assertTrue(i2.div(p2).equals(top));
-        assertTrue(i2.div(p3).equals(new Interval(-1, 0)));
         
-        assertTrue(i3.div(p1).equals(top));
-        assertTrue(i3.div(p2).equals(top));
-        assertTrue(i3.div(p3).equals(new Interval(0, 1)));
+        assertTrue(p2.div(i1).equals(top));
+        assertTrue(p2.div(i2).equals(n2));
+        assertTrue(p2.div(i3).equals(p2));
+        assertTrue(p2.div(new Interval(5, 5)).equals(p2));
+        assertTrue(p2.div(new Interval(-5, -5)).equals(n2));
         
-        assertTrue(i1.div(n1).equals(i1));
-        assertTrue(i1.div(n2).equals(top));
-        assertTrue(i1.div(n3).equals(top));
+        assertTrue(p3.div(i1).equals(top));
+        assertTrue(p3.div(i2).equals(n1));
+        assertTrue(p3.div(i3).equals(p3));
+        assertTrue(p3.div(new Interval(5, 5)).equals(p2));
+        assertTrue(p3.div(new Interval(-5, -5)).equals(n2));
         
-        assertTrue(i2.div(n1).equals(new Interval(0, 1)));
-        assertTrue(i2.div(n2).equals(top));
-        assertTrue(i2.div(n3).equals(top));
+        PositiveInf p5 = new PositiveInf(5);
+        assertTrue(p5.div(i1).equals(top));
+        assertTrue(p5.div(i2).equals(new NegativeInf(-5)));
+        assertTrue(p5.div(i3).equals(p5));
+        assertTrue(p5.div(new Interval(5, 5)).equals(p3));
+        assertTrue(p5.div(new Interval(-5, -5)).equals(n1));
         
-        assertTrue(i3.div(n1).equals(new Interval(-1, 0)));
-        assertTrue(i3.div(n2).equals(top));
-        assertTrue(i3.div(n3).equals(top));
+        PositiveInf pm5 = new PositiveInf(-5);
+        assertTrue(pm5.div(i1).equals(top));
+        assertTrue(pm5.div(i2).equals(new NegativeInf(5)));
+        assertTrue(pm5.div(i3).equals(pm5));
+        assertTrue(pm5.div(new Interval(5, 5)).equals(p1));
+        assertTrue(pm5.div(new Interval(-5, -5)).equals(n3));
+//        
+//        assertTrue(i1.div(n1).equals(i1));
+//        assertTrue(i1.div(n2).equals(top));
+//        assertTrue(i1.div(n3).equals(top));
+//        
+//        assertTrue(i2.div(n1).equals(new Interval(0, 1)));
+//        assertTrue(i2.div(n2).equals(top));
+//        assertTrue(i2.div(n3).equals(top));
+//        
+//        assertTrue(i3.div(n1).equals(new Interval(-1, 0)));
+//        assertTrue(i3.div(n2).equals(top));
+//        assertTrue(i3.div(n3).equals(top));
     }
 
     // TODO Jalil If you tightened mod implement me.
