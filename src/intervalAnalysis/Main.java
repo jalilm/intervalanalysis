@@ -49,7 +49,7 @@ public class Main {
                     protected void internalTransform(Body body,
                             String phaseName,
                             @SuppressWarnings("rawtypes") Map options) {
-                        new IntervalAnalysis(new BriefUnitGraph(body));
+                        new IntervalAnalysis(new BriefUnitGraph(body), new State());
                     }
                 }));
 

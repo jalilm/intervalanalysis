@@ -2,41 +2,26 @@ package abstraction.operations;
 
 import intervalAnalysis.State;
 
+import java.util.List;
+
+import commands.IfStmtCommand;
 import soot.Local;
 import soot.Value;
-
+import soot.jimple.IfStmt;
 import soot.jimple.IntConstant;
 
-public class LeOp extends AbstractLogicOperation {
+public class LeOp implements ILogicOperation {
 
 	@Override
-	public State op(State in, IntConstant left, IntConstant right) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public State op(State in, Local left, IntConstant right) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public State op(State in, IntConstant left, Local right) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public State op(State in, Local left, Local right) {
-		// TODO Auto-generated method stub
-		return null;
+	public State op(State in, Value left, Value right) {
+		return new GeOp().op(in, right, left);
 	}
 
 	@Override
 	public State negate(State in, Value left, Value right) {
-		// TODO Auto-generated method stub
-		return null;
+		return new GtOp().op(in, left, right);
 	}
+
+
 
 }

@@ -104,7 +104,7 @@ public final class Bottom extends AbstractBottom implements IMathTransformer,
 
     @Override
     public LatticeElement divInterval(Interval other) {
-        return this;
+        return other;
     }
 
     @Override
@@ -152,5 +152,14 @@ public final class Bottom extends AbstractBottom implements IMathTransformer,
         return this;
     }
 
+	@Override
+	public LatticeElement createNegativeInfToHigh() {
+		return this;
+	}
+
+	@Override
+	public LatticeElement createLowToPositiveInf() {
+		return this;
+	}
 
 }
