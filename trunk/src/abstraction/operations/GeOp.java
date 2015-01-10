@@ -2,41 +2,66 @@ package abstraction.operations;
 
 import intervalAnalysis.State;
 
+import java.util.List;
+
+import abstraction.Interval;
+import abstraction.LatticeElement;
+import abstraction.NegativeInf;
+import abstraction.PositiveInf;
+import commands.IfStmtCommand;
 import soot.Local;
 import soot.Value;
-
+import soot.jimple.IfStmt;
 import soot.jimple.IntConstant;
 
 public class GeOp extends AbstractLogicOperation {
 
-	@Override
+
 	public State op(State in, IntConstant left, IntConstant right) {
-		// TODO Auto-generated method stub
-		return null;
+		if (left.value >= right.value)
+		{
+			return in;
+		}
+		else
+		{
+			//TODO return bottom
+			return new State();
+		}
 	}
 
-	@Override
+
 	public State op(State in, Local left, IntConstant right) {
-		// TODO Auto-generated method stub
-		return null;
+		LatticeElement newX = new PositiveInf(right.value); 
+		State out = new State();
+		out.setVarState((Value)left, newX);
+		return in.meet(out);
 	}
 
-	@Override
+
 	public State op(State in, IntConstant left, Local right) {
-		// TODO Auto-generated method stub
-		return null;
+		LatticeElement newX = new NegativeInf(left.value); 
+		State out = new State();
+		out.setVarState((Value)right, newX);
+		return in.meet(out);
 	}
 
-	@Override
+
 	public State op(State in, Local left, Local right) {
-		// TODO Auto-generated method stub
-		return null;
+		LatticeElement x = in.getVarState(left);
+		LatticeElement y = in.getVarState(right);
+
+		LatticeElement newX = y.createLowToPositiveInf();
+		LatticeElement newY = x.createNegativeInfToHigh();
+
+		State out = new State();
+		out.setVarState((Value)left, newX);
+		out.setVarState((Value)right,newY);
+		return in.meet(out);
 	}
 
 	@Override
 	public State negate(State in, Value left, Value right) {
-		// TODO Auto-generated method stub
-		return null;
+		return new LtOp().op(in, left, right);
 	}
 
 }

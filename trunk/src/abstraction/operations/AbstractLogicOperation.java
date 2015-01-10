@@ -1,38 +1,56 @@
 package abstraction.operations;
 
+import intervalAnalysis.State;
+
+import java.util.Iterator;
+import java.util.List;
+
+
+
 import soot.Local;
 import soot.Value;
 import soot.jimple.IntConstant;
-import intervalAnalysis.State;
 
-public abstract class AbstractLogicOperation {
-    public abstract State op(State in, IntConstant left, IntConstant right);
 
-    public abstract State op(State in, Local left, IntConstant right);
+public abstract class AbstractLogicOperation implements ILogicOperation{
 
-    public abstract State op(State in, IntConstant left, Local right);
-
-    public abstract State op(State in, Local left, Local right);
-
-    public abstract State negate(State in, Value left, Value right);
-
-    public State op(State in, Value left, Value right) {
-        if (left.getClass().equals(IntConstant.class)
-                && right.getClass().equals(IntConstant.class)) {
-            return this.op(in, (IntConstant) left, (IntConstant) right);
-        } else if (left.getClass().equals(IntConstant.class)
-                && right.getClass().equals(Local.class)) {
-            return this.op(in, (IntConstant) left, (Local) right);
-        } else if (left.getClass().equals(Local.class)
-                && right.getClass().equals(IntConstant.class)) {
-            return this.op(in, (Local) left, (IntConstant) right);
-        } else if (left.getClass().equals(Local.class)
-                && right.getClass().equals(Local.class)) {
-            return this.op(in, (Local) left, (Local) right);
-        } else {
-            assert false;
-            return in;
+	@Override
+	public State op(State in, Value left, Value right) {
+	       
+        if (!(left instanceof Local) && !(right instanceof Local))
+        {
+        	 //there are no locals
+        	return op(in,(IntConstant)left,(IntConstant)right);
         }
-    }
+        else 
+        if ((left instanceof Local) && !(right instanceof Local)) 
+        {
+        //left local
+        	return op(in,(Local)left,(IntConstant)right);
+        }	
+        else 
+        if (!(left instanceof Local) && (right instanceof Local))
+        {
+        //right local
+        	return op(in,(IntConstant)left,(Local)right);
+        }
+        else
+        if((left instanceof Local) && (right instanceof Local))
+        {
+        //two locals
+        	return op(in,(Local)left,(Local)right);
+        }
+        else
+        {
+        	//Error
+        	assert false;	
+        }
+        
+        return null;
+	}
 
+	abstract public State op(State in, Local left, Local right);
+	abstract public State op(State in, IntConstant left, Local right);
+	abstract public State op(State in, Local left, IntConstant right);
+	abstract public State op(State in, IntConstant left, IntConstant right);
 }

@@ -3,10 +3,15 @@ package commands;
 import intervalAnalysis.State;
 
 
+
+
 import java.util.List;
+
 import abstraction.operations.AbstractLogicOperation;
+import abstraction.operations.EqOp;
 import abstraction.operations.GeOp;
 import abstraction.operations.GtOp;
+import abstraction.operations.ILogicOperation;
 import abstraction.operations.LeOp;
 import abstraction.operations.LtOp;
 import abstraction.operations.NeqOp;
@@ -26,9 +31,7 @@ public class IfStmtCommand extends StmtCommand{
 	@Override
 	public void execute() {
 		State in = inState;
-		State truePathOut = null;
-		State falsePathOut = null;
-		AbstractLogicOperation logicalOp = null;
+		ILogicOperation logicalOp = null;
 		
 		JIfStmt fs = (JIfStmt) stmt;
         Value condition = fs.getCondition();
@@ -47,25 +50,26 @@ public class IfStmtCommand extends StmtCommand{
         case "soot.jimple.internal.JLeExpr" : logicalOp = new LeOp(); break;
         case "soot.jimple.internal.JLtExpr" : logicalOp = new LtOp(); break;
         case "soot.jimple.internal.JGtExpr" : logicalOp = new GtOp(); break;
+        case "soot.jimple.internal.JEqExpr" : logicalOp = new EqOp(); break;
         }
        
         AbstractBinopExpr expr = (AbstractBinopExpr) condition;
         Value expLeft = expr.getOp1();
         Value expRight = expr.getOp2();
         
-        truePathOut = logicalOp.op(in, expLeft, expRight);
-        falsePathOut = logicalOp.negate(in, expLeft, expRight);
+        State truePathOut = logicalOp.op(in, expLeft, expRight);
+        State falsePathOut = logicalOp.negate(in, expLeft, expRight);
         
         //True path
         for (State s : branchOut) 
         { 
-           s.merge(truePathOut);
+           s.meet(truePathOut);
         }
         
         //False path
         for (State s : fallOut) 
         { 
-           s.merge(truePathOut);
+           s.meet(falsePathOut);
         }
         
 	}

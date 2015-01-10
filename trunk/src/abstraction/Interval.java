@@ -1,5 +1,7 @@
 package abstraction;
 
+import java.util.List;
+
 import soot.jimple.IntConstant;
 import transform.ILogicalTransformer;
 import transform.IMathTransformer;
@@ -14,10 +16,23 @@ public final class Interval extends AbstractInterval implements
         this.low = low;
         this.high = high;
     }
+
     public Interval(int low, int high) {
+    	assert(high >= low);
         this.low = IntConstant.v(low);
         this.high = IntConstant.v(high);
     }
+    /**
+     * @param s = "[low,high]"
+     * @throws Exception 
+     */
+    public Interval(String s) throws Exception {
+    	String pattern = "\\[(-?[1-9]?),(-?[1-9]?)\\]"; 
+    	if (!s.matches(pattern)) throw new Exception();
+    	this.low =  IntConstant.v(Integer.parseInt(s.replaceFirst(pattern, "$1")));
+    	this.high = IntConstant.v(Integer.parseInt(s.replaceFirst(pattern, "$2")));
+    }
+
 
     @Override
     public String toString() {
@@ -313,4 +328,14 @@ public final class Interval extends AbstractInterval implements
         return new Top();
     }
 
+	@Override
+	public LatticeElement createNegativeInfToHigh() {
+		
+		return new NegativeInf(this.high);
+	}
+
+	@Override
+	public LatticeElement createLowToPositiveInf() {
+		return new PositiveInf(this.low);
+	}
 }

@@ -24,8 +24,7 @@ public abstract class AbstractInterval implements LatticeElement {
 
     @Override
     public LatticeElement div(IMathTransformer transformer) {
-        LatticeElement res = transformer.divInterval((Interval) this);
-        return res;
+        return transformer.divInterval((Interval) this);
     }
 
     @Override
@@ -126,70 +125,48 @@ public abstract class AbstractInterval implements LatticeElement {
         }
     }
 
-    @Override
-    public LatticeElement eq(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LatticeElement neq(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LatticeElement gt(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LatticeElement ge(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LatticeElement lt(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LatticeElement le(ILogicalTransformer transformer) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     @Override
     public LatticeElement meetInterval(Interval other) {
-        return null;
-        // TODO Auto-generated method stub
+    	int a = Math.max(((Interval) this).low.value, other.low.value); 
+    	int b = Math.min(((Interval) this).high.value, other.high.value);
+    	if (b >= a)
+    	{
+    		return new Interval(IntConstant.v(a),IntConstant.v(b));
+    	}
+    	else return new Bottom();
     }
 
     @Override
     public LatticeElement meetTop(Top other) {
-        return null;
-        // TODO Auto-generated method stub
+        return this;
     }
 
     @Override
     public LatticeElement meetBottom(Bottom other) {
-        return null;
-        // TODO Auto-generated method stub
+        return other;
     }
 
     @Override
     public LatticeElement meetPositiveInf(PositiveInf other) {
-        return null;
-        // TODO Auto-generated method stub
+    	int a = Math.max(((Interval) this).low.value, other.low.value); 
+    	int b = ((Interval) this).high.value;
+    	if (b >= a)
+    	{
+    		return new Interval(IntConstant.v(a),IntConstant.v(b));
+    	}
+    	else return new Bottom();
     }
 
     @Override
     public LatticeElement meetNegativeInf(NegativeInf other) {
-        return null;
-        // TODO Auto-generated method stub
+    	int a = ((Interval) this).low.value; 
+    	int b = Math.min(((Interval) this).high.value, other.high.value);
+    	if (b >= a)
+    	{
+    		return new Interval(IntConstant.v(a),IntConstant.v(b));
+    	}
+    	else return new Bottom();
     }
 
 }

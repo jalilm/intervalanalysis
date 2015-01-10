@@ -12,12 +12,12 @@ public final class PositiveInf extends AbstractPositiveInf implements
     public PositiveInf(IntConstant low) {
         this.low = low;
     }
-    
-    public PositiveInf(int low) {
-        this.low = IntConstant.v(low);
-    }
 
-    @Override
+    public PositiveInf(int i) {
+    	this.low = IntConstant.v(i);
+	}
+
+	@Override
     public String toString() {
         return "[" + low.value + ",+inf]";
     }
@@ -214,5 +214,15 @@ public final class PositiveInf extends AbstractPositiveInf implements
         // TODO Jalil of you have time, tighten me.
         return new Top();
     }
+
+	@Override
+	public LatticeElement createNegativeInfToHigh() {
+		return new Top();
+	}
+
+	@Override
+	public LatticeElement createLowToPositiveInf() {
+		return this;
+	}
 
 }

@@ -87,7 +87,7 @@ Domain
 \end_layout
 
 \begin_layout Standard
-The absratct domain is: 
+The abstract domain is: 
 \begin_inset Formula $\left(L,\le_{i},\vee_{i},\wedge_{i},\bot_{i},\left[-\infty,\infty\right]\right)$
 \end_inset
 
@@ -111,7 +111,7 @@ The absratct domain is:
 \end_layout
 
 \begin_layout Itemize
-The realtion 
+The relation 
 \begin_inset Formula $\le_{\infty}$
 \end_inset
 
@@ -235,7 +235,7 @@ We also note that the only thing we can say about
 \begin_inset Formula $\frac{-\infty}{\infty}$
 \end_inset
 
- is that they are megative.
+ is that they are negative.
  i.e., less or equal to -1.
  Thus to simple the definition of the transformer we define the 
 \begin_inset Formula $\frac{-\infty}{\infty}=\frac{\infty}{-\infty}=-1$
@@ -630,8 +630,8 @@ if (e1
 ) = 
 \begin_inset Formula $\begin{cases}
 below & \text{\text{e1 and e2 are constants}}\\
-\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2)+1,\infty] & \text{e1 is local, e2 is constant}\\{}
-[if(e2<e1)]_{true}(\sigma) & \text{e1 is constant, e2 is local}\\
+\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2)+1,\infty] & \text{e1 is local, e2 is constant}\\
+\sigma\wedge_{i}\{local(e2)\rightarrow[-\infty,value(e1)-1] & \text{e1 is constant, e2 is local}\\
 below & \text{e1,e2 are locals}
 \end{cases}$
 \end_inset
@@ -734,6 +734,136 @@ if (x
 
 \end_layout
 
+\begin_layout Standard
+\noindent
+We simplify
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (x 
+\begin_inset Formula $>$
+\end_inset
+
+ y)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low+1,\infty],y\rightarrow[-\infty,\sigma(x).high-1]\}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+\noindent
+Explanation:
+\end_layout
+
+\begin_layout Standard
+\noindent
+Integer
+\begin_inset Formula $n$
+\end_inset
+
+ 
+\begin_inset Formula $\in$
+\end_inset
+
+ 
+\begin_inset Formula $[$
+\end_inset
+
+if (x 
+\begin_inset Formula $>$
+\end_inset
+
+ y)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+)
+\begin_inset Formula $(x)$
+\end_inset
+
+ iff 
+\begin_inset Formula $n\in\sigma(x)$
+\end_inset
+
+ and 
+\begin_inset Formula $\exists m\in\sigma(y)$
+\end_inset
+
+, 
+\begin_inset Formula $n>m$
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+We have 
+\begin_inset Formula $\sigma(y).low\le m\le\sigma(y).low$
+\end_inset
+
+, so 
+\begin_inset Formula $n\ge\sigma(y).low+1$
+\end_inset
+
+, which implies that 
+\begin_inset Formula $n\in[\sigma(y).low+1,\infty]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+So 
+\begin_inset Formula $n$
+\end_inset
+
+ is in the interval 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\sigma(x)\wedge_{i}[\sigma(y).low+1,\infty].$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+The same logic works for 
+\begin_inset Formula $y$
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Paragraph*
 False
 \begin_inset Newline newline
@@ -812,8 +942,8 @@ if (e1
 ) = 
 \begin_inset Formula $\begin{cases}
 below & \text{\text{e1 and e2 are constants}}\\
-\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2),\infty] & \text{e1 is local, e2 is constant}\\{}
-[if(e2\le e1)]_{true}(\sigma) & \text{e1 is constant, e2 is local}\\
+\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2),\infty] & \text{e1 is local, e2 is constant}\\
+\sigma\wedge_{i}\{local(e2)\rightarrow[-\infty,value(e1)] & \text{e1 is constant, e2 is local}\\
 below & \text{e1,e2 are locals}
 \end{cases}$
 \end_inset
@@ -860,7 +990,7 @@ if (a
 
 ) = 
 \begin_inset Formula $\begin{cases}
-\sigma & \text{\text{a \ge\ b}}\\
+\sigma & \text{\text{a \ge b}}\\
 \bot & \text{a < b}
 \end{cases}$
 \end_inset
@@ -914,6 +1044,35 @@ if (x
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\noindent
+Again in the simple form
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $[$
+\end_inset
+
+if (x 
+\begin_inset Formula $\ge$
+\end_inset
+
+ y)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low,\infty],y\rightarrow[-\infty,\sigma(x).high]\}$
+\end_inset
+
+ 
 \end_layout
 
 \begin_layout Paragraph*
@@ -995,12 +1154,12 @@ if (e1
 \begin_inset Formula $[$
 \end_inset
 
-if (e1 
-\begin_inset Formula $\ge$
+if (e2 
+\begin_inset Formula $>$
 \end_inset
 
- e2)
-\begin_inset Formula $]_{false}$
+ e1)
+\begin_inset Formula $]_{true}$
 \end_inset
 
 (
@@ -1093,12 +1252,12 @@ if (e1
 \begin_inset Formula $[$
 \end_inset
 
-if (e1 
-\begin_inset Formula $>$
+if (e2 
+\begin_inset Formula $\ge$
 \end_inset
 
- e2)
-\begin_inset Formula $]_{false}$
+ e1)
+\begin_inset Formula $]_{true}$
 \end_inset
 
 (
@@ -1226,6 +1385,14 @@ if (e2
 ))
 \end_layout
 
+\begin_layout Paragraph*
+False
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \noindent
 \begin_inset Formula $[$
@@ -1279,6 +1446,221 @@ if (e2
 \begin_inset Formula $\sigma$
 \end_inset
 
+)) = 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $=([$
+\end_inset
+
+if (e2 
+\begin_inset Formula $>$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\begin_inset Formula $\vee_{i}$
+\end_inset
+
+
+\begin_inset Formula $([$
+\end_inset
+
+if (e1 
+\begin_inset Formula $>$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\end_layout
+
+\begin_layout Subsubsection
+[x
+\begin_inset Formula $\neq$
+\end_inset
+
+y]
+\end_layout
+
+\begin_layout Paragraph*
+True
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\neq$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) =
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $=$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+
+\begin_inset Formula $(\sigma)$
+\end_inset
+
+= 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $=([$
+\end_inset
+
+if (e2 
+\begin_inset Formula $>$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\begin_inset Formula $\vee_{i}$
+\end_inset
+
+
+\begin_inset Formula $([$
+\end_inset
+
+if (e1 
+\begin_inset Formula $>$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\end_layout
+
+\begin_layout Paragraph*
+False
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\neq$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{false}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) =
+\begin_inset Formula $[$
+\end_inset
+
+if (e1 
+\begin_inset Formula $=$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) =
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $=([$
+\end_inset
+
+if (e1 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e2)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+))
+\begin_inset Formula $\wedge_{i}$
+\end_inset
+
+
+\begin_inset Formula $([$
+\end_inset
+
+if (e2 
+\begin_inset Formula $\ge$
+\end_inset
+
+ e1)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
 ))
 \end_layout
 
@@ -1291,7 +1673,7 @@ TBD
 \end_layout
 
 \begin_layout Subsection
-Arthmitc Operations
+Arithmetic Operations
 \end_layout
 
 \begin_layout Subsubsection
@@ -1536,6 +1918,10 @@ then
 
 \begin_layout Subsubsection
 [w=x%y]
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \end_body
