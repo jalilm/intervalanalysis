@@ -208,13 +208,13 @@ public final class PositiveInf extends AbstractPositiveInf implements
 
     @Override
     public LatticeElement modPositiveInf(PositiveInf other) {
-        // TODO Jalil of you have time, tighten me.
+        // TODO Jalil If you have time, tighten me.
         return new Top();
     }
 
     @Override
     public LatticeElement modNegativeInf(NegativeInf other) {
-        // TODO Jalil of you have time, tighten me.
+        // TODO Jalil If you have time, tighten me.
         return new Top();
     }
 

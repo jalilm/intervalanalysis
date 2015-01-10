@@ -3,7 +3,6 @@ package tests.unittests;
 import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import abstraction.Bottom;
@@ -67,8 +66,6 @@ public class BottomTest {
         assertTrue(bot.join(n3).equals(n3));
     }
     
-    // TODO Jalil remove
-    @Ignore
     @Test
     public void testMeet() {
         assertTrue(bot.meet(top).equals(bot));

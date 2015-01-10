@@ -67,8 +67,6 @@ public class TopTest {
         assertTrue(top.join(n3).equals(top));
     }
 
-    // TODO Jalil remove
-    @Ignore
     @Test
     public void testMeet() {
         assertTrue(top.meet(top).equals(top));

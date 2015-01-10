@@ -60,7 +60,6 @@ public abstract class AbstractInterval implements LatticeElement {
 
     @Override
     public LatticeElement joinBottom(Bottom other) {
-        // TODO check correctness
         return this;
     }
 
