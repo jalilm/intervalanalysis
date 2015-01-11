@@ -88,7 +88,8 @@ Domain
 
 \begin_layout Standard
 The abstract domain is: 
-\begin_inset Formula $\left(L,\le_{i},\vee_{i},\wedge_{i},\bot_{i},\left[-\infty,\infty\right]\right)$
+\begin_inset Formula $\left(L,\le_{i},\vee_{i},\wedge_{i},\bot_{i},\left[-\infty,\infty\right]\right)$m
+
 \end_inset
 
 , where we define the following as well:
@@ -1742,14 +1743,43 @@ if (
 Arithmetic Operations
 \end_layout
 
+\begin_layout Standard
+For simplicity of dontation, we assume that the operation is at label 
+\begin_inset Formula $l$
+\end_inset
+
+, and all of the replacment in the state 
+\begin_inset Formula $\sigma$
+\end_inset
+
+of the form 
+\begin_inset Formula $\sigma\left[w\rightarrow a\right]$
+\end_inset
+
+ are actually 
+\begin_inset Formula $\sigma\left[l\rightarrow\left\{ w\rightarrow a\right\} \right]$
+\end_inset
+
+.
+ i.e, changing only the value 
+\begin_inset Formula $w$
+\end_inset
+
+ is mapped to in the map of the label 
+\begin_inset Formula $l$
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsubsection
 [w=z]
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula $\left[w=z\right]\left(\sigma\right)=\begin{cases}
-\sigma\vee_{i}\left\{ w\rightarrow\left[z,z\right]\right\}  & z\in Z\\
-\sigma\vee_{i}\left\{ w\rightarrow\sigma\left(z\right)\right\}  & z\in L
+\sigma\left[w\rightarrow\left[z,z\right]\right] & z\in Z\\
+\sigma\left[w\rightarrow\sigma\left(z\right)\right] & z\in L
 \end{cases}$
 \end_inset
 
@@ -1762,10 +1792,10 @@ Arithmetic Operations
 
 \begin_layout Standard
 \begin_inset Formula $\left[w=x+y\right]\left(\sigma\right)=\begin{cases}
-\sigma\vee_{i}\left\{ w\rightarrow\left[x+y,x+y\right]\right\}  & x,y\in Z\\
-\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low+y,\sigma\left(x\right).high+y\right]\right\}  & x\in L,y\in Z\\
-\sigma\vee_{i}w\rightarrow\left\{ \left[x+\sigma\left(y\right).low,x+\sigma\left(y\right).high\right]\right\}  & x\in Z,y\in L\\
-\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low+\sigma\left(y\right).low,\sigma\left(x\right).high+\sigma\left(y\right).high\right]\right\}  & x,y\in L
+\sigma\left[w\rightarrow\left[x+y,x+y\right]\right] & x,y\in Z\\
+\sigma\left[w\rightarrow\left[\sigma\left(x\right).low+y,\sigma\left(x\right).high+y\right]\right] & x\in L,y\in Z\\
+\sigma\left[w\rightarrow\left[x+\sigma\left(y\right).low,x+\sigma\left(y\right).high\right]\right] & x\in Z,y\in L\\
+\sigma\left[w\rightarrow\left[\sigma\left(x\right).low+\sigma\left(y\right).low,\sigma\left(x\right).high+\sigma\left(y\right).high\right]\right] & x,y\in L
 \end{cases}$
 \end_inset
 
@@ -1778,10 +1808,10 @@ Arithmetic Operations
 
 \begin_layout Standard
 \begin_inset Formula $\left[w=x-y\right]\left(\sigma\right)=\begin{cases}
-\sigma\vee_{i}\left\{ w\rightarrow\left[x-y,x-y\right]\right\}  & x,y\in Z\\
-\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low-y,\sigma\left(x\right).high-y\right]\right\}  & x\in L,y\in Z\\
-\sigma\vee_{i}w\rightarrow\left\{ \left[x-\sigma\left(y\right).low,x-\sigma\left(y\right).high\right]\right\}  & x\in Z,y\in L\\
-\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low-\sigma\left(y\right).low,\sigma\left(x\right).high-\sigma\left(y\right).high\right]\right\}  & x,y\in L
+\sigma\left[w\rightarrow\left[x-y,x-y\right]\right] & x,y\in Z\\
+\sigma\left[w\rightarrow\left[\sigma\left(x\right).low-y,\sigma\left(x\right).high-y\right]\right] & x\in L,y\in Z\\
+\sigma\left[w\rightarrow\left[x-\sigma\left(y\right).low,x-\sigma\left(y\right).high\right]\right] & x\in Z,y\in L\\
+\sigma\left[w\rightarrow\left[\sigma\left(x\right).low-\sigma\left(y\right).low,\sigma\left(x\right).high-\sigma\left(y\right).high\right]\right] & x,y\in L
 \end{cases}$
 \end_inset
 
@@ -1800,7 +1830,7 @@ if
  then:
 \begin_inset Formula 
 \[
-\left[w=x*y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[x*y,x*y\right]\right\} 
+\left[w=x*y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[x*y,x*y\right]\right]
 \]
 
 \end_inset
@@ -1819,8 +1849,8 @@ if
 \begin_layout Standard
 \begin_inset Formula 
 \begin{eqnarray*}
-\left[w=x*z\right]\left(\sigma\right) & = & \sigma\vee_{i}w\rightarrow\{[min_{\infty}\left(\left\{ \sigma\left(x\right).low*z,\sigma\left(x\right).high*z\right\} \right),\\
- &  & max_{\infty}\left(\left\{ \sigma\left(x\right).low*z,\sigma\left(x\right).high*z\right\} \right)]\}
+\left[w=x*z\right]\left(\sigma\right) & = & \sigma[w\rightarrow[min_{\infty}\left(\left\{ \sigma\left(x\right).low*z,\sigma\left(x\right).high*z\right\} \right),\\
+ &  & max_{\infty}\left(\left\{ \sigma\left(x\right).low*z,\sigma\left(x\right).high*z\right\} \right)]]
 \end{eqnarray*}
 
 \end_inset
@@ -1878,7 +1908,7 @@ highest & = & max_{\infty}(\{\sigma\left(x\right).low*\sigma\left(y\right).low,\
 
 \begin_layout Standard
 then 
-\begin_inset Formula $\left[w=x*y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[lowest,highest\right]\right\} $
+\begin_inset Formula $\left[w=x*y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[lowest,highest\right]\right]$
 \end_inset
 
 .
@@ -1936,7 +1966,7 @@ if
  then:
 \begin_inset Formula 
 \[
-\left[w=x/y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[-\infty,\infty\right]\right\} 
+\left[w=x/y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[-\infty,\infty\right]\right]
 \]
 
 \end_inset
@@ -1976,7 +2006,7 @@ highest & = & max_{\infty}(\{\sigma\left(x\right).low/\sigma\left(y\right).low,\
 \end_inset
 
 then 
-\begin_inset Formula $\left[w=x/y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[lowest,highest\right]\right\} $
+\begin_inset Formula $\left[w=x/y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[lowest,highest\right]\right]$
 \end_inset
 
 .
@@ -1992,7 +2022,7 @@ if
 \end_inset
 
  then 
-\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[-\infty,\infty\right]\right\} .$
+\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[-\infty,\infty\right]\right].$
 \end_inset
 
 
@@ -2004,7 +2034,7 @@ if
 \end_inset
 
  then 
-\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[\bot\right]\right\} $
+\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[\bot\right]\right]$
 \end_inset
 
 .
@@ -2016,7 +2046,7 @@ if
 \end_inset
 
  then 
-\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[-\infty,\infty\right]\right\} $
+\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[-\infty,\infty\right]\right]$
 \end_inset
 
 .
@@ -2028,7 +2058,7 @@ if
 \end_inset
 
  then 
-\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[0,\sigma\left(y\right).high-1\right]\right\} .$
+\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[0,\sigma\left(y\right).high-1\right]\right].$
 \end_inset
 
 
@@ -2040,10 +2070,10 @@ if
 \end_inset
 
  then 
-\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[\sigma\left(y\right).high+1,0\right]\right\} .$
+\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[\sigma\left(y\right).high+1,0\right]\right]$
 \end_inset
 
-
+.
 \end_layout
 
 \end_body

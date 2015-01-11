@@ -205,7 +205,7 @@ public class IntervalTest {
         assertTrue(i3.div(n3).equals(top));
     }
 
-    // TODO Jalil If you tightened mod implement me.
+    // Will not be tested. 
     @Ignore
     @Test
     public void testMod() {
