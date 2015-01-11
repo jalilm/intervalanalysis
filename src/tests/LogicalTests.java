@@ -52,25 +52,6 @@ public class LogicalTests {
 		runTest("IfEq");
 	}
 	
-	@Test
-	public void testNotIfEqual() throws Exception {
-		runTest("IfNotEq");
-	}
-	
-	@Test
-	public void testIfGreaterEqual() throws Exception {
-		runTest("IfGe");
-	}
-	
-	@Test
-	public void testIfLess() throws Exception {
-		runTest("IfLt");
-	}
-	
-	@Test
-	public void testIfLessEqual() throws Exception {
-		runTest("IfLe");
-	}
 	
 	@Test
 	public void testLookupSwitch() throws Exception {
