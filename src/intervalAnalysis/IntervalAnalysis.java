@@ -18,7 +18,7 @@ import tools.StatementVisitor;
 
 public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
 
-    final int wideningThreshold = 2;
+    final int wideningThreshold = 10;
     final State resultState; // will hold the result
     final State initState = new State(); // holds initial State of arguments ->
                                          // [-inf,inf]
@@ -52,34 +52,70 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
     @Override
     protected void flowThrough(State inState, Unit stmt, List<State> fallOut,
             List<State> BranchOut) {
-        try {
-            // TODO jalil change Uses
-            Value var = stmt.getDefBoxes().get(0).getValue();
-            if (unitToCounter.get(stmt) >= wideningThreshold) {
-                LatticeElement lastElement = varToElement.get(var);
-                LatticeElement currElement = inState.getVarState(var);
-                LatticeElement widenElement = lastElement.widen(currElement);
-                if (!currElement.equals(widenElement)) {
-                    unitToCounter.put(stmt, 0);
-                    varToElement.put(var, widenElement);
-                    for (State s : fallOut) {
-                        State out = inState.clone();
-                        out.setVarState(var, widenElement);
-                        out.copy(s);
+        Value var = null;
+            if (unitToCounter.get(stmt) > wideningThreshold) {
+                for (State s : fallOut) {
+                    inState.copy(s);
+                }
+
+                for (State s : BranchOut) {
+                    inState.copy(s);
+                }
+                System.out.println("*******************************");
+                System.out.println("***     Already Widened  ******");
+                System.out.println("*******************************");
+                System.out.println("COMMAND  : " + stmt.toString());
+                System.out.println("TYPE     : " + stmt.getClass().getName());
+                System.out.println("IN STATE : " + inState.toString());
+                for (State s : fallOut) {
+                    System.out.println("FALLOUT  : " + s.toString());
+                }
+                for (State s : BranchOut) {
+                    System.out.println("BRANCHOUT : " + s.toString());
+                }
+                return;
+            } else if (unitToCounter.get(stmt) == wideningThreshold) {
+                if(stmt.getDefBoxes().size() != 0) {
+                    var = stmt.getDefBoxes().get(0).getValue();
+                    LatticeElement lastElement = varToElement.get(var);
+                    LatticeElement currElement = inState.getVarState(var);
+                    LatticeElement widenElement = lastElement.widen(currElement);
+                    if (!currElement.equals(widenElement)) {
+                        for (State s : fallOut) {
+                            State out = inState.clone();
+                            out.setVarState(var, widenElement);
+                            out.copy(s);
+                        }
+                        for (State s : BranchOut) {
+                            State out = inState.clone();
+                            out.setVarState(var, widenElement);
+                            out.copy(s);
+                        }
+                        System.out.println("*******************************");
+                        System.out.println("***     Widening         ******");
+                        System.out.println("*******************************");
+                        System.out.println("COMMAND  : " + stmt.toString());
+                        System.out.println("TYPE     : "
+                                + stmt.getClass().getName());
+                        System.out.println("PREV LAT : " + lastElement.toString());
+                        System.out.println("IN STATE : " + inState.toString());
+                        for (State s : fallOut) {
+                            System.out.println("FALLOUT  : " + s.toString());
+                        }
+                        unitToCounter.put(stmt, unitToCounter.get(stmt) + 1);
+                        return;
                     }
-                    for (State s : BranchOut) {
-                        State out = inState.clone();
-                        out.setVarState(var, widenElement);
-                        out.copy(s);
-                    }
-                    return;
+                } else {
+                    unitToCounter.put(stmt, unitToCounter.get(stmt) + 1);
+                }
+            } else {
+                unitToCounter.put(stmt, unitToCounter.get(stmt) + 1);
+                if(stmt.getDefBoxes().size() != 0) {
+                    var = stmt.getDefBoxes().get(0).getValue();
+                    varToElement.put(var, inState.getVarState(var));
                 }
             }
 
-            unitToCounter.put(stmt, unitToCounter.get(stmt) + 1);
-            varToElement.put(var, inState.getVarState(var));
-        } catch (Exception e) {
-        }
         System.out.println("*******************************");
         System.out.println("***     FLOWTHROUGH      ******");
         System.out.println("*******************************");

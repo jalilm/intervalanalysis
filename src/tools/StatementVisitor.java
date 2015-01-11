@@ -9,7 +9,6 @@ import commands.TableSwitchCommand;
 import intervalAnalysis.State;
 import soot.Unit;
 import soot.jimple.AssignStmt;
-import soot.jimple.IdentityStmt;
 import soot.jimple.IfStmt;
 import soot.jimple.LookupSwitchStmt;
 import soot.jimple.TableSwitchStmt;
@@ -32,12 +31,7 @@ public class StatementVisitor {
 	{
 		new AssignmentStmt(stmt,inState,fallOut,branchOut).execute();
 	}
-	
-	public void caseIdentityStmt(IdentityStmt arg0) {
-		// TODO Check if we can replace the initial pass.
-	}
-
-	
+		
 	public void caseIfStmt(IfStmt stmt, State inState, List<State> fallOut, List<State> branchOut) {
 		new IfStmtCommand(stmt,inState,fallOut,branchOut).execute();
 	}

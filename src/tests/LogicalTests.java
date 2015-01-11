@@ -73,6 +73,11 @@ public class LogicalTests {
 		runTest("Assign");
 	}
 	
+	@Test
+    public void widenAssign() throws Exception {
+        runTest("Widen");
+    }
+	
 	protected boolean compareTwoFiles(String file1, String file2) throws IOException
 	{
 		String input = new String(Files.readAllBytes(Paths.get(file1)));
