@@ -192,8 +192,10 @@ public final class PositiveInf extends AbstractPositiveInf implements
 
     @Override
     public LatticeElement modInterval(Interval other) {
-        // TODO Jalil if you have time, tighten men.
-        return new Top();
+        if (this.low.value <= 0) {
+            return new Top();
+        }
+        return new PositiveInf(0);
     }
 
     @Override
@@ -208,14 +210,18 @@ public final class PositiveInf extends AbstractPositiveInf implements
 
     @Override
     public LatticeElement modPositiveInf(PositiveInf other) {
-        // TODO Jalil If you have time, tighten me.
-        return new Top();
+        if (this.low.value <= 0) {
+            return new Top();
+        }
+        return new PositiveInf(0);
     }
 
     @Override
     public LatticeElement modNegativeInf(NegativeInf other) {
-        // TODO Jalil If you have time, tighten me.
-        return new Top();
+        if (this.low.value <= 0) {
+            return new Top();
+        }
+        return new PositiveInf(0);
     }
 
 	@Override
