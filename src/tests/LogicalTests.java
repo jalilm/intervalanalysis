@@ -53,10 +53,40 @@ public class LogicalTests {
 	}
 	
 	@Test
-	public void testSwitch() throws Exception {
-		runTest("Switch");
+	public void testNotIfEqual() throws Exception {
+		runTest("IfNotEq");
 	}
 	
+	@Test
+	public void testIfGreaterEqual() throws Exception {
+		runTest("IfGe");
+	}
+	
+	@Test
+	public void testIfLess() throws Exception {
+		runTest("IfLt");
+	}
+	
+	@Test
+	public void testIfLessEqual() throws Exception {
+		runTest("IfLe");
+	}
+	
+	@Test
+	public void testLookupSwitch() throws Exception {
+		runTest("LookupSwitch");
+	}
+	
+	@Test
+	public void testTableSwitch() throws Exception {
+		runTest("TableSwitch");
+	}
+	
+	@Test
+	public void testSwitchWithNoDefault() throws Exception {
+		runTest("SwitchNoDefault");
+	}
+		
 	@Test
 	public void testAssign() throws Exception {
 		runTest("Assign");
