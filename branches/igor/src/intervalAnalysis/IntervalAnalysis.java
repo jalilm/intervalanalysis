@@ -22,13 +22,14 @@ import tools.StatementVisitor;
 public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
 
     final int wideningThreshold = 10;
-    State initState;
+    final State resultState; //will hold the result
+    final State initState = new State(); //holds initial State of arguments -> [-inf,inf]
     Map<Unit, Integer> unitToCounter;
     Map<Value, LatticeElement> varToElement;
 
     public IntervalAnalysis(UnitGraph graph, State state) {
         super(graph);
-        initState = state;
+        resultState = state;
         unitToCounter = new HashMap<Unit, Integer>();
         varToElement = new HashMap<Value, LatticeElement>();
         // Add parameters with [-inf,inf]
@@ -59,7 +60,9 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
     	
     	if ((stmt instanceof JReturnStmt || stmt instanceof JReturnVoidStmt))
     	{
-    		///
+    		//join to results from other methods
+    		State joined = inState.join(resultState);
+    		joined.copy(resultState);
     	}
     	
         StatementVisitor visitor = new StatementVisitor();
@@ -86,7 +89,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
     	System.out.println("***     ENTRY            ******");
     	System.out.println("*******************************");
     	System.out.println("ENTRY : " + initState.toString());
-        return initState;
+        return initState.clone();
     }
 
     @Override
@@ -96,7 +99,8 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
     	System.out.println("*******************************");
     	System.out.println("STATE1 : " + in1.toString());
     	System.out.println("STATE2 : " + in2.toString());
-        out = in1.join(in2);
+        State result = in1.join(in2);
+        result.copy(out);
         System.out.println("OUT : " + out.toString());
     }
 
@@ -106,7 +110,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
     	System.out.println("***     NEW            ******");
     	System.out.println("*******************************");
     	System.out.println("NEW : " + initState.toString());
-    	return initState;
+    	return initState.clone();
         
     }
 

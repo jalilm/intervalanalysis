@@ -74,9 +74,9 @@ public class IfStmtCommand extends StmtCommand{
         
         //False path
         for (State s : fallOut)
-     		{
+     	{
         		falsePathOut.copy(s);
-     		}
+     	}
 
 	}
 
