@@ -26,8 +26,6 @@ public class LookSwitchCommand extends StmtCommand {
 		//TargetCount is number of cases, except the default
 		for (int index = 0; index < switchStmt.getTargetCount(); index++ )
 		{
-			State out = new State();
-			inState.copy(out);
 			int a = switchStmt.getLookupValue(index);
 			State afterLookup = new EqOp().op(inState, key, IntConstant.v(a));
 			afterLookup.copy(branchOut.get(index));

@@ -24,13 +24,16 @@ public class Main {
     static String classpath = ".";
 
     public static void main(String[] args) throws IOException {
+      
         String classname;
+        String allTestsFile = testsDescriptorDirecotry + File.separator + allTestsFileName;
+        System.out.println("Running on file " + allTestsFile);
         BufferedReader reader = new BufferedReader(new InputStreamReader(
-                new FileInputStream(testsDescriptorDirecotry + File.separator
-                        + allTestsFileName)));
+                new FileInputStream(allTestsFile)));
         while ((classname = reader.readLine()) != null) {
             String resultFile = String.format("%s.result.txt",classname);
             PrintStream printFile = new PrintStream(resultFile);
+            System.out.println("Processing class " + classname);
             streaming_main(classname, printFile);
             printFile.close();
         }
