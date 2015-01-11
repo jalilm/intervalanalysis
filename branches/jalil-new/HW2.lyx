@@ -1986,7 +1986,63 @@ then
 [w=x%y]
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
+if 
+\begin_inset Formula $y=\left[-\infty,\infty\right]$
+\end_inset
+
+ then 
+\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[-\infty,\infty\right]\right\} .$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if
+\begin_inset Formula $y=\bot$
+\end_inset
+
+ then 
+\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[\bot\right]\right\} $
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $\sigma\left(y\right).low\le0\,\&\&\,\sigma\left(y\right).high\ge0$
+\end_inset
+
+ then 
+\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[-\infty,\infty\right]\right\} $
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $\sigma\left(y\right).low>0$
+\end_inset
+
+ then 
+\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[0,\sigma\left(y\right).high-1\right]\right\} .$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $\sigma\left(y\right).high<0$
+\end_inset
+
+ then 
+\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[\sigma\left(y\right).high+1,0\right]\right\} .$
+\end_inset
+
 
 \end_layout
 
