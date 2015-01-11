@@ -52,11 +52,22 @@ public class LogicalTests {
 		runTest("IfEq");
 	}
 	
+	
 	@Test
-	public void testSwitch() throws Exception {
-		runTest("Switch");
+	public void testLookupSwitch() throws Exception {
+		runTest("LookupSwitch");
 	}
 	
+	@Test
+	public void testTableSwitch() throws Exception {
+		runTest("TableSwitch");
+	}
+	
+	@Test
+	public void testSwitchWithNoDefault() throws Exception {
+		runTest("SwitchNoDefault");
+	}
+		
 	@Test
 	public void testAssign() throws Exception {
 		runTest("Assign");

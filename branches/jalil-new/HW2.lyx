@@ -631,14 +631,80 @@ if (e1
 ) = 
 \begin_inset Formula $\begin{cases}
 below & \text{\text{e1 and e2 are constants}}\\
-\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2)+1,\infty] & \text{e1 is local, e2 is constant}\\
-\sigma\wedge_{i}\{local(e2)\rightarrow[-\infty,value(e1)-1] & \text{e1 is constant, e2 is local}\\
+below & \text{e1 is local, e2 is constant}\\
+below & \text{e1 is constant, e2 is local}\\
 below & \text{e1,e2 are locals}
 \end{cases}$
 \end_inset
 
 
 \begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+x is local, a is constant
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (x 
+\begin_inset Formula $>$
+\end_inset
+
+ a)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+\sigma\wedge_{i}\{x\rightarrow[a+1,\infty] & \text{\text{\ensuremath{\sigma(x).high}> a}}\\
+\bot & else
+\end{cases}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+x is local, a is constant
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (a 
+\begin_inset Formula $>$
+\end_inset
+
+ x)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+\sigma\wedge_{i}\{x\rightarrow[-\infty,a-1] & \text{\text{a > \ensuremath{\sigma(x).low}}}\\
+\bot & else
+\end{cases}$
 \end_inset
 
 
@@ -680,7 +746,7 @@ if (a
 ) = 
 \begin_inset Formula $\begin{cases}
 \sigma & \text{\text{a > b}}\\
-\bot & \text{a \le b}
+\bot & else
 \end{cases}$
 \end_inset
 
@@ -726,39 +792,10 @@ if (x
 
 ) = 
 \begin_inset Formula $\begin{cases}
-\sigma & \text{\text{\sigma(x).low > \sigma(y).high}}\\
-\sigma\wedge_{i}\{x\rightarrow\bot_{i},y\rightarrow\bot_{i}\} & \text{\sigma(x).high \le\ \sigma(y).low}\\
+\bot & \text{x and y are the same local}\\
+\bot & \sigma(x).high\le\ \sigma(y).low\\
 \sigma\wedge_{i}\{x\rightarrow[\sigma(y).low+1,\infty],y\rightarrow[-\infty,\sigma(x).high-1]\} & else
 \end{cases}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-We simplify
-\end_layout
-
-\begin_layout Standard
-\noindent
-\begin_inset Formula $[$
-\end_inset
-
-if (x 
-\begin_inset Formula $>$
-\end_inset
-
- y)
-\begin_inset Formula $]_{true}$
-\end_inset
-
-(
-\begin_inset Formula $\sigma$
-\end_inset
-
-) = 
-\begin_inset Formula $\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low+1,\infty],y\rightarrow[-\infty,\sigma(x).high-1]\}$
 \end_inset
 
 
@@ -771,7 +808,7 @@ Explanation:
 
 \begin_layout Standard
 \noindent
-Integer
+Integer 
 \begin_inset Formula $n$
 \end_inset
 
@@ -853,16 +890,92 @@ So
 \begin_inset Formula $\sigma(x)\wedge_{i}[\sigma(y).low+1,\infty].$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-\noindent
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
 The same logic works for 
 \begin_inset Formula $y$
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+We can also check if 
+\begin_inset Formula $\text{\sigma(x).high \le\sigma(y).low}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+by 
+\begin_inset Formula 
+\[
+\text{\sigma(x).high \le\sigma(y).low \ensuremath{\Longleftrightarrow\sigma(x)\wedge_{i}[\sigma(y).low+1,\infty]=\bot_{i}}}
+\]
+
+\end_inset
+
+So the rule to implement is 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+[\text{if(x>y)}]_{true}(\sigma)=\begin{cases}
+\bot & \text{x and y are the same local}\\
+\bot & \sigma(x)\wedge_{i}[\sigma(y).low+1,\infty]=\bot_{i}\\
+\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low+1,\infty], & else\\
+y\rightarrow[-\infty,\sigma(x).high-1]\}
+\end{cases}
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph*
@@ -943,8 +1056,8 @@ if (e1
 ) = 
 \begin_inset Formula $\begin{cases}
 below & \text{\text{e1 and e2 are constants}}\\
-\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2),\infty] & \text{e1 is local, e2 is constant}\\
-\sigma\wedge_{i}\{local(e2)\rightarrow[-\infty,value(e1)] & \text{e1 is constant, e2 is local}\\
+below & \text{e1 is local, e2 is constant}\\
+below & \text{e1 is constant, e2 is local}\\
 below & \text{e1,e2 are locals}
 \end{cases}$
 \end_inset
@@ -1004,6 +1117,76 @@ if (a
 \end_layout
 
 \begin_layout Standard
+x is local, a is constant
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (x 
+\begin_inset Formula $\ge$
+\end_inset
+
+ a)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+\sigma\wedge_{i}\{x\rightarrow[a,\infty] & \text{\text{\ensuremath{\sigma(x).high}\ge\ a}}\\
+\bot & else
+\end{cases}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+x is local, a is constant
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (a 
+\begin_inset Formula $\ge$
+\end_inset
+
+ x)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+\sigma\wedge_{i}\{x\rightarrow[-\infty,a] & \text{\text{a \ge\ \ensuremath{\sigma(x).low}}}\\
+\bot & else
+\end{cases}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 
 \family roman
 \series medium
@@ -1038,8 +1221,8 @@ if (x
 
 ) = 
 \begin_inset Formula $\begin{cases}
-\sigma & \text{\text{\sigma(x).low \ge\ \sigma(y).high}}\\
-\sigma\wedge_{i}\{x\rightarrow\bot_{i},y\rightarrow\bot_{i}\} & \text{\sigma(x).high < \sigma(y).low}\\
+\sigma & \text{x and y are the same local}\\
+\bot & \sigma(x).high<\sigma(y).low\\
 \sigma\wedge_{i}\{x\rightarrow[\sigma(y).low,\infty],y\rightarrow[-\infty,\sigma(x).high]\} & else
 \end{cases}$
 \end_inset
@@ -1048,12 +1231,11 @@ if (x
 \end_layout
 
 \begin_layout Standard
+Agan, using only meet operation
+\end_layout
+
+\begin_layout Standard
 \noindent
-Again in the simple form
-\begin_inset Newline newline
-\end_inset
-
-
 \begin_inset Formula $[$
 \end_inset
 
@@ -1070,10 +1252,14 @@ if (x
 \end_inset
 
 ) = 
-\begin_inset Formula $\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low,\infty],y\rightarrow[-\infty,\sigma(x).high]\}$
+\begin_inset Formula $\begin{cases}
+\sigma & \text{x and y are the same local}\\
+\bot & \sigma(x)\wedge_{i}[\sigma(y).low,\infty]=\bot_{i}\\
+\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low,\infty],y\rightarrow[-\infty,\sigma(x).high]\} & else
+\end{cases}$
 \end_inset
 
- 
+
 \end_layout
 
 \begin_layout Paragraph*
@@ -1737,6 +1923,16 @@ if (
 \end_inset
 
 
+\end_layout
+
+\begin_layout Paragraph
+\noindent
+TableSwitch
+\end_layout
+
+\begin_layout Standard
+\noindent
+The same semantics works for the tableswitch.
 \end_layout
 
 \begin_layout Subsection

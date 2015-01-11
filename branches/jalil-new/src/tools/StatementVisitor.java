@@ -5,6 +5,7 @@ import java.util.List;
 import commands.AssignmentStmt;
 import commands.IfStmtCommand;
 import commands.LookSwitchCommand;
+import commands.TableSwitchCommand;
 import intervalAnalysis.State;
 import soot.Unit;
 import soot.jimple.AssignStmt;
@@ -20,7 +21,7 @@ public class StatementVisitor {
 		{
 		case "soot.jimple.internal.JIfStmt":  		  caseIfStmt((IfStmt)stmt,inState,fallOut,BranchOut); break;
 		case "soot.jimple.internal.JAssignStmt":  	  caseAssignStmt((AssignStmt)stmt,inState,fallOut,BranchOut); break; 
-		case "soot.jimple.internal.JTableSwitchStmt": caseLookupSwitchStmt((LookupSwitchStmt)stmt,inState,fallOut,BranchOut); break;
+		case "soot.jimple.internal.JTableSwitchStmt": caseTableSwitchStmt((TableSwitchStmt)stmt,inState,fallOut,BranchOut); break;
 		case "soot.jimple.internal.JLookupSwitchStmt": caseLookupSwitchStmt((LookupSwitchStmt)stmt,inState,fallOut,BranchOut); break;
 		default: defaultCase(stmt,inState,fallOut,BranchOut);
 		}
@@ -45,8 +46,8 @@ public class StatementVisitor {
 		new LookSwitchCommand((LookupSwitchStmt)stmt,inState,fallOut,branchOut).execute();		
 	}
 	
-	public void caseTableSwitchStmt(TableSwitchStmt arg0, State inState, List<State> fallOut, List<State> branchOut) {
-		// TODO Auto-generated method stub
+	public void caseTableSwitchStmt(TableSwitchStmt stmt, State inState, List<State> fallOut, List<State> branchOut) {
+		new TableSwitchCommand((TableSwitchStmt)stmt,inState,fallOut,branchOut).execute();
 		
 	}
 
