@@ -56,8 +56,8 @@ public class IfStmtCommand extends StmtCommand{
         State falsePathOut = logicalOp.negate(in, expLeft, expRight);
         
         //OUT = IN - KILL + GEN
-        truePathOut = in.merge(truePathOut);
-        falsePathOut = in.merge(falsePathOut);
+        //truePathOut = in.merge(truePathOut);
+        //falsePathOut = in.merge(falsePathOut);
         
         //True path
         for (State s : branchOut)
@@ -68,7 +68,7 @@ public class IfStmtCommand extends StmtCommand{
         //False path
         for (State s : fallOut)
      	{
-        		falsePathOut.copy(s);
+        	falsePathOut.copy(s);
      	}
 
 	}
