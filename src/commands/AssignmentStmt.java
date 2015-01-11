@@ -64,8 +64,9 @@ public class AssignmentStmt extends StmtCommand {
         	rightOpState = new Top();
         }
         
-        this.inState.setVarState(leftOp, rightOpState);
-        inState.copy(fallOut.get(0));
+        State out = inState.clone();
+        out.setVarState(leftOp, rightOpState);
+        out.copy(fallOut.get(0));
 
     };
 

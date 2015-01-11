@@ -1,6 +1,6 @@
 args -> [-inf,+inf]
 i -> [2,2]
-j -> [2,7]
+j -> [-inf,inf]
 temp$0 -> [2,2]
 temp$1 -> [7,7]
 this -> [-inf,+inf]

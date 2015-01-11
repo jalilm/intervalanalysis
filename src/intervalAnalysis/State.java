@@ -151,4 +151,10 @@ public class State {
         return out;
     }
  
+    @Override
+    public State clone() {
+        State cloned = new State();
+        this.copy(cloned);
+        return cloned;
+    }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import commands.AssignmentStmt;
 import commands.IfStmtCommand;
+import commands.LookSwitchCommand;
 import intervalAnalysis.State;
 import soot.Unit;
 import soot.jimple.AssignStmt;
@@ -40,9 +41,9 @@ public class StatementVisitor {
 	     		}
 	        
 	        for (State s : BranchOut)
-     		{
-        		inState.copy(s);
-     		}
+     			{
+        			inState.copy(s);
+     			}
 		
 		}
 	}
@@ -99,8 +100,8 @@ public class StatementVisitor {
 	}
 
 	
-	public void caseLookupSwitchStmt(LookupSwitchStmt arg0, State inState, List<State> fallOut, List<State> branchOut) {
-		// TODO Auto-generated method stub
+	public void caseLookupSwitchStmt(LookupSwitchStmt stmt, State inState, List<State> fallOut, List<State> branchOut) {
+		new LookSwitchCommand((LookupSwitchStmt)stmt,inState,fallOut,branchOut).execute();
 		
 	}
 
