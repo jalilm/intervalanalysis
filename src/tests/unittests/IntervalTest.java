@@ -79,11 +79,6 @@ public class IntervalTest {
         assertTrue(i1.join(n3).equals(n3));
     }
 
-    // TODO Jalil implement after meet
-    @Ignore
-    @Test
-    public void testMeet() {
-    }
 
     @Test
     public void testWiden() {

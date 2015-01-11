@@ -17,7 +17,6 @@ public class GeOp extends AbstractLogicOperation {
         if (left.value >= right.value) {
             return in;
         } else {
-            // TODO return bottom
             return new State();
         }
     }

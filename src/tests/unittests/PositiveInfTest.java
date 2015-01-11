@@ -83,11 +83,6 @@ public class PositiveInfTest {
         assertTrue(p3.join(n3).equals(top));
     }
 
-    // TODO Jalil implement after meet
-    @Ignore
-    @Test
-    public void testMeet() {
-    }
 
     @Test
     public void testWiden() {

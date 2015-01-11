@@ -17,11 +17,10 @@ public class GtOp extends AbstractLogicOperation{
 	public State op(State in, IntConstant left, IntConstant right) {
 		if (left.value > right.value)
 		{
-			return in;
+			return in.clone();
 		}
 		else
 		{
-			//TODO return bottom
 			return new State();
 		}
 	}
