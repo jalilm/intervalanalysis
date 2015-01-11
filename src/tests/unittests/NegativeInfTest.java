@@ -275,7 +275,7 @@ public class NegativeInfTest {
         assertTrue(nm5.div(new PositiveInf(-5)).equals(top));
     }
 
-    // TODO Jalil If you tightened mod implement me.
+    // Will not be tested.
     @Ignore
     @Test
     public void testMod() {
