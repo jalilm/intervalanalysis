@@ -1,7 +1,14 @@
 ------------------------------------------
 The project had been developed on Windows.
 ------------------------------------------
-You can run the project in two ways:
+
+Heads Up:
+The project prints debug messages to System.err
+The project prints progress messages to System.out
+The project prints the results to a per test file suffixed "results.txt".
+As well, Soot prints its warning and progress to System.out
+
+Now to the real thing, you can run the project in two ways:
 
 1)  Run the analysis on all the the test files in "./scripts/tests.txt".
 	This run creates for each "$test" specified in "tests.txt",

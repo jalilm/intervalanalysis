@@ -45,8 +45,8 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
         }
 
         doAnalysis();
-        System.out.println("IntervalAnalysis: Hello again "
-                + resultState.print());
+        System.err.println("IntervalAnalysis - The result is: ");
+        System.err.println(resultState.print());
     }
 
     @Override
@@ -61,17 +61,17 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
                 for (State s : BranchOut) {
                     inState.copy(s);
                 }
-                System.out.println("*******************************");
-                System.out.println("***     Already Widened  ******");
-                System.out.println("*******************************");
-                System.out.println("COMMAND  : " + stmt.toString());
-                System.out.println("TYPE     : " + stmt.getClass().getName());
-                System.out.println("IN STATE : " + inState.toString());
+                System.err.println("*******************************");
+                System.err.println("***     Already Widened  ******");
+                System.err.println("*******************************");
+                System.err.println("COMMAND  : " + stmt.toString());
+                System.err.println("TYPE     : " + stmt.getClass().getName());
+                System.err.println("IN STATE : " + inState.toString());
                 for (State s : fallOut) {
-                    System.out.println("FALLOUT  : " + s.toString());
+                    System.err.println("FALLOUT  : " + s.toString());
                 }
                 for (State s : BranchOut) {
-                    System.out.println("BRANCHOUT : " + s.toString());
+                    System.err.println("BRANCHOUT : " + s.toString());
                 }
                 return;
             } else if (unitToCounter.get(stmt) == wideningThreshold) {
@@ -91,16 +91,16 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
                             out.setVarState(var, widenElement);
                             out.copy(s);
                         }
-                        System.out.println("*******************************");
-                        System.out.println("***     Widening         ******");
-                        System.out.println("*******************************");
-                        System.out.println("COMMAND  : " + stmt.toString());
-                        System.out.println("TYPE     : "
+                        System.err.println("*******************************");
+                        System.err.println("***     Widening         ******");
+                        System.err.println("*******************************");
+                        System.err.println("COMMAND  : " + stmt.toString());
+                        System.err.println("TYPE     : "
                                 + stmt.getClass().getName());
-                        System.out.println("PREV LAT : " + lastElement.toString());
-                        System.out.println("IN STATE : " + inState.toString());
+                        System.err.println("PREV LAT : " + lastElement.toString());
+                        System.err.println("IN STATE : " + inState.toString());
                         for (State s : fallOut) {
-                            System.out.println("FALLOUT  : " + s.toString());
+                            System.err.println("FALLOUT  : " + s.toString());
                         }
                         unitToCounter.put(stmt, unitToCounter.get(stmt) + 1);
                         return;
@@ -116,12 +116,12 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
                 }
             }
 
-        System.out.println("*******************************");
-        System.out.println("***     FLOWTHROUGH      ******");
-        System.out.println("*******************************");
-        System.out.println("COMMAND  : " + stmt.toString());
-        System.out.println("TYPE     : " + stmt.getClass().getName());
-        System.out.println("IN STATE : " + inState.toString());
+        System.err.println("*******************************");
+        System.err.println("***     FLOWTHROUGH      ******");
+        System.err.println("*******************************");
+        System.err.println("COMMAND  : " + stmt.toString());
+        System.err.println("TYPE     : " + stmt.getClass().getName());
+        System.err.println("IN STATE : " + inState.toString());
 
         if ((stmt instanceof JReturnStmt || stmt instanceof JReturnVoidStmt || stmt instanceof JRetStmt)) {
             // join to results from other methods
@@ -132,10 +132,10 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
         visitor.visit(stmt, inState, fallOut, BranchOut);
 
         for (State s : fallOut) {
-            System.out.println("FALLOUT  : " + s.toString());
+            System.err.println("FALLOUT  : " + s.toString());
         }
         for (State s : BranchOut) {
-            System.out.println("BRANCHOUT : " + s.toString());
+            System.err.println("BRANCHOUT : " + s.toString());
         }
     }
 
@@ -146,31 +146,31 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
 
     @Override
     protected State entryInitialFlow() {
-        System.out.println("*******************************");
-        System.out.println("***     ENTRY            ******");
-        System.out.println("*******************************");
-        System.out.println("ENTRY : " + initState.toString());
+        System.err.println("*******************************");
+        System.err.println("***     ENTRY            ******");
+        System.err.println("*******************************");
+        System.err.println("ENTRY : " + initState.toString());
         return initState.clone();
     }
 
     @Override
     protected void merge(State in1, State in2, State out) {
-        System.out.println("*******************************");
-        System.out.println("***     MERGE            ******");
-        System.out.println("*******************************");
-        System.out.println("STATE1 : " + in1.toString());
-        System.out.println("STATE2 : " + in2.toString());
+        System.err.println("*******************************");
+        System.err.println("***     MERGE            ******");
+        System.err.println("*******************************");
+        System.err.println("STATE1 : " + in1.toString());
+        System.err.println("STATE2 : " + in2.toString());
         State result = in1.join(in2);
         result.copy(out);
-        System.out.println("OUT : " + out.toString());
+        System.err.println("OUT : " + out.toString());
     }
 
     @Override
     protected State newInitialFlow() {
-        System.out.println("*******************************");
-        System.out.println("***     NEW            ******");
-        System.out.println("*******************************");
-        System.out.println("NEW : " + initState.toString());
+        System.err.println("*******************************");
+        System.err.println("***     NEW            ******");
+        System.err.println("*******************************");
+        System.err.println("NEW : " + initState.toString());
         return initState.clone();
 
     }
