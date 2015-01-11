@@ -28,7 +28,6 @@ public class TableSwitchCommand extends StmtCommand {
 		int numberOfCases = high - low + 1 ;
 		for (int index = 0; index < numberOfCases; index++ )
 		{
-			State out = inState.clone();
 			int a = low + index;
 			State afterLookup = new EqOp().op(inState, key, IntConstant.v(a));
 			afterLookup.copy(branchOut.get(index));
