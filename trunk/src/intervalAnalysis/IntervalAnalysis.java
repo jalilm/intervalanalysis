@@ -9,12 +9,22 @@ import abstraction.Interval;
 import abstraction.LatticeElement;
 import abstraction.Top;
 import soot.Unit;
+import soot.UnitBox;
+import soot.UnitPrinter;
 import soot.Value;
+import soot.ValueBox;
+import soot.jimple.ArrayRef;
 import soot.jimple.AssignStmt;
+import soot.jimple.FieldRef;
 import soot.jimple.IntConstant;
+import soot.jimple.InvokeExpr;
 import soot.jimple.NumericConstant;
+import soot.jimple.ReturnVoidStmt;
+import soot.tagkit.Host;
+import soot.tagkit.Tag;
 import soot.toolkits.graph.UnitGraph;
 import soot.toolkits.scalar.ForwardBranchedFlowAnalysis;
+import soot.util.Switch;
 import tools.StatementVisitor;
 
 public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
@@ -26,6 +36,9 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
 
     public IntervalAnalysis(UnitGraph graph, State state) {
         super(graph);
+        if (graph.getBody().getMethod().getName().equals("<init>")) {
+            return;
+        }
         initState = state;
         unitToCounter = new HashMap<Unit, Integer>();
         varToElement = new HashMap<Value, LatticeElement>();
@@ -36,52 +49,64 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
                     .equals("soot.jimple.internal.JIdentityStmt")) {
                 Value v = s.getDefBoxes().get(0).getValue();
                 initState.setVarState(v, new Top());
-            } else if (s.getClass().getName()
-                    .equals("soot.jimple.internal.JAssignStmt")) {
-                LatticeElement rightOpState = null;
-                AssignStmt AStmt = (AssignStmt) s;
-                Value leftOp = AStmt.getLeftOp();
-                Value rightOp = AStmt.getRightOp();
-                if (rightOp instanceof NumericConstant) {
-                    rightOpState = new Interval((IntConstant) rightOp,
-                            (IntConstant) rightOp);
-                    initState.setVarState(leftOp, rightOpState);
-                }
             }
+//            } else if (s.getClass().getName()
+//                    .equals("soot.jimple.internal.JAssignStmt")) {
+//                LatticeElement rightOpState = null;
+//                AssignStmt AStmt = (AssignStmt) s;
+//                Value leftOp = AStmt.getLeftOp();
+//                Value rightOp = AStmt.getRightOp();
+//                if (rightOp instanceof NumericConstant) {
+//                    rightOpState = new Interval((IntConstant) rightOp,
+//                            (IntConstant) rightOp);
+//                    initState.setVarState(leftOp, rightOpState);
+//                }
+//            }
         }
 
         doAnalysis();
-        System.out.println(initState.print());
+        State res = new State();
+        for (Iterator<Unit> unitIt = graph.iterator(); unitIt.hasNext();) {
+            Unit s = (Unit) unitIt.next();
+            String unitName = s.getClass().getName();
+            if(unitName.equals("soot.jimple.internal.JReturnVoidStmt") || unitName.equals("soot.jimple.internal.JReturnStmt")) {
+                res.join(this.getFallFlowAfter(s));
+            }
+        }
+        System.out.println(res.print());
     }
 
     @Override
     protected void flowThrough(State inState, Unit stmt, List<State> fallOut,
             List<State> BranchOut) {
-        Value var = stmt.getDefBoxes().get(0).getValue();
-        if (unitToCounter.get(stmt) == wideningThreshold) {
-            LatticeElement lastElement = varToElement.get(var);
-            LatticeElement currElement = varToElement.get(var);
-            LatticeElement widenElement = lastElement.widen(currElement);
-            if (widenElement != null) {
-                unitToCounter.put(stmt, 0);
-                varToElement.put(var, inState.getVarState(var));
-                for(State s : fallOut) {
-                    s.updateVarState(var, widenElement);
+        try {
+            // TODO jalil change Uses
+            Value var = stmt.getDefBoxes().get(0).getValue();
+            if (unitToCounter.get(stmt) == wideningThreshold) {
+                LatticeElement lastElement = varToElement.get(var);
+                LatticeElement currElement = varToElement.get(var);
+                LatticeElement widenElement = lastElement.widen(currElement);
+                if (widenElement != null) {
+                    unitToCounter.put(stmt, 0);
+                    varToElement.put(var, inState.getVarState(var));
+                    for (State s : fallOut) {
+                        s.updateVarState(var, widenElement);
+                    }
+                    for (State s : BranchOut) {
+                        s.updateVarState(var, widenElement);
+                    }
+                    return;
                 }
-                for(State s : BranchOut) {
-                    s.updateVarState(var, widenElement);
-                }
-                return;
             }
+
+            unitToCounter.put(stmt, unitToCounter.get(stmt) + 1);
+            varToElement.put(var, inState.getVarState(var));
+        } catch (Exception e) {
         }
-        
-        unitToCounter.put(stmt, unitToCounter.get(stmt) + 1);
-        varToElement.put(var, inState.getVarState(var));
+
         StatementVisitor visitor = new StatementVisitor();
         visitor.visit(stmt, inState, fallOut, BranchOut);
-        
-        //TODO Remove before submitting
-        System.out.println(initState.print());
+
     }
 
     @Override

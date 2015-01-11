@@ -39,7 +39,6 @@ public class StatementVisitor {
 	
 	public void caseAssignStmt(AssignStmt stmt, State inState, List<State> fallOut, List<State> branchOut) 
 	{
-		System.out.println("Assign " + stmt.toString());
 		new AssignmentStmt(stmt,inState,fallOut,branchOut).execute();
 		
 	}
