@@ -12,10 +12,10 @@ public final class PositiveInf extends AbstractPositiveInf implements
     public PositiveInf(IntConstant low) {
         this.low = low;
     }
-
-    public PositiveInf(int i) {
-    	this.low = IntConstant.v(i);
-	}
+    
+    public PositiveInf(int low) {
+        this.low = IntConstant.v(low);
+    }
 
 	@Override
     public String toString() {
@@ -132,7 +132,10 @@ public final class PositiveInf extends AbstractPositiveInf implements
 
     @Override
     public LatticeElement mulNegativeInf(NegativeInf other) {
-        return new Top();
+        if(other.high.value > 0 || this.low.value < 0) {
+            return new Top();
+        }
+        return new NegativeInf(other.high.value*this.low.value);
     }
 
     @Override
@@ -182,8 +185,8 @@ public final class PositiveInf extends AbstractPositiveInf implements
         if (this.low.value <= 0) {
             return new Top();
         } else {
-            /* We do not know what is -inf/+inf but it is negative. */
-            return new NegativeInf(IntConstant.v(-1));
+            /* We do not know what is -inf/+inf but it is negative thus 0. */
+            return new NegativeInf(Math.max(0, other.high.value/this.low.value));
         }
     }
 
@@ -205,13 +208,13 @@ public final class PositiveInf extends AbstractPositiveInf implements
 
     @Override
     public LatticeElement modPositiveInf(PositiveInf other) {
-        // TODO Jalil of you have time, tighten me.
+        // TODO Jalil If you have time, tighten me.
         return new Top();
     }
 
     @Override
     public LatticeElement modNegativeInf(NegativeInf other) {
-        // TODO Jalil of you have time, tighten me.
+        // TODO Jalil If you have time, tighten me.
         return new Top();
     }
 

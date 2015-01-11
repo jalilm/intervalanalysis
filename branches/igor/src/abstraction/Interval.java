@@ -1,6 +1,5 @@
 package abstraction;
 
-import java.util.List;
 
 import soot.jimple.IntConstant;
 import transform.ILogicalTransformer;
@@ -235,8 +234,8 @@ public final class Interval extends AbstractInterval implements
                             / this.high.value));
                 } else {
                     return new Interval(IntConstant.v(other.low.value
-                            / this.low.value), IntConstant.v(other.low.value
-                            / this.high.value));
+                            / this.low.value), IntConstant.v(other.high.value
+                            / this.low.value));
                 }
             }
         } else { // this.high.value < 0

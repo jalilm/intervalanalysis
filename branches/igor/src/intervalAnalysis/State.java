@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import abstraction.Bottom;
 import abstraction.Interval;
 import abstraction.LatticeElement;
 import abstraction.Top;
@@ -86,17 +85,16 @@ public class State {
     }
     
     public void setVarState(Value varName, LatticeElement varState) {
-    	if (varState == null) 
-    	{
-    		//TODO Delete this 
-    		//To set breakpoint
-    		int i = 0; 
-    		i++;
+    	if (varState == null)  {
+    		throw new NullPointerException("Null into setVarState");
     	}
         nameToState.put(varName, varState);
     }
     
     public LatticeElement updateVarState(Value varName, LatticeElement varState) {
+        if (varState == null)  {
+            throw new NullPointerException("Null into updateVarState");
+        }
         LatticeElement newState;
         LatticeElement oldState = nameToState.get(varName);        
         if (oldState == null) {

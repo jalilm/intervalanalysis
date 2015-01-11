@@ -13,11 +13,11 @@ public final class NegativeInf extends AbstractNegativeInf implements
         this.high = high;
     }
 
-    public NegativeInf(int i) {
-		this.high = IntConstant.v(i);
-	}
+    public NegativeInf(int high) {
+        this.high = IntConstant.v(high);
+    }
 
-	@Override
+    @Override
     public String toString() {
         return "[-inf," + high.value + "]";
     }
@@ -123,7 +123,11 @@ public final class NegativeInf extends AbstractNegativeInf implements
 
     @Override
     public LatticeElement mulPositiveInf(PositiveInf other) {
-        return new Top();
+        if (other.low.value < 0) {
+            return new Top();
+        } else {
+            return new NegativeInf(other.low.value * this.high.value);
+        }
     }
 
     @Override
@@ -166,26 +170,27 @@ public final class NegativeInf extends AbstractNegativeInf implements
 
     @Override
     public LatticeElement divPositiveInf(PositiveInf other) {
-        if (this.high.value > 0) {
+        if (this.high.value >= 0) {
             return new Top();
         } else {
-            /* We do not know what is +inf/-inf but it is negative. */
-            return new NegativeInf(IntConstant.v(-1));
+            /*
+             * We do not know what is +inf/-inf but it is negative so we treat
+             * it as 0.
+             */
+            return new NegativeInf(Math.max(0, other.low.value
+                    / this.high.value));
         }
 
     }
 
     @Override
     public LatticeElement divNegativeInf(NegativeInf other) {
-        if (this.high.value > 0) {
+        if (this.high.value >= 0) {
             return new Top();
         } else {
-            if (other.high.value < 0) {
-                return new PositiveInf(IntConstant.v(1));
-            } else {
-                return new PositiveInf(IntConstant.v(other.high.value
-                        / this.high.value));
-            }
+            // Anything div by -inf is 0, however it might get positive.
+            return new PositiveInf(Math.min(0, other.high.value
+                    / this.high.value));
         }
     }
 
@@ -217,14 +222,14 @@ public final class NegativeInf extends AbstractNegativeInf implements
         return new Top();
     }
 
-	@Override
-	public LatticeElement createNegativeInfToHigh() {
-		return new NegativeInf(this.high);
-	}
+    @Override
+    public LatticeElement createNegativeInfToHigh() {
+        return new NegativeInf(this.high);
+    }
 
-	@Override
-	public LatticeElement createLowToPositiveInf() {
-		return new Top();
-	}
+    @Override
+    public LatticeElement createLowToPositiveInf() {
+        return new Top();
+    }
 
 }

@@ -2,8 +2,6 @@ package tests.unittests;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import abstraction.Bottom;
@@ -14,14 +12,6 @@ import abstraction.PositiveInf;
 import abstraction.Top;
 
 public class TestIntervalLattice {
-	@Before
-	public void setUp() throws Exception {
-	}
-	
-	@After
-	public void tearDown() throws Exception {
-	
-	}
 	
 	@Test
 	public void testConstruction() throws Exception {
