@@ -7,15 +7,11 @@ import org.junit.Test;
 
 import soot.IntType;
 import soot.Local;
-import soot.Type;
-import soot.Value;
 import soot.jimple.IntConstant;
 import soot.jimple.internal.JimpleLocal;
 import abstraction.Bottom;
 import abstraction.Interval;
 import abstraction.LatticeElement;
-import abstraction.NegativeInf;
-import abstraction.PositiveInf;
 import abstraction.Top;
 import abstraction.operations.EqOp;
 import abstraction.operations.GeOp;

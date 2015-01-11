@@ -2,7 +2,6 @@ package abstraction.operations;
 
 import intervalAnalysis.State;
 import abstraction.Bottom;
-import abstraction.Interval;
 import abstraction.LatticeElement;
 import abstraction.NegativeInf;
 import abstraction.PositiveInf;
