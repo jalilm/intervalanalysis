@@ -1,5 +1,0 @@
-args -> [-inf,+inf]
-temp$0 -> [1,1]
-temp$1 -> [0,0]
-temp$2 -> [3,3]
-this -> [-inf,+inf]
