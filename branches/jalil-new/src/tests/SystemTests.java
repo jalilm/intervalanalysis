@@ -57,7 +57,7 @@ public class SystemTests {
         sootOptions.set_verbose(false);
         sootOptions.classes().add(classname);
         sootOptions.set_main_class(classname);
-        sootOptions.set_interactive_mode(true);
+        sootOptions.set_interactive_mode(false);
         sootOptions.setPhaseOption("jb", "use-original-names:true");
 
     }
