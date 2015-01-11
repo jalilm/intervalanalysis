@@ -19,7 +19,7 @@ public final class PositiveInf extends AbstractPositiveInf implements
 
 	@Override
     public String toString() {
-        return "[" + low.value + ",+inf]";
+        return "[" + low.value + ",inf]";
     }
 
     @Override

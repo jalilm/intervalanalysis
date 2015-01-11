@@ -9,7 +9,7 @@ public final class Top extends TopAbstract implements IMathTransformer,
 
     @Override
     public String toString() {
-        return "[-inf,+inf]";
+        return "[-inf,inf]";
     }
 
     @Override
