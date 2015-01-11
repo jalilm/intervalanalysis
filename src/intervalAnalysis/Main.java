@@ -29,13 +29,18 @@ public class Main {
                 new FileInputStream(testsDescriptorDirecotry + File.separator
                         + allTestsFileName)));
         while ((classname = reader.readLine()) != null) {
-            streaming_main(classname, System.out);
+            String resultFile = String.format("%s.result.txt",classname);
+            PrintStream printFile = new PrintStream(resultFile);
+            streaming_main(classname, printFile);
+            printFile.close();
         }
         reader.close();
     }
 
     private static void streaming_main(String classname, PrintStream output)
             throws IOException {
+        
+        final State state = new State();
 
         initializeSoot(getRtJarPath() + File.pathSeparator + classpath,
                 classname);
@@ -49,11 +54,12 @@ public class Main {
                     protected void internalTransform(Body body,
                             String phaseName,
                             @SuppressWarnings("rawtypes") Map options) {
-                        new IntervalAnalysis(new BriefUnitGraph(body), new State());
+                        new IntervalAnalysis(new BriefUnitGraph(body), state);
                     }
                 }));
 
         soot.Main.main(sootArgs);
+        output.print(state.print());
     }
 
     @SuppressWarnings("unchecked")
