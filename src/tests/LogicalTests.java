@@ -73,6 +73,14 @@ public class LogicalTests {
 		runTest("Assign");
 	}
 	
+	@Test
+	public void testExample1() throws Exception {
+		runTest("test1");
+	}
+	@Test
+	public void testExample2() throws Exception {
+		runTest("test2");
+	}
 	protected boolean compareTwoFiles(String file1, String file2) throws IOException
 	{
 		String input = new String(Files.readAllBytes(Paths.get(file1)));
@@ -85,7 +93,7 @@ public class LogicalTests {
         soot.G.reset();
         Options sootOptions = Options.v();
         sootOptions.set_allow_phantom_refs(true);
-        sootOptions.set_src_prec(Options.src_prec_jimple);
+        sootOptions.set_src_prec(Options.src_prec_java);
         sootOptions.set_output_format(Options.output_format_jimple);
         sootOptions.set_output_dir("./tests");
         sootOptions.set_soot_classpath(classpath);
@@ -93,7 +101,6 @@ public class LogicalTests {
         sootOptions.set_verbose(false);
         sootOptions.classes().add(classname);
         sootOptions.set_main_class(classname);
-        sootOptions.set_interactive_mode(true);
 
     }
 
