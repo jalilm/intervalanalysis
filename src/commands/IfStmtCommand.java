@@ -30,12 +30,12 @@ public class IfStmtCommand extends StmtCommand{
 		
 		JIfStmt fs = (JIfStmt) stmt;
         Value condition = fs.getCondition();
-        if (condition instanceof JEqExpr || condition instanceof JNeExpr ||
-            condition instanceof JGeExpr || condition instanceof JLeExpr ||
-            condition instanceof JLtExpr || condition instanceof JGtExpr)
-        {
-        	System.out.println(this.getClass() + ": " + fs.toString());
-        } 
+//        if (condition instanceof JEqExpr || condition instanceof JNeExpr ||
+//            condition instanceof JGeExpr || condition instanceof JLeExpr ||
+//            condition instanceof JLtExpr || condition instanceof JGtExpr)
+//        {
+//        	System.out.println(this.getClass() + ": " + fs.toString());
+//        } 
         
         switch (condition.getClass().getName())
         {

@@ -35,6 +35,7 @@ public class Main {
             PrintStream printFile = new PrintStream(resultFile);
             System.out.println("Processing class " + classname);
             streaming_main(classname, printFile);
+            System.out.println("Result is in " + resultFile);
             printFile.close();
         }
         reader.close();
