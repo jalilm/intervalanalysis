@@ -18,7 +18,7 @@ public class LookSwitchCommand extends StmtCommand {
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
+
 		LookupSwitchStmt switchStmt = (LookupSwitchStmt) stmt;
 		Value key = switchStmt.getKey();
 		

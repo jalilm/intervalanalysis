@@ -1,15 +1,8 @@
 package commands;
 
 import intervalAnalysis.State;
-
-
-
-
-
-import java.util.Iterator;
 import java.util.List;
 
-import abstraction.operations.AbstractLogicOperation;
 import abstraction.operations.EqOp;
 import abstraction.operations.GeOp;
 import abstraction.operations.GtOp;

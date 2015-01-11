@@ -1,7 +1,6 @@
 package abstraction;
 
 import transform.IJoinMeetTransformer;
-import transform.ILogicalTransformer;
 import transform.IMathTransformer;
 
 public abstract class TopAbstract implements LatticeElement {

@@ -4,12 +4,30 @@ public class tests.test3 extends java.lang.Object
     public static void main(java.lang.String[])
     {
         java.lang.String[] args;
-        int k, j, temp$0;
+        int k, i, temp$0, temp$1, temp$2;
 
         args := @parameter0: java.lang.String[];
         k = 5;
-        temp$0 = 5 - k;
-        j = temp$0;
+        i = 0;
+        temp$0 = 0;
+        i = temp$0;
+
+     label0:
+        nop;
+        if i < k goto label1;
+
+        goto label2;
+
+     label1:
+        nop;
+        nop;
+        temp$1 = i;
+        temp$2 = temp$1 + 1;
+        i = temp$2;
+        goto label0;
+
+     label2:
+        nop;
         return;
     }
 

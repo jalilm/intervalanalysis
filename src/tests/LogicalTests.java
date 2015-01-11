@@ -74,7 +74,7 @@ public class LogicalTests {
         soot.G.reset();
         Options sootOptions = Options.v();
         sootOptions.set_allow_phantom_refs(true);
-        sootOptions.set_src_prec(Options.src_prec_java);
+        sootOptions.set_src_prec(Options.src_prec_jimple);
         sootOptions.set_output_format(Options.output_format_jimple);
         sootOptions.set_output_dir("./tests");
         sootOptions.set_soot_classpath(classpath);

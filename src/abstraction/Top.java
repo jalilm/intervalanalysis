@@ -1,6 +1,5 @@
 package abstraction;
 
-import java.util.List;
 
 import transform.ILogicalTransformer;
 import transform.IMathTransformer;

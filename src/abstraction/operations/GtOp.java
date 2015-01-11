@@ -21,7 +21,6 @@ public class GtOp extends AbstractLogicOperation{
 		}
 		else
 		{
-			//TODO return bottom
 			return new State();
 		}
 	}
