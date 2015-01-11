@@ -1,6 +1,5 @@
 package abstraction;
 
-
 import soot.jimple.IntConstant;
 import transform.ILogicalTransformer;
 import transform.IMathTransformer;
@@ -17,21 +16,25 @@ public final class Interval extends AbstractInterval implements
     }
 
     public Interval(int low, int high) {
-    	assert(high >= low);
+        assert (high >= low);
         this.low = IntConstant.v(low);
         this.high = IntConstant.v(high);
     }
+
     /**
-     * @param s = "[low,high]"
-     * @throws Exception 
+     * @param s
+     *            = "[low,high]"
+     * @throws Exception
      */
     public Interval(String s) throws Exception {
-    	String pattern = "\\[(-?[1-9]?),(-?[1-9]?)\\]"; 
-    	if (!s.matches(pattern)) throw new Exception();
-    	this.low =  IntConstant.v(Integer.parseInt(s.replaceFirst(pattern, "$1")));
-    	this.high = IntConstant.v(Integer.parseInt(s.replaceFirst(pattern, "$2")));
+        String pattern = "\\[(-?[1-9]?),(-?[1-9]?)\\]";
+        if (!s.matches(pattern))
+            throw new Exception();
+        this.low = IntConstant
+                .v(Integer.parseInt(s.replaceFirst(pattern, "$1")));
+        this.high = IntConstant.v(Integer.parseInt(s
+                .replaceFirst(pattern, "$2")));
     }
-
 
     @Override
     public String toString() {
@@ -301,8 +304,14 @@ public final class Interval extends AbstractInterval implements
 
     @Override
     public LatticeElement modInterval(Interval other) {
-        // TODO Jalil If you have time, tighten me.
-        return new Top();
+        if (this.low.value <= 0 && this.high.value >= 0) {
+            return new Top();
+        }
+        if (this.low.value > 0) { // */pos
+            return new Interval(0, this.high.value - 1);
+        } else { // */neg
+            return new Interval(this.high.value + 1, 0);
+        }
     }
 
     @Override
@@ -317,24 +326,36 @@ public final class Interval extends AbstractInterval implements
 
     @Override
     public LatticeElement modPositiveInf(PositiveInf other) {
-        // TODO Jalil if you have time, tighten me.
-        return new Top();
+        if (this.low.value <= 0 && this.high.value >= 0) {
+            return new Top();
+        }
+        if (this.low.value > 0) { // */pos
+            return new Interval(0, this.high.value - 1);
+        } else { // */neg
+            return new Interval(this.high.value + 1, 0);
+        }
     }
 
     @Override
     public LatticeElement modNegativeInf(NegativeInf other) {
-        // TODO Jalil if you have time, tighten me.
-        return new Top();
+        if (this.low.value <= 0 && this.high.value >= 0) {
+            return new Top();
+        }
+        if (this.low.value > 0) { // */pos
+            return new Interval(0, this.high.value - 1);
+        } else { // */neg
+            return new Interval(this.high.value + 1, 0);
+        }
     }
 
-	@Override
-	public LatticeElement createNegativeInfToHigh() {
-		
-		return new NegativeInf(this.high);
-	}
+    @Override
+    public LatticeElement createNegativeInfToHigh() {
 
-	@Override
-	public LatticeElement createLowToPositiveInf() {
-		return new PositiveInf(this.low);
-	}
+        return new NegativeInf(this.high);
+    }
+
+    @Override
+    public LatticeElement createLowToPositiveInf() {
+        return new PositiveInf(this.low);
+    }
 }
