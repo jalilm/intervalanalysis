@@ -1,0 +1,51 @@
+public class examples.test2 extends java.lang.Object
+{
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.String[] r0, r1;
+        byte b0;
+        int i1;
+        java.lang.String r2;
+
+        r0 := @parameter0: java.lang.String[];
+        r1 = r0;
+        b0 = 0;
+        r2 = r1[b0];
+        i1 = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>(r2);
+        staticinvoke <examples.test2: void foo(int)>(i1);
+        return;
+    }
+
+    public static void foo(int)
+    {
+        int i0;
+        byte b1, b2, b3, b4;
+
+        i0 := @parameter0: int;
+        if i0 > 2 goto label0;
+
+        goto label1;
+
+     label0:
+        b2 = 3;
+        b1 = b2;
+        goto label2;
+
+     label1:
+        b3 = -3;
+        b4 = b3;
+
+     label2:
+        return;
+    }
+
+    public void <init>()
+    {
+        examples.test2 r0;
+
+        r0 := @this: examples.test2;
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+}
