@@ -7,11 +7,13 @@ import java.util.Map;
 
 import abstraction.LatticeElement;
 import abstraction.Top;
+import soot.Local;
 import soot.Unit;
 import soot.Value;
 import soot.jimple.internal.JRetStmt;
 import soot.jimple.internal.JReturnStmt;
 import soot.jimple.internal.JReturnVoidStmt;
+import soot.jimple.internal.VariableBox;
 import soot.toolkits.graph.UnitGraph;
 import soot.toolkits.scalar.ForwardBranchedFlowAnalysis;
 import tools.StatementVisitor;
@@ -34,6 +36,9 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
         unitToCounter = new HashMap<Unit, Integer>();
         varToElement = new HashMap<Value, LatticeElement>();
         // Add parameters with [-inf,inf]
+//        for(Local l : graph.getBody().getLocals()) {
+//            initState.setVarState(l, new Top());
+//        }
         for (Iterator<Unit> unitIt = graph.iterator(); unitIt.hasNext();) {
             Unit s = (Unit) unitIt.next();
             unitToCounter.put(s, 0);
@@ -170,8 +175,7 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
         System.err.println("*******************************");
         System.err.println("***     NEW            ******");
         System.err.println("*******************************");
-        System.err.println("NEW : " + initState.toString());
-        return initState.clone();
+        return new State();
 
     }
 
