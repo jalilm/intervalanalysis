@@ -16,6 +16,10 @@ import soot.jimple.TableSwitchStmt;
 public class StatementVisitor {
 	public void visit(Unit stmt, State inState, List<State> fallOut, List<State> BranchOut)
 	{
+	    if(inState.isBottom()) {
+	        defaultCase(stmt,inState,fallOut,BranchOut);
+	        return;
+	    }
 		switch (stmt.getClass().getName())
 		{
 		case "soot.jimple.internal.JIfStmt":  		  caseIfStmt((IfStmt)stmt,inState,fallOut,BranchOut); break;

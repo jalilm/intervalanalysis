@@ -11,7 +11,7 @@ public class SwitchNoDefault{
                     }
             case 7: {
                 j = 7;  //j=[7,7], i = bottom
-                break;
+                
                     }
 		} //i = [2,2], j =[0,7]
 	}

@@ -15,7 +15,7 @@ public class GeOp extends AbstractLogicOperation {
         if (left.value >= right.value) {
             return in.clone();
         } else {
-            return new State();
+            return bottom.clone();
         }
     }
 	public State op(State in, Local x, IntConstant a)
@@ -26,7 +26,7 @@ public class GeOp extends AbstractLogicOperation {
 
 		if (meetResult.equals(new Bottom()))
 		{
-			return new State();
+			return bottom.clone();
 		}
 		
 		State out = in.clone();
@@ -43,7 +43,7 @@ public class GeOp extends AbstractLogicOperation {
 		
 		if (meetResult.equals(new Bottom()))
 		{
-			return new State();
+			return bottom.clone();
 		}
 		
 		State out = in.clone();
@@ -69,7 +69,7 @@ public class GeOp extends AbstractLogicOperation {
 		
 		if (xMeet.equals(new Bottom()))
 		{	//the condition doesn't hold
-			return new State();
+			return bottom.clone();
 		}
 		
 		LatticeElement checkYInterval = xInterval.createNegativeInfToHigh();

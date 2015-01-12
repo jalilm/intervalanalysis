@@ -14,7 +14,7 @@ public class LookupSwitch{
                 break;
                     }
              default: {
-                break;  //j=[0,0], i = [2,2]
+                     //j=[0,0], i = [2,2]
                       }
 		} //i = [2,2], j =[0,7]
 	}

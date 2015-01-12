@@ -29,13 +29,7 @@ public class IfStmtCommand extends StmtCommand{
 		ILogicOperation logicalOp = null;
 		
 		JIfStmt fs = (JIfStmt) stmt;
-        Value condition = fs.getCondition();
-//        if (condition instanceof JEqExpr || condition instanceof JNeExpr ||
-//            condition instanceof JGeExpr || condition instanceof JLeExpr ||
-//            condition instanceof JLtExpr || condition instanceof JGtExpr)
-//        {
-//        	System.out.println(this.getClass() + ": " + fs.toString());
-//        } 
+        Value condition = fs.getCondition(); 
         
         switch (condition.getClass().getName())
         {
@@ -55,10 +49,6 @@ public class IfStmtCommand extends StmtCommand{
         State truePathOut = logicalOp.op(in, expLeft, expRight);
         State falsePathOut = logicalOp.negate(in, expLeft, expRight);
         
-        //OUT = IN - KILL + GEN
-//            truePathOut = in.merge(truePathOut);
-//            falsePathOut = in.merge(falsePathOut);
-        
         //True path
         for (State s : branchOut)
 		{
@@ -68,7 +58,7 @@ public class IfStmtCommand extends StmtCommand{
         //False path
         for (State s : fallOut)
      	{
-        		falsePathOut.copy(s);
+        	falsePathOut.copy(s);
      	}
 
 	}

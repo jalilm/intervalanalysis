@@ -1,4 +1,5 @@
-args -> [-inf,+inf]
+a -> [-inf,inf]
+args -> [-inf,inf]
 j -> [5,5]
 k -> [5,5]
-l -> [-inf,+inf]
+l -> [-inf,inf]
