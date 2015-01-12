@@ -79,11 +79,6 @@ public class IntervalTest {
         assertTrue(i1.join(n3).equals(n3));
     }
 
-    // TODO Jalil implement after meet
-    @Ignore
-    @Test
-    public void testMeet() {
-    }
 
     @Test
     public void testWiden() {
@@ -210,7 +205,7 @@ public class IntervalTest {
         assertTrue(i3.div(n3).equals(top));
     }
 
-    // TODO Jalil If you tightened mod implement me.
+    // Will not be tested. 
     @Ignore
     @Test
     public void testMod() {

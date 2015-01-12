@@ -1,6 +1,7 @@
 package abstraction.operations;
 
 import intervalAnalysis.State;
+import abstraction.Bottom;
 import abstraction.Interval;
 import abstraction.LatticeElement;
 import abstraction.NegativeInf;
@@ -17,47 +18,82 @@ public class GtOp extends AbstractLogicOperation{
 	public State op(State in, IntConstant left, IntConstant right) {
 		if (left.value > right.value)
 		{
-			return in;
+			return in.clone();
 		}
 		else
 		{
-			//TODO return bottom
-			return new State();
+			return this.bottom.clone();
 		}
 	}
 
 
-	public State op(State in, Local left, IntConstant right)
+	public State op(State in, Local x, IntConstant a)
 	{
-		LatticeElement newX = new PositiveInf(right.value+1); 
-		State out = new State();
-		out.setVarState((Value)left, newX);
-		return in.meet(out);
+		LatticeElement aInterval = new PositiveInf(a.value+1); 
+		LatticeElement xInterval = in.getVarState(x);
+		LatticeElement meetResult = xInterval.meet(aInterval);
+		
+		if (meetResult.equals(new Bottom()))
+		{
+			return this.bottom.clone();
+		}
+		
+		State out = in.clone();
+		out.setVarState(x, meetResult);
+		
+		return out;	
+		
 	}
 
 
-	public State op(State in, IntConstant left, Local right){
-		LatticeElement newX = new NegativeInf(left.value-1); 
-		State out = new State();
-		out.setVarState((Value)right, newX);
-		return in.meet(out);
+	public State op(State in, IntConstant a, Local x){
+		LatticeElement aInterval = new NegativeInf(a.value-1); 
+		LatticeElement xInterval = in.getVarState(x);
+		LatticeElement meetResult = xInterval.meet(aInterval);
+		
+		if (meetResult.equals(new Bottom()))
+		{
+			return bottom.clone();
+			
+		}
+		
+		State out = in.clone();
+		out.setVarState(x, meetResult);
+		
+		return out;	
 	}
 	
 
-	public State op(State in, Local left, Local right){
+	public State op(State in, Local x, Local y){
 		
-		LatticeElement x = in.getVarState(left);
-		LatticeElement y = in.getVarState(right);
+		if (x.equals(y))
+		{	// x not greater than x
+			return bottom.clone();
+		}
+		
+		LatticeElement xInterval = in.getVarState(x);
+		LatticeElement yInterval = in.getVarState(y);
 
-		LatticeElement newX = y.createLowToPositiveInf();
-		newX = newX.add(new Interval(1,1));
-		LatticeElement newY = x.createNegativeInfToHigh();
-		newY = newY.sub(new Interval(1,1));
+		LatticeElement checkXInterval = yInterval.createLowToPositiveInf();
+		checkXInterval = checkXInterval.add(new Interval(1,1));
+		
+		//check if the there is a true path
+		LatticeElement xMeet = xInterval.meet(checkXInterval);
+		
+		if (xMeet.equals(new Bottom()))
+		{	//the condition doesn't hold
+			return bottom.clone();
+		}
+		
+		LatticeElement checkYInterval = xInterval.createNegativeInfToHigh();
+		checkYInterval = checkYInterval.sub(new Interval(1,1));
 
-		State out = new State();
-		out.setVarState((Value)left, newX);
-		out.setVarState((Value)right,newY);
-		return in.meet(out);
+		LatticeElement yMeet = yInterval.meet(checkYInterval);
+		
+		State out = in.clone();
+		out.setVarState((Value)x, xMeet);
+		out.setVarState((Value)y, yMeet);
+		return out;
 
 	}
 

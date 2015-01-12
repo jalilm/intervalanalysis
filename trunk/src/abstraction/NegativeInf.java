@@ -180,7 +180,6 @@ public final class NegativeInf extends AbstractNegativeInf implements
             return new NegativeInf(Math.max(0, other.low.value
                     / this.high.value));
         }
-
     }
 
     @Override
@@ -196,8 +195,10 @@ public final class NegativeInf extends AbstractNegativeInf implements
 
     @Override
     public LatticeElement modInterval(Interval other) {
-        // TODO Jalil if you have time, tighten me.
-        return new Top();
+        if (this.high.value >= 0) {
+            return new Top();
+        }
+        return new NegativeInf(0);
     }
 
     @Override
@@ -212,14 +213,18 @@ public final class NegativeInf extends AbstractNegativeInf implements
 
     @Override
     public LatticeElement modPositiveInf(PositiveInf other) {
-        // TODO Jalil if you have time, tighten me.
-        return new Top();
+        if (this.high.value >= 0) {
+            return new Top();
+        }
+        return new NegativeInf(0);
     }
 
     @Override
     public LatticeElement modNegativeInf(NegativeInf other) {
-        // TODO Jalil if you have time, tighten me.
-        return new Top();
+        if (this.high.value >= 0) {
+            return new Top();
+        }
+        return new NegativeInf(0);
     }
 
     @Override

@@ -5,7 +5,7 @@ public class IfGt{
 	    int j;   		// j = [-inf,inf]
 	    int k = 5; 		// k = [5,5]
         if (k > 2)
-		{ 				// k = [5,5] join [3,inf] = [5,5]
+		{ 				// k = [5,5] meet [3,inf] = [5,5]
 	    	j = 1;      
 		}				// j = [1,1], k = [5,5]
 	    else

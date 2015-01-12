@@ -5,108 +5,142 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import abstraction.Interval;
 import abstraction.LatticeElement;
 import abstraction.Top;
+import soot.Local;
 import soot.Unit;
-import soot.UnitBox;
-import soot.UnitPrinter;
 import soot.Value;
-import soot.ValueBox;
-import soot.jimple.ArrayRef;
-import soot.jimple.AssignStmt;
-import soot.jimple.FieldRef;
-import soot.jimple.IntConstant;
-import soot.jimple.InvokeExpr;
-import soot.jimple.NumericConstant;
-import soot.jimple.ReturnVoidStmt;
-import soot.tagkit.Host;
-import soot.tagkit.Tag;
+import soot.jimple.internal.JRetStmt;
+import soot.jimple.internal.JReturnStmt;
+import soot.jimple.internal.JReturnVoidStmt;
 import soot.toolkits.graph.UnitGraph;
 import soot.toolkits.scalar.ForwardBranchedFlowAnalysis;
-import soot.util.Switch;
 import tools.StatementVisitor;
 
 public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
 
     final int wideningThreshold = 10;
-    State initState;
+    final State resultState; // will hold the result
+    final State initState = new State(); // holds initial State of arguments ->
+                                         // [-inf,inf]
     Map<Unit, Integer> unitToCounter;
     Map<Value, LatticeElement> varToElement;
 
     public IntervalAnalysis(UnitGraph graph, State state) {
         super(graph);
+        resultState = state;
         if (graph.getBody().getMethod().getName().equals("<init>")) {
             return;
         }
-        initState = state;
         unitToCounter = new HashMap<Unit, Integer>();
         varToElement = new HashMap<Value, LatticeElement>();
+        // Add parameters with [-inf,inf]
+        for(Local l : graph.getBody().getLocals()) {
+            initState.setVarState(l, new Top());
+        }
         for (Iterator<Unit> unitIt = graph.iterator(); unitIt.hasNext();) {
             Unit s = (Unit) unitIt.next();
             unitToCounter.put(s, 0);
-            if (s.getClass().getName()
-                    .equals("soot.jimple.internal.JIdentityStmt")) {
-                Value v = s.getDefBoxes().get(0).getValue();
-                initState.setVarState(v, new Top());
-            }
-//            } else if (s.getClass().getName()
-//                    .equals("soot.jimple.internal.JAssignStmt")) {
-//                LatticeElement rightOpState = null;
-//                AssignStmt AStmt = (AssignStmt) s;
-//                Value leftOp = AStmt.getLeftOp();
-//                Value rightOp = AStmt.getRightOp();
-//                if (rightOp instanceof NumericConstant) {
-//                    rightOpState = new Interval((IntConstant) rightOp,
-//                            (IntConstant) rightOp);
-//                    initState.setVarState(leftOp, rightOpState);
-//                }
+//            if (s.getClass().getName()
+//                    .equals("soot.jimple.internal.JIdentityStmt")) {
+//                Value v = s.getDefBoxes().get(0).getValue();
+//                initState.setVarState(v, new Top());
 //            }
         }
 
         doAnalysis();
-        State res = new State();
-        for (Iterator<Unit> unitIt = graph.iterator(); unitIt.hasNext();) {
-            Unit s = (Unit) unitIt.next();
-            String unitName = s.getClass().getName();
-            if(unitName.equals("soot.jimple.internal.JReturnVoidStmt") || unitName.equals("soot.jimple.internal.JReturnStmt")) {
-                res.join(this.getFallFlowAfter(s));
-            }
-        }
-        System.out.println(res.print());
+        System.err.println("IntervalAnalysis - The result is: ");
+        System.err.println(resultState.print());
     }
 
     @Override
     protected void flowThrough(State inState, Unit stmt, List<State> fallOut,
             List<State> BranchOut) {
-        try {
-            // TODO jalil change Uses
-            Value var = stmt.getDefBoxes().get(0).getValue();
-            if (unitToCounter.get(stmt) == wideningThreshold) {
-                LatticeElement lastElement = varToElement.get(var);
-                LatticeElement currElement = varToElement.get(var);
-                LatticeElement widenElement = lastElement.widen(currElement);
-                if (widenElement != null) {
-                    unitToCounter.put(stmt, 0);
+        Value var = null;
+            if (unitToCounter.get(stmt) > wideningThreshold) {
+                for (State s : fallOut) {
+                    inState.copy(s);
+                }
+
+                for (State s : BranchOut) {
+                    inState.copy(s);
+                }
+                System.err.println("*******************************");
+                System.err.println("***     Already Widened  ******");
+                System.err.println("*******************************");
+                System.err.println("COMMAND  : " + stmt.toString());
+                System.err.println("TYPE     : " + stmt.getClass().getName());
+                System.err.println("IN STATE : " + inState.toString());
+                for (State s : fallOut) {
+                    System.err.println("FALLOUT  : " + s.toString());
+                }
+                for (State s : BranchOut) {
+                    System.err.println("BRANCHOUT : " + s.toString());
+                }
+                return;
+            } else if (unitToCounter.get(stmt) == wideningThreshold) {
+                if(stmt.getDefBoxes().size() != 0) {
+                    var = stmt.getDefBoxes().get(0).getValue();
+                    LatticeElement lastElement = varToElement.get(var);
+                    LatticeElement currElement = inState.getVarState(var);
+                    LatticeElement widenElement = lastElement.widen(currElement);
+                    if (!currElement.equals(widenElement)) {
+                        for (State s : fallOut) {
+                            State out = inState.clone();
+                            out.setVarState(var, widenElement);
+                            out.copy(s);
+                        }
+                        for (State s : BranchOut) {
+                            State out = inState.clone();
+                            out.setVarState(var, widenElement);
+                            out.copy(s);
+                        }
+                        System.err.println("*******************************");
+                        System.err.println("***     Widening         ******");
+                        System.err.println("*******************************");
+                        System.err.println("COMMAND  : " + stmt.toString());
+                        System.err.println("TYPE     : "
+                                + stmt.getClass().getName());
+                        System.err.println("PREV LAT : " + lastElement.toString());
+                        System.err.println("IN STATE : " + inState.toString());
+                        for (State s : fallOut) {
+                            System.err.println("FALLOUT  : " + s.toString());
+                        }
+                        unitToCounter.put(stmt, unitToCounter.get(stmt) + 1);
+                        return;
+                    }
+                } else {
+                    unitToCounter.put(stmt, unitToCounter.get(stmt) + 1);
+                }
+            } else {
+                unitToCounter.put(stmt, unitToCounter.get(stmt) + 1);
+                if(stmt.getDefBoxes().size() != 0) {
+                    var = stmt.getDefBoxes().get(0).getValue();
                     varToElement.put(var, inState.getVarState(var));
-                    for (State s : fallOut) {
-                        s.updateVarState(var, widenElement);
-                    }
-                    for (State s : BranchOut) {
-                        s.updateVarState(var, widenElement);
-                    }
-                    return;
                 }
             }
 
-            unitToCounter.put(stmt, unitToCounter.get(stmt) + 1);
-            varToElement.put(var, inState.getVarState(var));
-        } catch (Exception e) {
+        System.err.println("*******************************");
+        System.err.println("***     FLOWTHROUGH      ******");
+        System.err.println("*******************************");
+        System.err.println("COMMAND  : " + stmt.toString());
+        System.err.println("TYPE     : " + stmt.getClass().getName());
+        System.err.println("IN STATE : " + inState.toString());
+
+        if ((stmt instanceof JReturnStmt || stmt instanceof JReturnVoidStmt || stmt instanceof JRetStmt)) {
+            // join to results from other methods
+            inState.copy(resultState);
         }
 
         StatementVisitor visitor = new StatementVisitor();
         visitor.visit(stmt, inState, fallOut, BranchOut);
 
+        for (State s : fallOut) {
+            System.err.println("FALLOUT  : " + s.toString());
+        }
+        for (State s : BranchOut) {
+            System.err.println("BRANCHOUT : " + s.toString());
+        }
     }
 
     @Override
@@ -116,17 +150,32 @@ public class IntervalAnalysis extends ForwardBranchedFlowAnalysis<State> {
 
     @Override
     protected State entryInitialFlow() {
-        return initState;
+        System.err.println("*******************************");
+        System.err.println("***     ENTRY            ******");
+        System.err.println("*******************************");
+        System.err.println("ENTRY : " + initState.toString());
+        return initState.clone();
     }
 
     @Override
     protected void merge(State in1, State in2, State out) {
-        out = in1.join(in2);
+        System.err.println("*******************************");
+        System.err.println("***     MERGE            ******");
+        System.err.println("*******************************");
+        System.err.println("STATE1 : " + in1.toString());
+        System.err.println("STATE2 : " + in2.toString());
+        State result = in1.join(in2);
+        result.copy(out);
+        System.err.println("OUT : " + out.toString());
     }
 
     @Override
     protected State newInitialFlow() {
-        return initState;
+        System.err.println("*******************************");
+        System.err.println("***     NEW            ******");
+        System.err.println("*******************************");
+        return new State();
+
     }
 
 }

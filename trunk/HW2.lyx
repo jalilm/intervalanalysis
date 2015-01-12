@@ -88,7 +88,8 @@ Domain
 
 \begin_layout Standard
 The abstract domain is: 
-\begin_inset Formula $\left(L,\le_{i},\vee_{i},\wedge_{i},\bot_{i},\left[-\infty,\infty\right]\right)$
+\begin_inset Formula $\left(L,\le_{i},\vee_{i},\wedge_{i},\bot_{i},\left[-\infty,\infty\right]\right)$m
+
 \end_inset
 
 , where we define the following as well:
@@ -630,14 +631,80 @@ if (e1
 ) = 
 \begin_inset Formula $\begin{cases}
 below & \text{\text{e1 and e2 are constants}}\\
-\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2)+1,\infty] & \text{e1 is local, e2 is constant}\\
-\sigma\wedge_{i}\{local(e2)\rightarrow[-\infty,value(e1)-1] & \text{e1 is constant, e2 is local}\\
+below & \text{e1 is local, e2 is constant}\\
+below & \text{e1 is constant, e2 is local}\\
 below & \text{e1,e2 are locals}
 \end{cases}$
 \end_inset
 
 
 \begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+x is local, a is constant
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (x 
+\begin_inset Formula $>$
+\end_inset
+
+ a)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+\sigma\wedge_{i}\{x\rightarrow[a+1,\infty] & \text{\text{\ensuremath{\sigma(x).high}> a}}\\
+\bot & else
+\end{cases}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+x is local, a is constant
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (a 
+\begin_inset Formula $>$
+\end_inset
+
+ x)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+\sigma\wedge_{i}\{x\rightarrow[-\infty,a-1] & \text{\text{a > \ensuremath{\sigma(x).low}}}\\
+\bot & else
+\end{cases}$
 \end_inset
 
 
@@ -679,7 +746,7 @@ if (a
 ) = 
 \begin_inset Formula $\begin{cases}
 \sigma & \text{\text{a > b}}\\
-\bot & \text{a \le b}
+\bot & else
 \end{cases}$
 \end_inset
 
@@ -725,39 +792,10 @@ if (x
 
 ) = 
 \begin_inset Formula $\begin{cases}
-\sigma & \text{\text{\sigma(x).low > \sigma(y).high}}\\
-\sigma\wedge_{i}\{x\rightarrow\bot_{i},y\rightarrow\bot_{i}\} & \text{\sigma(x).high \le\ \sigma(y).low}\\
+\bot & \text{x and y are the same local}\\
+\bot & \sigma(x).high\le\ \sigma(y).low\\
 \sigma\wedge_{i}\{x\rightarrow[\sigma(y).low+1,\infty],y\rightarrow[-\infty,\sigma(x).high-1]\} & else
 \end{cases}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-We simplify
-\end_layout
-
-\begin_layout Standard
-\noindent
-\begin_inset Formula $[$
-\end_inset
-
-if (x 
-\begin_inset Formula $>$
-\end_inset
-
- y)
-\begin_inset Formula $]_{true}$
-\end_inset
-
-(
-\begin_inset Formula $\sigma$
-\end_inset
-
-) = 
-\begin_inset Formula $\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low+1,\infty],y\rightarrow[-\infty,\sigma(x).high-1]\}$
 \end_inset
 
 
@@ -770,7 +808,7 @@ Explanation:
 
 \begin_layout Standard
 \noindent
-Integer
+Integer 
 \begin_inset Formula $n$
 \end_inset
 
@@ -852,16 +890,92 @@ So
 \begin_inset Formula $\sigma(x)\wedge_{i}[\sigma(y).low+1,\infty].$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-\noindent
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
 The same logic works for 
 \begin_inset Formula $y$
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+We can also check if 
+\begin_inset Formula $\text{\sigma(x).high \le\sigma(y).low}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+by 
+\begin_inset Formula 
+\[
+\text{\sigma(x).high \le\sigma(y).low \ensuremath{\Longleftrightarrow\sigma(x)\wedge_{i}[\sigma(y).low+1,\infty]=\bot_{i}}}
+\]
+
+\end_inset
+
+So the rule to implement is 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+[\text{if(x>y)}]_{true}(\sigma)=\begin{cases}
+\bot & \text{x and y are the same local}\\
+\bot & \sigma(x)\wedge_{i}[\sigma(y).low+1,\infty]=\bot_{i}\\
+\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low+1,\infty], & else\\
+y\rightarrow[-\infty,\sigma(x).high-1]\}
+\end{cases}
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph*
@@ -942,8 +1056,8 @@ if (e1
 ) = 
 \begin_inset Formula $\begin{cases}
 below & \text{\text{e1 and e2 are constants}}\\
-\sigma\wedge_{i}\{local(e1)\rightarrow[value(e2),\infty] & \text{e1 is local, e2 is constant}\\
-\sigma\wedge_{i}\{local(e2)\rightarrow[-\infty,value(e1)] & \text{e1 is constant, e2 is local}\\
+below & \text{e1 is local, e2 is constant}\\
+below & \text{e1 is constant, e2 is local}\\
 below & \text{e1,e2 are locals}
 \end{cases}$
 \end_inset
@@ -1003,6 +1117,76 @@ if (a
 \end_layout
 
 \begin_layout Standard
+x is local, a is constant
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (x 
+\begin_inset Formula $\ge$
+\end_inset
+
+ a)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+\sigma\wedge_{i}\{x\rightarrow[a,\infty] & \text{\text{\ensuremath{\sigma(x).high}\ge\ a}}\\
+\bot & else
+\end{cases}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+x is local, a is constant
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula $[$
+\end_inset
+
+if (a 
+\begin_inset Formula $\ge$
+\end_inset
+
+ x)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+(
+\begin_inset Formula $\sigma$
+\end_inset
+
+) = 
+\begin_inset Formula $\begin{cases}
+\sigma\wedge_{i}\{x\rightarrow[-\infty,a] & \text{\text{a \ge\ \ensuremath{\sigma(x).low}}}\\
+\bot & else
+\end{cases}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 
 \family roman
 \series medium
@@ -1037,8 +1221,8 @@ if (x
 
 ) = 
 \begin_inset Formula $\begin{cases}
-\sigma & \text{\text{\sigma(x).low \ge\ \sigma(y).high}}\\
-\sigma\wedge_{i}\{x\rightarrow\bot_{i},y\rightarrow\bot_{i}\} & \text{\sigma(x).high < \sigma(y).low}\\
+\sigma & \text{x and y are the same local}\\
+\bot & \sigma(x).high<\sigma(y).low\\
 \sigma\wedge_{i}\{x\rightarrow[\sigma(y).low,\infty],y\rightarrow[-\infty,\sigma(x).high]\} & else
 \end{cases}$
 \end_inset
@@ -1047,12 +1231,11 @@ if (x
 \end_layout
 
 \begin_layout Standard
+Agan, using only meet operation
+\end_layout
+
+\begin_layout Standard
 \noindent
-Again in the simple form
-\begin_inset Newline newline
-\end_inset
-
-
 \begin_inset Formula $[$
 \end_inset
 
@@ -1069,10 +1252,14 @@ if (x
 \end_inset
 
 ) = 
-\begin_inset Formula $\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low,\infty],y\rightarrow[-\infty,\sigma(x).high]\}$
+\begin_inset Formula $\begin{cases}
+\sigma & \text{x and y are the same local}\\
+\bot & \sigma(x)\wedge_{i}[\sigma(y).low,\infty]=\bot_{i}\\
+\sigma\wedge_{i}\{x\rightarrow[\sigma(y).low,\infty],y\rightarrow[-\infty,\sigma(x).high]\} & else
+\end{cases}$
 \end_inset
 
- 
+
 \end_layout
 
 \begin_layout Paragraph*
@@ -1668,12 +1855,117 @@ if (e2
 Logical Transformations - Switch
 \end_layout
 
+\begin_layout Subsubsection
+[lookupswitch(i)
+\begin_inset Newline newline
+\end_inset
+
+{ case 2: goto label0; case 7: goto label1; default: goto label2; };]
+\end_layout
+
 \begin_layout Standard
-TBD
+\noindent
+[lookupswitch(
+\begin_inset Formula $i$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+{ case 
+\begin_inset Formula $a$
+\end_inset
+
+: goto label0; }] 
+\begin_inset Formula $(\sigma)$
+\end_inset
+
+ = 
+\begin_inset Formula $[$
+\end_inset
+
+if (
+\begin_inset Formula $i$
+\end_inset
+
+ 
+\begin_inset Formula $=$
+\end_inset
+
+ 
+\begin_inset Formula $a$
+\end_inset
+
+)
+\begin_inset Formula $]_{true}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+[lookupswitch(
+\begin_inset Formula $i$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+{ default: }] 
+\begin_inset Formula $(\sigma)$
+\end_inset
+
+ = 
+\begin_inset Formula $\sigma$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+\noindent
+TableSwitch
+\end_layout
+
+\begin_layout Standard
+\noindent
+The same semantics works for the tableswitch.
 \end_layout
 
 \begin_layout Subsection
 Arithmetic Operations
+\end_layout
+
+\begin_layout Standard
+For simplicity of dontation, we assume that the operation is at label 
+\begin_inset Formula $l$
+\end_inset
+
+, and all of the replacment in the state 
+\begin_inset Formula $\sigma$
+\end_inset
+
+of the form 
+\begin_inset Formula $\sigma\left[w\rightarrow a\right]$
+\end_inset
+
+ are actually 
+\begin_inset Formula $\sigma\left[l\rightarrow\left\{ w\rightarrow a\right\} \right]$
+\end_inset
+
+.
+ i.e, changing only the value 
+\begin_inset Formula $w$
+\end_inset
+
+ is mapped to in the map of the label 
+\begin_inset Formula $l$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1682,8 +1974,8 @@ Arithmetic Operations
 
 \begin_layout Standard
 \begin_inset Formula $\left[w=z\right]\left(\sigma\right)=\begin{cases}
-\sigma\vee_{i}\left\{ w\rightarrow\left[z,z\right]\right\}  & z\in Z\\
-\sigma\vee_{i}\left\{ w\rightarrow\sigma\left(z\right)\right\}  & z\in L
+\sigma\left[w\rightarrow\left[z,z\right]\right] & z\in Z\\
+\sigma\left[w\rightarrow\sigma\left(z\right)\right] & z\in L
 \end{cases}$
 \end_inset
 
@@ -1696,10 +1988,10 @@ Arithmetic Operations
 
 \begin_layout Standard
 \begin_inset Formula $\left[w=x+y\right]\left(\sigma\right)=\begin{cases}
-\sigma\vee_{i}\left\{ w\rightarrow\left[x+y,x+y\right]\right\}  & x,y\in Z\\
-\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low+y,\sigma\left(x\right).high+y\right]\right\}  & x\in L,y\in Z\\
-\sigma\vee_{i}w\rightarrow\left\{ \left[x+\sigma\left(y\right).low,x+\sigma\left(y\right).high\right]\right\}  & x\in Z,y\in L\\
-\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low+\sigma\left(y\right).low,\sigma\left(x\right).high+\sigma\left(y\right).high\right]\right\}  & x,y\in L
+\sigma\left[w\rightarrow\left[x+y,x+y\right]\right] & x,y\in Z\\
+\sigma\left[w\rightarrow\left[\sigma\left(x\right).low+y,\sigma\left(x\right).high+y\right]\right] & x\in L,y\in Z\\
+\sigma\left[w\rightarrow\left[x+\sigma\left(y\right).low,x+\sigma\left(y\right).high\right]\right] & x\in Z,y\in L\\
+\sigma\left[w\rightarrow\left[\sigma\left(x\right).low+\sigma\left(y\right).low,\sigma\left(x\right).high+\sigma\left(y\right).high\right]\right] & x,y\in L
 \end{cases}$
 \end_inset
 
@@ -1712,10 +2004,10 @@ Arithmetic Operations
 
 \begin_layout Standard
 \begin_inset Formula $\left[w=x-y\right]\left(\sigma\right)=\begin{cases}
-\sigma\vee_{i}\left\{ w\rightarrow\left[x-y,x-y\right]\right\}  & x,y\in Z\\
-\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low-y,\sigma\left(x\right).high-y\right]\right\}  & x\in L,y\in Z\\
-\sigma\vee_{i}w\rightarrow\left\{ \left[x-\sigma\left(y\right).low,x-\sigma\left(y\right).high\right]\right\}  & x\in Z,y\in L\\
-\sigma\vee_{i}w\rightarrow\left\{ \left[\sigma\left(x\right).low-\sigma\left(y\right).low,\sigma\left(x\right).high-\sigma\left(y\right).high\right]\right\}  & x,y\in L
+\sigma\left[w\rightarrow\left[x-y,x-y\right]\right] & x,y\in Z\\
+\sigma\left[w\rightarrow\left[\sigma\left(x\right).low-y,\sigma\left(x\right).high-y\right]\right] & x\in L,y\in Z\\
+\sigma\left[w\rightarrow\left[x-\sigma\left(y\right).low,x-\sigma\left(y\right).high\right]\right] & x\in Z,y\in L\\
+\sigma\left[w\rightarrow\left[\sigma\left(x\right).low-\sigma\left(y\right).low,\sigma\left(x\right).high-\sigma\left(y\right).high\right]\right] & x,y\in L
 \end{cases}$
 \end_inset
 
@@ -1734,7 +2026,7 @@ if
  then:
 \begin_inset Formula 
 \[
-\left[w=x*y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[x*y,x*y\right]\right\} 
+\left[w=x*y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[x*y,x*y\right]\right]
 \]
 
 \end_inset
@@ -1753,8 +2045,8 @@ if
 \begin_layout Standard
 \begin_inset Formula 
 \begin{eqnarray*}
-\left[w=x*z\right]\left(\sigma\right) & = & \sigma\vee_{i}w\rightarrow\{[min_{\infty}\left(\left\{ \sigma\left(x\right).low*z,\sigma\left(x\right).high*z\right\} \right),\\
- &  & max_{\infty}\left(\left\{ \sigma\left(x\right).low*z,\sigma\left(x\right).high*z\right\} \right)]\}
+\left[w=x*z\right]\left(\sigma\right) & = & \sigma[w\rightarrow[min_{\infty}\left(\left\{ \sigma\left(x\right).low*z,\sigma\left(x\right).high*z\right\} \right),\\
+ &  & max_{\infty}\left(\left\{ \sigma\left(x\right).low*z,\sigma\left(x\right).high*z\right\} \right)]]
 \end{eqnarray*}
 
 \end_inset
@@ -1812,7 +2104,7 @@ highest & = & max_{\infty}(\{\sigma\left(x\right).low*\sigma\left(y\right).low,\
 
 \begin_layout Standard
 then 
-\begin_inset Formula $\left[w=x*y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[lowest,highest\right]\right\} $
+\begin_inset Formula $\left[w=x*y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[lowest,highest\right]\right]$
 \end_inset
 
 .
@@ -1870,7 +2162,7 @@ if
  then:
 \begin_inset Formula 
 \[
-\left[w=x/y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[-\infty,\infty\right]\right\} 
+\left[w=x/y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[-\infty,\infty\right]\right]
 \]
 
 \end_inset
@@ -1910,7 +2202,7 @@ highest & = & max_{\infty}(\{\sigma\left(x\right).low/\sigma\left(y\right).low,\
 \end_inset
 
 then 
-\begin_inset Formula $\left[w=x/y\right]\left(\sigma\right)=\sigma\vee_{i}\left\{ w\rightarrow\left[lowest,highest\right]\right\} $
+\begin_inset Formula $\left[w=x/y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[lowest,highest\right]\right]$
 \end_inset
 
 .
@@ -1920,8 +2212,64 @@ then
 [w=x%y]
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
+if 
+\begin_inset Formula $y=\left[-\infty,\infty\right]$
+\end_inset
 
+ then 
+\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[-\infty,\infty\right]\right].$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if
+\begin_inset Formula $y=\bot$
+\end_inset
+
+ then 
+\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[\bot\right]\right]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $\sigma\left(y\right).low\le0\,\&\&\,\sigma\left(y\right).high\ge0$
+\end_inset
+
+ then 
+\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[-\infty,\infty\right]\right]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $\sigma\left(y\right).low>0$
+\end_inset
+
+ then 
+\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[0,\sigma\left(y\right).high-1\right]\right].$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $\sigma\left(y\right).high<0$
+\end_inset
+
+ then 
+\begin_inset Formula $\left[w=x\%y\right]\left(\sigma\right)=\sigma\left[w\rightarrow\left[\sigma\left(y\right).high+1,0\right]\right]$
+\end_inset
+
+.
 \end_layout
 
 \end_body

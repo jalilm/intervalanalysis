@@ -1,0 +1,4 @@
+args -> [-inf,inf]
+i -> [1,inf]
+temp$0 -> [1,inf]
+temp$1 -> [2,inf]
