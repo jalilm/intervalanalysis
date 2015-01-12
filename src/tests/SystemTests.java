@@ -59,6 +59,11 @@ public class SystemTests {
         sootOptions.set_main_class(classname);
         sootOptions.set_interactive_mode(false);
         sootOptions.setPhaseOption("jb", "use-original-names:true");
+        //sootOptions.setPhaseOption("jb.ls", "enabled:false");
+        sootOptions.setPhaseOption("jb.ne", "enabled:false");
+        //sootOptions.setPhaseOption("jb.ule", "enabled:false");
+        //sootOptions.setPhaseOption("jb.ulp", "enabled:false");
+        sootOptions.setPhaseOption("jop", "enabled:false");
 
     }
 

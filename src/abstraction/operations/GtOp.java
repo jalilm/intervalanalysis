@@ -22,7 +22,7 @@ public class GtOp extends AbstractLogicOperation{
 		}
 		else
 		{
-			return new State();
+			return this.bottom.clone();
 		}
 	}
 
@@ -35,7 +35,7 @@ public class GtOp extends AbstractLogicOperation{
 		
 		if (meetResult.equals(new Bottom()))
 		{
-			return new State();
+			return this.bottom.clone();
 		}
 		
 		State out = in.clone();
@@ -53,7 +53,7 @@ public class GtOp extends AbstractLogicOperation{
 		
 		if (meetResult.equals(new Bottom()))
 		{
-			return new State();
+			return bottom.clone();
 			
 		}
 		
@@ -68,7 +68,7 @@ public class GtOp extends AbstractLogicOperation{
 		
 		if (x.equals(y))
 		{	// x not greater than x
-			return new State();
+			return bottom.clone();
 		}
 		
 		LatticeElement xInterval = in.getVarState(x);
@@ -82,7 +82,7 @@ public class GtOp extends AbstractLogicOperation{
 		
 		if (xMeet.equals(new Bottom()))
 		{	//the condition doesn't hold
-			return new State();
+			return bottom.clone();
 		}
 		
 		LatticeElement checkYInterval = xInterval.createNegativeInfToHigh();
