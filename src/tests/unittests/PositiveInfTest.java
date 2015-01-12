@@ -83,11 +83,6 @@ public class PositiveInfTest {
         assertTrue(p3.join(n3).equals(top));
     }
 
-    // TODO Jalil implement after meet
-    @Ignore
-    @Test
-    public void testMeet() {
-    }
 
     @Test
     public void testWiden() {
@@ -280,7 +275,7 @@ public class PositiveInfTest {
         assertTrue(pm5.div(new NegativeInf(-5)).equals(n3));
     }
 
-    // TODO Jalil If you tightened mod implement me.
+    // Will not be tested.
     @Ignore
     @Test
     public void testMod() {

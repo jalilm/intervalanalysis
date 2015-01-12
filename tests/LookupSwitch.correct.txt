@@ -1,0 +1,5 @@
+args -> [-inf,inf]
+i -> [2,2]
+j -> [0,2]
+temp$0 -> [-inf,inf]
+temp$1 -> [-inf,inf]

@@ -7,17 +7,24 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import abstraction.Bottom;
 import abstraction.Interval;
 import abstraction.LatticeElement;
+import abstraction.Top;
 import soot.Value;
 import soot.jimple.IntConstant;
 
 public class State {
     private Map<Value, LatticeElement> nameToState;
     
+    private boolean bottom;
+    
     public State() {
         nameToState = new HashMap<Value, LatticeElement>();
+        bottom = false;
+    }
+    
+    public boolean isBottom(){
+        return bottom;
     }
     
     public String print(){
@@ -40,9 +47,12 @@ public class State {
     
     @Override
     public String toString() {
+        if(this.bottom) {
+            return "bottom";
+        }
         StringBuilder sb = new StringBuilder("{");
         for(Value v : nameToState.keySet()) {
-            sb.append(v.toString()+"->"+nameToState.get(v).toString());
+            sb.append(v.toString()+"->"+nameToState.get(v).toString()+";");
         }
         sb.append("}");
         return sb.toString();
@@ -60,6 +70,9 @@ public class State {
         if (!this.nameToState.equals(other.nameToState)) {
             return false;
         }
+        if (!this.bottom == other.bottom) {
+            return false;
+        }
         return true;
     }
 
@@ -70,6 +83,7 @@ public class State {
     
     public void copy(State dest){
         dest.nameToState = new HashMap<Value, LatticeElement>(this.nameToState);
+        dest.bottom = bottom;
     }
     
     public LatticeElement getVarState(Value varName) {
@@ -79,23 +93,22 @@ public class State {
         } else if (nameToState.containsKey(varName)) {
             return nameToState.get(varName);
         } else {
-            return new Bottom();
+        	// if we have a new variable, it may be [-inf,inf]
+            return new Top();
         }
     }
     
     public void setVarState(Value varName, LatticeElement varState) {
-    	if (varState == null) 
-    	{
-    		//TODO Delete this 
-    		//To set breakpoint
-    		@SuppressWarnings("unused")
-            int i = 0; 
-    		i++;
+    	if (varState == null)  {
+    		throw new NullPointerException("Null into setVarState");
     	}
         nameToState.put(varName, varState);
     }
     
     public LatticeElement updateVarState(Value varName, LatticeElement varState) {
+        if (varState == null)  {
+            throw new NullPointerException("Null into updateVarState");
+        }
         LatticeElement newState;
         LatticeElement oldState = nameToState.get(varName);        
         if (oldState == null) {
@@ -111,6 +124,10 @@ public class State {
         State out = new State();
         if (in2 == null) { 
             this.copy(out);
+        } else if (in2.isBottom()){
+            this.copy(out);
+        } else if (this.isBottom()) {
+            in2.copy(out);
         } else {
             in2.copy(out);
             for (Value name : nameToState.keySet()) {
@@ -124,6 +141,10 @@ public class State {
         State out = new State();
         if (in2 == null) { 
             this.copy(out);
+        } else if (this.isBottom() || in2.isBottom()){
+            State bot = new State();
+            bot.setBottom(true);
+            return bot;
         } else {
             this.copy(out);
             for (Value name : nameToState.keySet()) {
@@ -135,5 +156,29 @@ public class State {
             }
         }
         return out;
+    }
+    
+//    public State merge(State in2) {
+//        State out = new State();
+//        if (in2 == null) { 
+//            this.copy(out);
+//        } else {
+//            this.copy(out);
+//            for (Value name : in2.nameToState.keySet()) {
+//            		out.setVarState(name, in2.getVarState(name));
+//            }
+//        }
+//        return out;
+//    }
+ 
+    @Override
+    public State clone() {
+        State cloned = new State();
+        this.copy(cloned);
+        return cloned;
+    }
+
+    public void setBottom(boolean b) {
+        bottom = b;
     }
 }

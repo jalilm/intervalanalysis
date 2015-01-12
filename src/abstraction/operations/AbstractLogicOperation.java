@@ -7,7 +7,12 @@ import soot.Value;
 import soot.jimple.IntConstant;
 
 public abstract class AbstractLogicOperation implements ILogicOperation {
-
+    final State bottom = new State();
+    
+    public AbstractLogicOperation() {
+        bottom.setBottom(true);
+    }
+    
     @Override
     public State op(State in, Value left, Value right) {
 

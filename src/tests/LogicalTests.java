@@ -52,6 +52,42 @@ public class LogicalTests {
 		runTest("IfEq");
 	}
 	
+	
+	@Test
+	public void testLookupSwitch() throws Exception {
+		runTest("LookupSwitch");
+	}
+	
+	@Test
+	public void testTableSwitch() throws Exception {
+		runTest("TableSwitch");
+	}
+	
+	@Test
+	public void testSwitchWithNoDefault() throws Exception {
+		runTest("SwitchNoDefault");
+	}
+		
+	@Test
+	public void testAssign() throws Exception {
+		runTest("Assign");
+	}
+	
+	@Test
+    public void widenAssign() throws Exception {
+        runTest("Widen");
+    }
+	
+	@Test
+	public void testExample1() throws Exception {
+		runTest("test1");
+	}
+	
+	@Test
+	public void testExample2() throws Exception {
+		runTest("test2");
+	}
+
 	protected boolean compareTwoFiles(String file1, String file2) throws IOException
 	{
 		String input = new String(Files.readAllBytes(Paths.get(file1)));
