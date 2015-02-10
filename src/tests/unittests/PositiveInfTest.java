@@ -40,6 +40,9 @@ public class PositiveInfTest {
         assertTrue(p1.equals(p1));
         assertTrue(p2.equals(p2));
         assertTrue(p3.equals(p3));
+        assertTrue(n3.equals(p1.neg()));
+        assertTrue(n2.equals(p2.neg()));
+        assertTrue(n1.equals(p3.neg()));
         assertTrue(p1.equals(new PositiveInf(-1)));
         assertTrue(p2.equals(new PositiveInf(0)));
         assertTrue(p3.equals(new PositiveInf(1)));

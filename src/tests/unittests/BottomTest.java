@@ -37,6 +37,7 @@ public class BottomTest {
     @Test
     public void testEquality() {
         assertTrue(bot.equals(bot));
+        assertTrue(bot.equals(bot.neg()));
         assertTrue(bot.equals(new Bottom()));
         assertTrue(new Bottom().equals(bot));
         assertFalse(bot.equals(top));

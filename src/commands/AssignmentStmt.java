@@ -15,6 +15,7 @@ import soot.jimple.internal.AbstractJimpleFloatBinopExpr;
 import soot.jimple.internal.JAddExpr;
 import soot.jimple.internal.JDivExpr;
 import soot.jimple.internal.JMulExpr;
+import soot.jimple.internal.JNegExpr;
 import soot.jimple.internal.JRemExpr;
 import soot.jimple.internal.JSubExpr;
 import soot.jimple.internal.JimpleLocal;
@@ -58,9 +59,10 @@ public class AssignmentStmt extends StmtCommand {
             } else {
                 assert false;
             }
-        }
-        else
-        {  //JLengthStmt
+        } else if( rightOp instanceof JNegExpr) {
+            LatticeElement negated = this.inState.getVarState(((JNegExpr)rightOp).getOp());
+            rightOpState = negated.neg();
+        } else {  //JLengthStmt
         	rightOpState = new Top();
         }
         

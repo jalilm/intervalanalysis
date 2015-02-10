@@ -4,6 +4,11 @@ import transform.IJoinMeetTransformer;
 import transform.IMathTransformer;
 
 public abstract class TopAbstract implements LatticeElement {
+    
+    @Override
+    public LatticeElement neg() {
+        return this;
+    }
 
     @Override
     public LatticeElement add(IMathTransformer transformer) {

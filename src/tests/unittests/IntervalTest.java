@@ -40,6 +40,14 @@ public class IntervalTest {
         assertTrue(i1.equals(i1));
         assertTrue(i2.equals(i2));
         assertTrue(i3.equals(i3));
+        assertTrue(i3.equals(i2.neg()));
+        assertTrue(i2.equals(i3.neg()));
+        assertTrue(i1.equals(i1.neg()));
+        assertTrue(new Interval(3,4).equals(new Interval(-4, -3).neg()));
+        assertTrue(new Interval(-4,-3).equals(new Interval(3,4).neg()));
+        assertTrue(new Interval(-4,3).equals(new Interval(-3,4).neg()));
+        assertTrue(new Interval(-3,4).equals(new Interval(-4,3).neg()));
+        assertTrue(new Interval(0,0).equals(new Interval(0,0).neg()));
         assertTrue(i1.equals(new Interval(-1, 1)));
         assertTrue(i2.equals(new Interval(-1, -1)));
         assertTrue(i3.equals(new Interval(1, 1)));
