@@ -2272,5 +2272,20 @@ if
 .
 \end_layout
 
+\begin_layout Subsubsection
+\begin_inset Formula $\left[w=-x\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+same as 
+\begin_inset Formula $\left[w=\left[-1,-1\right]*x\right]$
+\end_inset
+
+.
+\end_layout
+
 \end_body
 \end_document

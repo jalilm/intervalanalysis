@@ -5,6 +5,11 @@ import transform.IJoinMeetTransformer;
 import transform.IMathTransformer;
 
 public abstract class AbstractNegativeInf implements LatticeElement {
+    
+    @Override
+    public LatticeElement neg() {
+        return new Interval(-1, -1).mul(this);
+    }
 
     @Override
     public LatticeElement add(IMathTransformer transformer) {

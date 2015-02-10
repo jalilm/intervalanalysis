@@ -18,6 +18,8 @@ public interface LatticeElement extends IMathTransformer, ILogicalTransformer,
     LatticeElement div(IMathTransformer transformer);
 
     LatticeElement mod(IMathTransformer transformer);
+    
+    LatticeElement neg();
 
     LatticeElement join(IJoinMeetTransformer varState);
 

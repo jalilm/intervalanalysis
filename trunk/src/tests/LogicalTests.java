@@ -73,6 +73,11 @@ public class LogicalTests {
 		runTest("Assign");
 	}
 	
+   @Test
+    public void testNegAssign() throws Exception {
+        runTest("NegAssign");
+    }
+	
 	@Test
     public void widenAssign() throws Exception {
         runTest("Widen");

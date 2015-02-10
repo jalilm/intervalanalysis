@@ -1,0 +1,24 @@
+public class tests.NegAssign extends java.lang.Object
+{
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.String[] args;
+        int a, k, j, m;
+
+        args := @parameter0: java.lang.String[];
+        k = 5;
+        j = neg k;
+        m = neg j;
+        return;
+    }
+
+    public void <init>()
+    {
+        tests.NegAssign this;
+
+        this := @this: tests.NegAssign;
+        specialinvoke this.<java.lang.Object: void <init>()>();
+        return;
+    }
+}

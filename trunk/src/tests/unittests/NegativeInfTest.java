@@ -40,6 +40,9 @@ public class NegativeInfTest {
         assertTrue(n1.equals(n1));
         assertTrue(n2.equals(n2));
         assertTrue(n3.equals(n3));
+        assertTrue(p3.equals(n1.neg()));
+        assertTrue(p2.equals(n2.neg()));
+        assertTrue(p1.equals(n3.neg()));
         assertTrue(n1.equals(new NegativeInf(-1)));
         assertTrue(n2.equals(new NegativeInf(0)));
         assertTrue(n3.equals(new NegativeInf(1)));
